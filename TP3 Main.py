@@ -1,8 +1,8 @@
 from Colas import Cola, arribo, atencion, cola_vacia, cola_llena, tamanio, en_frente, mover_final
 
-
+'''
 #Ejercicio 1
-
+s
 cola = Cola()
 cola2 = Cola()
 
@@ -20,4 +20,19 @@ while not cola_vacia(cola2):
     x = atencion(cola2)   
     print('Lista de letras sin vocales: ', x)
 
-        
+# Ejercicio 2
+
+cola = Cola()
+cola2 = Cola()
+
+while not cola_llena(cola):
+    x = int(input('Ingrese los números deseados: '))
+    arribo(cola, x)
+
+print('Los datos ingresados son: ', cola.datos)
+
+
+
+print('Los datos al revés son: ', cola.datos)        
+'''
+#Ejercicio 3
