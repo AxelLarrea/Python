@@ -129,25 +129,42 @@ def BinarioRec(num):
 
 print(BinarioRec(num))
 
-'''
-'''
-#Ejercicio 8    POR TERMINARR
 
-num1 = int(input('Ingrese el número correspondiente al argumento: '))
-num2 = int(input('Ingrese el número de la base logaritmica: '))
-n = 1
+#Ejercicio 8
 
-def LogaritmoRec(num1, num2, n):
-    if(num1 == num2):
+num = int(input('Ingrese el número correspondiente al argumento: '))
+base = int(input('Ingrese el número de la base logaritmica: '))
+
+def LogaritmoRec(base, num):
+    if(base == num):
         return 1
-    elif(num1 == 1):
-        return 0
-    elif(n == num1):
-        return ''
     else:
-        return num1 * LogaritmoRec(num1, num2, n + 1) 
+        return 1 + LogaritmoRec(base, num/base)
 
-print('El logaritmo es: ', LogaritmoRec(num1, num2, n))
+print('El logaritmo es: ', LogaritmoRec(base, num))
+
+
+#Ejercicio 9
+
+num = int(input('Ingrese el número a ser contado: '))
+
+def ContadorRec(num):
+    if (num < 10):
+        return 1
+    else:
+        return 1 + ContadorRec(num//10)
+
+print('La cantidad de dígitos es: ', str(ContadorRec(num)))
 
 '''
+#Ejercicio 10
 
+numero = int(input('Ingrese el número a invertir: '))
+
+def invertir(numero):
+    if(numero<10):  
+        return numero
+    else:
+        return (numero % 10) * (10 ** (len(str(numero))-1)) + invertir(numero//10)
+
+print('El número invertido es: ', invertir(numero))
