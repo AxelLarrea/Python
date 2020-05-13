@@ -1,10 +1,8 @@
-
 class nodoLista(object):
 
     def __init__(self):
         self.info = None
         self.sig = None
-
 
 class Lista(object):
 
@@ -12,17 +10,16 @@ class Lista(object):
         self.inicio = None
         self.tamanio = 0
 
-
-def insertar(lista, dato):
+def insertar(lista, dato, campo=None):
     nodo = nodoLista()
     nodo.info = dato
-    if(lista.inicio is None or lista.inicio.info>nodo.info):
+    if(lista.inicio is None or criterio(lista.inicio.info,campo)>criterio(nodo.info,campo)):
         nodo.sig = lista.inicio
         lista.inicio = nodo
     else:
         act = lista.inicio.sig
         ant = lista.inicio
-        while(act is not None and act.info<nodo.info):
+        while(act is not None and criterio(act.info,campo)<criterio(nodo.info,campo)):
             act = act.sig
             ant = ant.sig
 
@@ -31,17 +28,16 @@ def insertar(lista, dato):
 
     lista.tamanio += 1    
 
-
-def eliminar(lista, clave):
+def eliminar(lista, clave, campo=None):
     dato = None
-    if(lista.inicio.info == clave):
+    if(criterio(lista.inicio.info,campo) == clave):
         dato = lista.inicio.info
         lista.inicio = lista.inicio.sig
         lista.tamanio -= 1
     else:
         act = lista.inicio.sig
         ant = lista.inicio
-        while(act is not None and act.info != clave):
+        while(act is not None and criterio(act.info,campo) != clave):
             act = act.sig
             ant = ant.sig
         
@@ -52,14 +48,11 @@ def eliminar(lista, clave):
 
     return dato
 
-
-
-def busqueda(lista, clave):
+def busqueda(lista, clave, campo=None):
     aux = lista.inicio
-    while(aux is not None and aux.info != clave):
+    while(aux is not None and criterio(aux.info, campo) != clave):
         aux = aux.sig
     return aux
-
 
 def barrido(lista):
     aux = lista.inicio
@@ -67,17 +60,24 @@ def barrido(lista):
         print(aux.info)
         aux = aux.sig
     
-
 def tamanio(lista):
     return lista.tamanio
 
-
-def lista_vacia():
+def lista_vacia(lista):
     return lista.inicio is None
 
+def criterio(dato, campo=None):
+    """Determina el campo por el cual se debe comparar el dato."""
+    dic = {}
+    if(hasattr(dato, '__dict__')):
+        dic = dato.__dict__
+    if campo is None or campo not in dic:
+        return dato
+    else:
+        return dic[campo]
 
+'''
 lista = Lista()
-
 insertar(lista, 1)
 insertar(lista, 3)
 insertar(lista, 0)
@@ -87,7 +87,6 @@ insertar(lista, 2)
 insertar(lista, 4)
 insertar(lista, 100)
 barrido(lista)
-
 dato = eliminar(lista, 50)
 if(dato is not None):
     print('elemento eliminado', dato)
@@ -97,3 +96,4 @@ if(pos is not None):
     print('elemento encontrado', pos.info)
 else:
     print('no encontrado', pos)
+'''
