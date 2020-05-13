@@ -156,7 +156,6 @@ def ContadorRec(num):
 
 print('La cantidad de dígitos es: ', str(ContadorRec(num)))
 
-'''
 #Ejercicio 10
 
 numero = int(input('Ingrese el número a invertir: '))
@@ -168,3 +167,57 @@ def invertir(numero):
         return (numero % 10) * (10 ** (len(str(numero))-1)) + invertir(numero//10)
 
 print('El número invertido es: ', invertir(numero))
+
+#Ejercicio 11
+
+m = int(input('Ingrese el primer número: '))
+n = int(input('Ingrese el segundo número: '))
+
+def mcdRec(m, n):
+    if(m % n == 0):
+        return n
+    else:
+        return mcdRec(n, m % n)
+
+print('El M.C.D es: ', mcdRec(m, n))
+
+#Ejercicio 12
+
+m = int(input('Ingrese el primer número: '))
+n = int(input('Ingrese el segundo número: '))
+
+def mcmRec(m, n):
+    if(n % m == 0):
+        return n
+    else:
+        return mcmRec(n, m * n)
+
+print('El M.C.M es: ', mcmRec(m, n))
+
+
+#Ejercicio 16
+
+def barrido(vec):
+    if(len(vec) == 1):
+        print(vec[0])
+    else:
+        print(vec[-1])
+        barrido(vec[0:-1])
+
+vec = [1,2,3,4]
+
+print(barrido(vec))
+
+
+#Ejercicio 24
+
+termino = int(input('Ingrese el término de la sucesión que desee ver: '))
+
+def sucesiongeo(termino):
+    if(termino==1):
+        return 5.25
+    else:
+        return sucesiongeo(termino-1) * 4
+
+print('El resultado es: ', sucesiongeo(termino))
+'''
