@@ -207,15 +207,14 @@ def barrido(vec):
 vec = [1,2,3,4]
 
 print(barrido(vec))
-'''
+
 #Ejercicio 17
 
 mat = [[1,2,3], [4,5,6], [7,8,9], [10,11,12]]
-'''
 for i in range(0, len(mat)):
     for j in range(0, len(mat[i])):
         print(mat[i][j])
-'''
+
 def barrido_matriz(mat, i, j):
     if(i<len(mat) and j<len(mat[i])):
         print(mat[i][j])
@@ -228,7 +227,6 @@ for i in range(0, len(mat)):
     for j in range(0, len(mat[i])):
         print(barrido_matriz(mat, i, j))
 
-'''
 #Ejercicio 24
 
 termino = int(input('Ingrese el término de la sucesión que desee ver: '))
