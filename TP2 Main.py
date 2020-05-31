@@ -1,7 +1,7 @@
+'''
 from Pilas import Pila, Pila_Llena, Pila_Vacia, Desapilar, Apilar
 from random import randint
 
-'''
 #Ejercicio 1
 
 pila = Pila()
@@ -92,7 +92,7 @@ while not Pila_Vacia(pila):
     print(x)
     Apilar(pila_aux, x)
 '''
-
+'''
 #Ejercicio 5 #POR TERMINAR
 
 pila = Pila()
@@ -118,3 +118,15 @@ print(pila_aux1)
 while (x == y):
     x = Desapilar(pila)
     y = Desapilar(pila_aux1)
+'''
+from Pila_Dinamico import Pila, apilar, desapilar, pila_vacia, cima, tamanio
+
+#Ejercicio 6
+
+pila = Pila()
+
+while pila_vacia(pila):
+    x = input('Ingrese la palabra a invertir letra por letra: ')
+    apilar(pila, x)
+
+print(pila)

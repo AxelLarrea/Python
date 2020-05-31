@@ -21,7 +21,7 @@ def apilar(pila, dato):
 
 
 def desapilar(pila):
-    dato = pila.cima
+    dato = pila.cima.info
     pila.cima = pila.cima.sig
     pila.tamanio -= 1
     return dato
