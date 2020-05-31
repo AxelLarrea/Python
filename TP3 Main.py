@@ -1,8 +1,10 @@
+from Cola_Dinamico import Cola, arribo, atencion, cola_vacia, tamanio, en_frente, mover_final
+from random import randint
+'''
 from Colas import Cola, arribo, atencion, cola_vacia, cola_llena, tamanio, en_frente, mover_final
 
-'''
 #Ejercicio 1
-s
+
 cola = Cola()
 cola2 = Cola()
 
@@ -35,4 +37,11 @@ print('Los datos ingresados son: ', cola.datos)
 
 print('Los datos al revés son: ', cola.datos)        
 '''
-#Ejercicio 3
+#Ejercicio 4
+
+cola = Cola()
+
+while not cola_vacia(cola):
+    x = randint(0,100)
+    arribo(cola, x)
+print(cola)
