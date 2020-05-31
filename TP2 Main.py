@@ -91,30 +91,30 @@ while not Pila_Vacia(pila):
     x = Desapilar(pila)
     print(x)
     Apilar(pila_aux, x)
-
+'''
 
 #Ejercicio 5 #POR TERMINAR
 
 pila = Pila()
 pila_aux = Pila()
 pila_aux1 = Pila()
+x = ''
+y = ''
 
 print('Ingrese su palabra letra por letra')
-while not Pila_Llena(pila):
+while not Pila_Vacia(pila):
     x = (input('Ingrese su letra correspondiente: '))
     Apilar(pila, x)
     Apilar(pila_aux, x)
 
-print(pila.datos)
+print(pila)
 
 while not Pila_Vacia(pila_aux):
     y = Desapilar(pila_aux)
     Apilar(pila_aux1, y)
 
-print(pila_aux1.datos)
+print(pila_aux1)
 
 while (x == y):
     x = Desapilar(pila)
     y = Desapilar(pila_aux1)
-
-'''
