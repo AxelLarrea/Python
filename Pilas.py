@@ -1,4 +1,3 @@
-
 class Pila():
     #Crear una pila vacía
     def __init__(self):

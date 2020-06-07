@@ -1,7 +1,10 @@
 '''
+from Pila_Dinamico import Pila, apilar, desapilar, pila_vacia, cima, tamanio
+'''
 from Pilas import Pila, Pila_Llena, Pila_Vacia, Desapilar, Apilar
 from random import randint
 
+'''
 #Ejercicio 1
 
 pila = Pila()
@@ -12,13 +15,12 @@ while not Pila_Llena(pila):
     Apilar(pila, x)
 
 
-x = Desapilar(pila)
 while not Pila_Vacia(pila):
+    x = Desapilar(pila)
     y = Desapilar(pila)
     if(x == y):
         Total += 1
 print('El total de ocurrencias es: ', Total)
-
 
 #Ejercicio 2
 
@@ -91,42 +93,67 @@ while not Pila_Vacia(pila):
     x = Desapilar(pila)
     print(x)
     Apilar(pila_aux, x)
-'''
-'''
-#Ejercicio 5 #POR TERMINAR
 
+#Ejercicio 5
+
+status = True
 pila = Pila()
 pila_aux = Pila()
-pila_aux1 = Pila()
+pila2 = Pila()
 x = ''
 y = ''
 
 print('Ingrese su palabra letra por letra')
-while not Pila_Vacia(pila):
+while not Pila_Llena(pila):
     x = (input('Ingrese su letra correspondiente: '))
     Apilar(pila, x)
     Apilar(pila_aux, x)
-
-print(pila)
-
+    
 while not Pila_Vacia(pila_aux):
     y = Desapilar(pila_aux)
-    Apilar(pila_aux1, y)
+    Apilar(pila2, y)
 
-print(pila_aux1)
-
-while (x == y):
+while not (Pila_Vacia(pila) and Pila_Vacia(pila2)):
     x = Desapilar(pila)
-    y = Desapilar(pila_aux1)
-'''
-from Pila_Dinamico import Pila, apilar, desapilar, pila_vacia, cima, tamanio
+    y = Desapilar(pila2)
+    if (x != y):
+        status = False
+    else:
+        status = True
+
+if (status == True):
+    print('Es palindromo')
+else:
+    print('No es palindromo')
+
 
 #Ejercicio 6
 
 pila = Pila()
 
-while pila_vacia(pila):
+while not Pila_Llena(pila):
     x = input('Ingrese la palabra a invertir letra por letra: ')
-    apilar(pila, x)
+    Apilar(pila, x)
 
-print(pila)
+while not Pila_Vacia(pila):
+    x = Desapilar(pila)
+    print(x)
+
+#Ejercicio 7
+
+pila = Pila()
+
+while not Pila_Llena(pila):
+    x = input('Ingrese la palabra: ')
+    Apilar(pila, x)
+
+c = Desapilar(pila)
+print('- Palabra a eliminar:', Desapilar(pila))
+Apilar(pila, c)
+
+while not Pila_Vacia(pila):
+    x = Desapilar(pila)
+    print(x)
+'''
+
+
