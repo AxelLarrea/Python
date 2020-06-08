@@ -1,9 +1,9 @@
-'''
+
 from Pila_Dinamico import Pila, apilar, desapilar, pila_vacia, cima, tamanio
 '''
 from Pilas import Pila, Pila_Llena, Pila_Vacia, Desapilar, Apilar
 from random import randint
-
+'''
 '''
 #Ejercicio 1
 
@@ -154,6 +154,120 @@ Apilar(pila, c)
 while not Pila_Vacia(pila):
     x = Desapilar(pila)
     print(x)
+
+#Ejercicio 8
+
+#a) Crear los mazos
+palos = ['espada', 'basto', 'copa', 'oro']
+
+while(tamanio(mazo)<40):
+    dato = ['', 0]
+    dato[0] = choice(palos)
+    dato[1] = randint(1, 12)
+    apilar(mazo, dato)
+
+while(not pila_vacia(mazo)):
+    print(desapilar(mazo))
+
+#Ejercicio 9
+
+pila = Pila()
+fact = 1
+
+x = int(input('Ingrese su numero a realizarle el factorial: '))
+
+while (not Pila_Llena(pila) and (x != 0)):
+    Apilar(pila, x)
+    x -= 1
+
+while not Pila_Vacia(pila):
+    dato = Desapilar(pila)
+    fact = fact * dato
+    print(dato)
+
+print ('El factorial es:', fact)
+
+#Ejercicio 10
+
+pila = Pila()
+c = 'Atenea'
+
+while (tamanio(pila) < 5):
+    x = input('Ingrese nombre del Dios Griego: ')
+    apilar(pila, x)
+
+print('Palabra a añadir:', c)
+
+z = desapilar(pila)
+apilar(pila, c)
+apilar(pila, z)
+
+while not pila_vacia(pila):
+    x = desapilar(pila)
+    print(x)
+
+#Ejercicio 11
+
+pila = Pila()
+cont = 0
+
+while (tamanio(pila) < 10):
+    x = input('Ingrese las letras: ')
+    apilar(pila, x)
+
+while not pila_vacia(pila):
+    x = desapilar(pila)
+    if ((x == 'a') or (x == 'e') or (x == 'i') or (x == 'o') or (x == 'u')):
+        cont += 1
+
+print('Hay una cantidad total de', cont, 'vocales')
+
+#Ejercicio 12
+
+pila = Pila()
+pila2 = Pila()
+status = False
+
+while (tamanio(pila) < 5):
+    x = input('Ingrese personajes de Star Wars: ')
+    apilar(pila, x)
+
+while not pila_vacia(pila):
+    x = desapilar(pila)
+    if ((x == 'Leia Organa') or (x == 'Boba Fett')):
+        status = True
+    apilar(pila2, x)
+
+if (status == True):
+    print('Uno de los dos, o los dos se encuentran en la pila')
+else:
+    print('Ninguno está en la pila')
+
+#Ejercicio 13
+
+pila = Pila()
+pila2 = Pila()
+
+dato = int(input('ingrese un numero '))
+print('Al ingresar 0 dejará de apilar')
+
+while dato != 0:
+    if(pila_vacia(pila)):
+        apilar(pila, dato)
+    else:
+        if(cima(pila) <= dato):
+            apilar(pila, dato)
+        else:
+            while(not pila_vacia(pila) and cima(pila) > dato):
+                daux = desapilar(pila)
+                apilar(pila2, daux)
+            apilar(pila, dato)
+            while(not pila_vacia(pila2)):
+                daux = desapilar(pila2)
+                apilar(pila, daux)
+    dato = int(input('ingrese un numero '))
+
+
+while(not pila_vacia(pila)):
+    print(desapilar(pila))
 '''
-
-

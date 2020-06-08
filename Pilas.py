@@ -1,7 +1,7 @@
 class Pila():
     #Crear una pila vacía
     def __init__(self):
-        self.cima, self.datos = -1, [0] * 7
+        self.cima, self.datos = -1, [0] * 5
 
 def Apilar(pila, datos):
     #Apila el dato en la cima
