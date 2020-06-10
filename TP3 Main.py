@@ -228,7 +228,6 @@ print()
 
 print('El rango es:', rango)
 print('La cantidad de números negativos es:', cant)
-'''
 
 #Ejercicio 10
 
@@ -242,16 +241,55 @@ class starwars(object):
 
 
 cola = Cola()
-SW = starwars()
+cola2 = Cola()
 
-while (tamanio(cola) < 5):
-    SW.nombre = input('Ingrese nombre del personaje: ')
-    SW.planeta = input('Ingrese el planeta del personaje: ')
-    arribo(cola, SW)
+while (tamanio(cola) < 3):
+    sw = starwars()
+    sw.nombre = input('Ingrese nombre del personaje: ')
+    sw.planeta = input('Ingrese el planeta del personaje: ')
+    arribo(cola, sw)
     print()
+
+#A
+print('A continuacion se mostrarán los personajes los cuales su planeta de origen sea: Alderaan, Endor o Tatooine: ')
+for i in range(0, tamanio(cola)):
+    dato = atencion(cola)
+    if ((dato.planeta == 'Alderaan') or (dato.planeta == 'Endor') or (dato.planeta == 'Tatooine')):
+        print(dato)
+    arribo(cola2, dato)
+print()
+
+#B
+for i in range(0, tamanio(cola2)):
+    dato = atencion(cola2)
+    if ((dato.nombre == 'Han Solo') or (dato.nombre == 'Luke Skywalker')):
+        print('El planeta natal de', dato.nombre, 'es:', dato.planeta)
+    arribo(cola, dato)
+print()
+
+#C
+while not cola_vacia(cola):
+    dato = atencion(cola)
+    if (dato.nombre == 'Yoda'):
+        sw = starwars()
+        print('Ingrese los datos del nuevo personaje:')
+        print()
+        sw.nombre = input('Ingrese nombre del personaje: ')
+        sw.planeta = input('Ingrese el planeta del personaje: ')
+        arribo(cola2, sw)
+    arribo(cola2, dato)
+print()
+
+#D
+while not cola_vacia(cola2):
+    dato = atencion(cola2)
+    if(dato.nombre == 'Jar Jar Binks'):
+        atencion(cola2)
+    arribo(cola, dato)
 
 print('Los elementos de la cola son: ')
 
-while not cola_vacia(cola):
-    x = atencion(cola)
-    print(x)
+for i in range(0, tamanio(cola)):
+    print(mover_final(cola))
+
+'''
