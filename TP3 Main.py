@@ -166,42 +166,25 @@ while not (en_frente(cola) == c):
 for i in range (0, tamanio(cola)):
     print(mover_final(cola))
 
-#Ejercicio 8 TERMINAR
+#Ejercicio 8
 
 cola = Cola()
 cola2 = Cola()
 
-
-while (tamanio(cola) < 10):
-    x = randint(0, 99)
-    arribo(cola, x)
-
-c = atencion(cola)
-arribo(cola2, c)
+for i in range(0, 10): 
+    dato = randint(1, 50) 
+    while not cola_vacia(cola) and en_frente(cola) <= dato: 
+        arribo(cola2, atencion(cola))
+    arribo(cola2, dato)
+    while not cola_vacia(cola): 
+        arribo(cola2, atencion(cola)) 
+    while not cola_vacia(cola2): 
+        arribo(cola, atencion(cola2)) 
+    print()
 
 print('Elementos de Cola: ')
 for i in range (0, tamanio(cola)):
     print(mover_final(cola))
-
-# C1: 
-# C2: 33, 55, 99, 101
-
-while not cola_vacia(cola):
-    if (en_frente(cola) > en_frente(cola2)):
-        mover_final(cola)
-    elif (tamanio(cola) == 1):
-            dato = atencion(cola)
-            arribo(cola2, dato)
-    else:
-        x = atencion(cola)
-        arribo(cola2, x)
-        while not (en_frente(cola2) == c):
-            mover_final(cola2)
-        mover_final(cola2)  
-
-print('Elementos de Cola ordenado: ')
-for i in range (0, tamanio(cola2)):
-    print(mover_final(cola2))
 
 #Ejercicio 9
 
@@ -292,4 +275,128 @@ print('Los elementos de la cola son: ')
 for i in range(0, tamanio(cola)):
     print(mover_final(cola))
 
+#Ejercicio 11
+
+cola = Cola()
+cola2 = Cola()
+cola3 = Cola()
+
+#Cargamos la primer cola ordenada
+for i in range(0, 3): 
+    dato = randint(1, 50) 
+    while not cola_vacia(cola) and en_frente(cola) <= dato: 
+        arribo(cola3, atencion(cola))
+    arribo(cola3, dato)
+    while not cola_vacia(cola): 
+        arribo(cola3, atencion(cola)) 
+    while not cola_vacia(cola3): 
+        arribo(cola, atencion(cola3)) 
+print()
+
+print('Elementos de Cola: ')
+for i in range (0, tamanio(cola)):
+        print(mover_final(cola))
+
+#Cargamos la segunda cola ordenada
+for i in range(0, 3): 
+    dato = randint(1, 50) 
+    while not cola_vacia(cola2) and en_frente(cola2) <= dato: 
+        arribo(cola3, atencion(cola2))
+    arribo(cola3, dato)
+    while not cola_vacia(cola2): 
+        arribo(cola3, atencion(cola2)) 
+    while not cola_vacia(cola3): 
+        arribo(cola2, atencion(cola3)) 
+print()
+
+print('Elementos de Cola2: ')
+for i in range (0, tamanio(cola2)):
+        print(mover_final(cola2))
+print()
+
+#Juntamos ambas colas
+
+#while (not(cola_vacia(cola)) and not(cola_vacia(cola2))):
+#    if ((en_frente(cola)) <= (en_frente(cola2))):
+#        dato = atencion(cola)
+#        arribo(cola3, dato)
+#    elif ((en_frente(cola)) > (en_frente(cola2))):
+#        dato = atencion(cola2)
+#        arribo(cola3, dato)
+#if (cola is not None):
+#   while not cola_vacia(cola):
+#        dato = atencion(cola)
+#        arribo(cola3, dato)
+#elif (cola2 is not None):
+#    while not cola_vacia(cola2):
+#        dato = atencion(cola2)
+#        arribo(cola3, dato)
+
+for i in range (0, tamanio(cola)):
+    if(en_frente(cola) < en_frente(cola2)):
+        mover_final(cola)
+    else:
+        while(en_frente(cola) > en_frente(cola2)):
+            dato = atencion(cola2)
+            arribo(cola, dato)
+        mover_final(cola)
+
+while not(cola_vacia(cola2)):
+    dato = atencion(cola2)
+    arribo(cola, dato)
+
+print('Elementos de la nueva cola: ')
+for i in range (0, tamanio(cola)):
+        print(mover_final(cola))
+
+#Ejercicio 12
+
+cola = Cola()
+cola_dig = Cola()
+cola_car = Cola()
+letras = 0
+existe = False
+
+while (tamanio(cola) < 20):
+    dato = randint(33, 126)
+    arribo(cola, chr(dato))
+
+print('Elementos de cola general: ')
+for i in range(0, tamanio(cola)):
+    print(mover_final(cola))
+print()
+
+#A
+while not (cola_vacia(cola)):
+    dato = ord(atencion(cola))
+    if ((dato >= 48) and (dato <= 57)):
+        arribo(cola_dig, chr(dato))
+    else:
+        arribo(cola_car, chr(dato))
+
+print('Elementos de cola digitos: ')
+for i in range(0, tamanio(cola_dig)):
+    print(mover_final(cola_dig))
+print()
+
+print('Elementos de cola caracteres: ')
+for i in range(0, tamanio(cola_car)):
+    print(mover_final(cola_car))
+print()
+
+#B y #C
+for i in range(0, tamanio(cola_car)):
+    dato = ord(atencion(cola_car))
+    if((dato >= 65 and dato <= 90) or (dato >= 97 and dato <= 122)):
+        letras += 1
+    elif(dato == 63 or dato == 35):
+        existe = True
+    arribo(cola_car, chr(dato))
+print()
+print('El total de letras es:', letras)
+
+if(existe == False):
+    print('Los caracteres no existen')
+else:
+    print('El/los caracteres si existen')
 '''

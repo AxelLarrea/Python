@@ -10,7 +10,6 @@ class Cola(object):
     def __init__(self):
         self.frente, self.final, self.tamanio = None, None, 0
 
-
 def arribo(cola, dato):
     nodo = nodoCola()
     nodo.info = dato
@@ -44,7 +43,6 @@ def mover_final(cola):
     x = atencion(cola)
     arribo(cola, x)
     return x
-
 
 '''
 c = Cola()
