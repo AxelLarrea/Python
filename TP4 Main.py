@@ -1,4 +1,4 @@
-from Listas import Lista, insertar, eliminar, busqueda, barrido, tamanio, lista_vacia
+from Listas import Lista, insertar, eliminar, busqueda, barrido, tamanio, lista_vacia, nodoLista
 from random import randint
 '''
 #Ejercicio 1
@@ -82,21 +82,58 @@ barrido(lista_par)
 print()
 print('Lista impar: ')
 barrido(lista_impar)
-'''
+
 #Ejercicio 4
 
 lista = Lista()
 
-while (tamanio(lista) < randint(0, 10)):
+while (tamanio(lista) < 10):
     dato = randint(0, 99)
     insertar(lista, dato)
 
 barrido(lista)
+print('El tamaño de la lista es:', tamanio(lista))
 
-pos = int(input(print('Inserte la posicion en la que desea agregar el elemento: ')))
-dato = (input('Ingrese el elemento que desea insertar: '))
+pos = int(input(print('Posicion en la que insertar el nodo: ')))
+
+nodito = nodoLista()
+nodito.info = 2020
 aux = lista.inicio
 if (pos >= 0 and pos <= tamanio(lista)):
-    for i in range(0, pos)
-        aux = aux.sig
-        aux.
+    if (pos < tamanio(lista)):
+        for i in range(1, pos-1):
+            aux = aux.sig
+        nodito.sig = aux.sig
+        aux.sig = nodito
+    else:
+        while (aux.sig is not None):
+            aux = aux.sig
+        aux.sig = nodito
+
+barrido(lista)
+print('El tamaño de la lista es:', tamanio(lista))
+
+#Ejercicio 5
+
+lista = Lista()
+
+while (tamanio(lista) < 10):
+    dato = randint(0,99)
+    insertar(lista, dato)
+
+barrido(lista)
+
+aux = lista.inicio
+cont = 0
+while (aux is not None):
+    x = aux.info
+    for i in range(1, x):
+        if (x % i  == 0):
+            cont += 1
+    if (cont < 3):
+        eliminar(lista, x)
+    aux = aux.sig
+    cont = 0
+print('Lista sin números primos: ')
+barrido(lista)
+'''

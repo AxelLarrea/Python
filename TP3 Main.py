@@ -79,7 +79,7 @@ else:
     print('No es palindromo')
 
 #Ejercicio 4
-
+'''
 cola = Cola()
 cola2 = Cola()
 cont = 0
@@ -97,13 +97,13 @@ while not cola_vacia(cola):
     for i in range(1, x):
         if ((x % i) == 0):
             cont += 1
-    if (cont == 2):
+    if (cont > 2):
         arribo(cola2, x)
 
 print('Los datos sin números compuestos: ')
 for i in range(0, tamanio(cola2)):
     print(mover_final(cola2))
-
+'''
 #Ejercicio 5
 
 pila = Pila()
