@@ -94,7 +94,7 @@ def criterio(dato, campo=None):
         return dic[campo]
 
 
-
+'''
 class Alumno(object):
 
     def __init__(self, apellido, nombre, legajo):
@@ -170,3 +170,4 @@ while(aux is not None):
 
 
     aux = aux.sig
+'''
