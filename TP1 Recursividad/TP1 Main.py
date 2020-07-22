@@ -194,6 +194,49 @@ def mcmRec(m, n):
 
 print('El M.C.M es: ', mcmRec(m, n))
 
+#Ejercicio 13
+
+n = int(input('Ingrese el número deseado: '))
+
+def sumdigRec(n):
+    if n < 10:
+        return n
+    else:
+        return n % 10 + sumdigRec(n//10)
+ 
+print('La suma de los dígitos es:', sumdigRec(n))
+
+#Ejercicio 14
+
+num = int(input('Ingrese el número entero a radicar: '))
+mult = 1
+
+def raizRec(num, mult):
+    if (mult * mult) <= num :
+        return mult
+    else:
+        return raizRec(num, mult - 1)
+
+def raizC(num):
+    if num == 0:
+        return 0
+    else:
+        return raizRec(num, num)
+
+print('El resultado es:', raizC(num))
+
+#Ejercicio 15
+
+termino = int(input('Ingrese el termino mayor a 0 a calcular: '))
+
+def suc_geo(termino):
+    if termino == 1:
+        return 2
+    else:
+        return suc_geo(termino -1) * -3
+
+for i in range(1, termino + 1):
+    print('Valor en el término', i, ':', suc_geo(i))
 
 #Ejercicio 16
 
@@ -227,6 +270,18 @@ for i in range(0, len(mat)):
     for j in range(0, len(mat[i])):
         print(barrido_matriz(mat, i, j))
 
+#Ejercicio 18
+
+num = int(input('Ingrese el termino deseado mayor a 0 : '))
+
+def sucesionRec(num):
+    if num == 1:
+        return 2
+    else:
+        return num + (1 / sucesionRec(num - 1))
+
+print('El valor de la sucesion es:', sucesionRec(num))
+
 #Ejercicio 24
 
 termino = int(input('Ingrese el término de la sucesión que desee ver: '))
@@ -238,4 +293,16 @@ def sucesiongeo(termino):
         return sucesiongeo(termino-1) * 4
 
 print('El resultado es: ', sucesiongeo(termino))
+
+#Ejercicio 25
+
+num = int(input('Ingrese el termino a calcular: '))
+
+def suc_rec(num):
+    if num == 1:
+        return 3
+    else:
+        return (2*num) + suc_rec(num - 1)
+
+print('El resultado es:', suc_rec(num))
 '''

@@ -1,6 +1,7 @@
 from Cola_Dinamico import Cola, arribo, atencion, cola_vacia, tamanio, en_frente, mover_final
-from random import randint
-from Pila_Dinamico import Pila, apilar, desapilar, pila_vacia, tamanio
+from random import randint, choice
+#from Pila_Dinamico import Pila, apilar, desapilar, pila_vacia, tamanio
+from math import asin, cos, sin, sqrt, radians
 
 '''
 #Ejercicio 1
@@ -79,13 +80,13 @@ else:
     print('No es palindromo')
 
 #Ejercicio 4
-'''
+
 cola = Cola()
 cola2 = Cola()
 cont = 0
 
 while (tamanio(cola) < 10):
-    x = randint(0,100)
+    x = randint(0,10)
     arribo(cola, x)
 
 print('Los datos son: ')
@@ -94,16 +95,17 @@ for i in range(0, tamanio(cola)):
 
 while not cola_vacia(cola):
     x = atencion(cola)
-    for i in range(1, x):
+    for i in range(1, x+1):
         if ((x % i) == 0):
             cont += 1
-    if (cont > 2):
+    if (cont < 3):
         arribo(cola2, x)
+    cont = 0
 
 print('Los datos sin números compuestos: ')
 for i in range(0, tamanio(cola2)):
     print(mover_final(cola2))
-'''
+
 #Ejercicio 5
 
 pila = Pila()
@@ -399,4 +401,95 @@ if(existe == False):
     print('Los caracteres no existen')
 else:
     print('El/los caracteres si existen')
+'''
+#Ejercicio 14
+
+cola = Cola()
+bases = [['Pry', 30, 50, 47], ['Star', 57, 32, 20], ['Lion', 81, 113, 65]]
+r = 6371000
+q2 = 0
+d2 = 0
+cercana = 0
+flota = 0
+name = ''
+
+def haversine(r, q1, q2, d1, d2):
+    return 2*r*asin(sqrt(sin((q2-q1)/2)**2 + cos(q1)*cos(q2) * sin((d2-d1)/2)**2))
+
+for i in range(0, 3):
+    arribo(cola, bases[i])
+
+print('Ahora deberá ingresar su posición actual')
+q1 = int(input(print('Ingrese la latitud: ')))
+d1 = int(input(print('Ingrese la longitud: ')))
+
+while not cola_vacia(cola):
+    x = atencion(cola)
+    #A,B Determinar base más cercana
+    data = haversine(r, q1, x[2], d1, x[3])
+    if data < cercana:
+        cercana = data
+        name = x[0]
+    #C Tres bases más cercanas
+    
+    #D Determinar la distancia hacia la base con mayor flota
+    if x[1] > flota:
+        flota = x[1]
+        distancia = data
+
+
+
+
+
+print('La base más cercana llamada', name, 'está a: ', cercana,'metros de distancia')
+print('Distancia a la base con mayor flota aerea:', distancia)
+'''
+#Ejercicio 19
+
+vehiculos = ['auto', 'camioneta', 'camion', 'colectivo']
+costo = [47, 59, 71, 64]
+
+puesto1 = Cola()
+puesto2 = Cola()
+puesto3 = Cola()
+cantidad1  = [0, 0, 0, 0]
+total1 = 0
+total2 = 0
+total3 = 0
+cabina = 0
+
+for i in range (30):
+    arribo(puesto1, (choice(vehiculos)))
+    arribo(puesto2, (choice(vehiculos)))
+    arribo(puesto3, (choice(vehiculos)))
+
+while(not cola_vacia(puesto1)):
+    vehiculo = atencion(puesto1)
+    pos = vehiculos.index(vehiculo)
+    total1 += costo[pos]
+    cantidad1[pos] += 1
+    
+    vehiculo = atencion(puesto2)
+    pos = vehiculos.index(vehiculo)
+    total2 += costo[pos]
+    cantidad1[pos] += 1
+
+    vehiculo = atencion(puesto3)
+    pos = vehiculos.index(vehiculo)
+    total3 += costo[pos]
+    cantidad1[pos] += 1
+
+total = 0
+if total1 > total:
+    total = total1
+    cabina = 1
+if total2 > total:
+    total = total2
+    cabina = 2
+if total3 > total:
+    total = total3
+    cabina = 3
+print('Vehiculos: Auto|Camioneta|Camion|Bus')
+print('Cantidad de vehículos atendidos:', cantidad1)
+print('El total es de:', total, 'y corresponde a la cabina:', cabina)
 '''
