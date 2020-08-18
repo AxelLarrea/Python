@@ -25,7 +25,6 @@ num = int(input('Ingrese la posición del número: '))
 print(FibonacciRec(num))
 
 
-
 #Ejercicio 2
 
 n = int(input('Ingrese hasta cuanto quiere sumar: '))
