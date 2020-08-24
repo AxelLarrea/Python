@@ -1,3 +1,5 @@
+from Cola_Dinamica import Cola, cola_vacia, arribo, atencion
+
 class nodoArbol(object):
 
     def __init__(self, info):
@@ -23,15 +25,28 @@ def inorden(raiz):
 
 def postorden(raiz):
     if(raiz is not None):
-        inorden(raiz.der)
+        postorden(raiz.der)
         print(raiz.info)
-        inorden(raiz.izq)
+        postorden(raiz.izq)
 
 def preorden(raiz):
     if(raiz is not None):
         print(raiz.info)
         preorden(raiz.izq)
         preorden(raiz.der)
+
+
+def por_nivel(raiz):
+    cola = Cola()
+    arribo(cola, raiz)
+    while(not cola_vacia(cola)):
+        nodo = atencion(cola)
+        print(nodo.info)
+        if(nodo.izq is not None):
+            arribo(cola, nodo.izq)
+        if(nodo.der is not None):
+            arribo(cola, nodo.der)
+
 
 def busqueda(raiz, buscado):
     if(raiz is not None):
@@ -79,20 +94,46 @@ def eliminar_nodo(raiz, clave):
 
 arbol = None
 
-arbol = insertar_nodo(arbol, 5)
-arbol = insertar_nodo(arbol, 3)
-arbol = insertar_nodo(arbol, 4)
-arbol = insertar_nodo(arbol, 7)
-arbol = insertar_nodo(arbol, 9)
-arbol = insertar_nodo(arbol, 0)
-arbol = insertar_nodo(arbol, 1)
-arbol = insertar_nodo(arbol, 6)
+# arbol = insertar_nodo(arbol, 5)
+# arbol = insertar_nodo(arbol, 3)
+# arbol = insertar_nodo(arbol, 4)
+# arbol = insertar_nodo(arbol, 7)
+# arbol = insertar_nodo(arbol, 9)
+# arbol = insertar_nodo(arbol, 0)
+# arbol = insertar_nodo(arbol, 1)
+# arbol = insertar_nodo(arbol, 6)
 
-arbol, dato = eliminar_nodo(arbol, 5)
-preorden(arbol)
+#arbol, dato = eliminar_nodo(arbol, 5)
+# por_nivel(arbol)
 
 # pos = busqueda(arbol, 20)
 # if(pos is not None):
 #     print(pos.info)
 # else:
 #     print(pos)
+
+from random import randint
+
+for i in range(0, 1000):
+    arbol = insertar_nodo(arbol, randint(0, 50000))
+
+# print('barrido inorden')
+# inorden(arbol)
+# a = input()
+# print('barrido preorden')
+# preorden(arbol)
+# a = input()
+# print('barrido postorden')
+# postorden(arbol)
+# a = input()
+print('barrido por nivel')
+por_nivel(arbol)
+# a = input()
+
+buscado = int(input('ingrese valor buscado '))
+pos = busqueda(arbol, buscado)
+
+if(pos is not None):
+    print('esta')
+else:
+    print('no esta')
