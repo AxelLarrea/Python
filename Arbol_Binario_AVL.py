@@ -2,11 +2,12 @@ from Cola_Dinamico import Cola, cola_vacia, arribo, atencion
 
 class nodoArbol(object):
 
-    def __init__(self, info, nrr = None):
+    def __init__(self, info, nrr = None, altura):
         self.izq = None
         self.der = None
         self.info = info
         self.nrr = nrr
+        self.altura = 0
 
 
 class nodoArbolHuffman(object):
