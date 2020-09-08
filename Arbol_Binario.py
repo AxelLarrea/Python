@@ -33,7 +33,7 @@ def inorden(raiz):
         print(raiz.info)
         inorden(raiz.der)
 
-from tda_archivo import leer
+from Archivos import leer
 
 def inorden_lightsaber(raiz, archivo):
     if(raiz is not None):
