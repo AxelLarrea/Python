@@ -115,7 +115,7 @@ print(cadena_deco)
 
 tabla = []
 
-archivo = open('valores')
+archivo = open('Valores')
 
 linea = archivo.readline()
 

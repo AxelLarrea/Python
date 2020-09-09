@@ -1,7 +1,7 @@
 from flask import Flask #, flash
 from flask import render_template, jsonify, request, redirect, url_for
-from tda_archivo import abrir, leer, cerrar, guardar
-from tda_arbol_binario import insertar_nodo, inorden, por_nivel, busqueda, busqueda_proximidad, inorden_name
+from Archivos import abrir, leer, cerrar, guardar
+from Arbol_Binario import insertar_nodo, inorden, por_nivel, busqueda, busqueda_proximidad, inorden_name
 
 app = Flask(__name__)
 
