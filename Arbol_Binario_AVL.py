@@ -1,4 +1,5 @@
 from Cola_Dinamico import Cola, cola_vacia, arribo, atencion
+from tda_archivo import leer
 
 class nodoArbol(object):
 
@@ -9,7 +10,6 @@ class nodoArbol(object):
         self.nrr = nrr
         self.altura = 0
 
-
 class nodoArbolHuffman(object):
     
     def __init__(self, info, valor):
@@ -17,6 +17,21 @@ class nodoArbolHuffman(object):
         self.der = None
         self.info = info
         self.valor = valor
+
+def altura(raiz):
+    """Devuelve la altura de un nodo."""
+    if(raiz is None):
+        return -1
+    else:
+        return raiz.altura
+
+
+def actualizaraltura(raiz):
+    """Actualiza la altura de un nodo."""
+    if(raiz is not None):
+        alt_izq = altura(raiz.izq)
+        alt_der = altura(raiz.der)
+        raiz.altura = (alt_izq if alt_izq > alt_der else alt_der) + 1
 
 def insertar_nodo(raiz, dato, nrr=None):
     if(raiz is None):
@@ -26,6 +41,8 @@ def insertar_nodo(raiz, dato, nrr=None):
             raiz.izq = insertar_nodo(raiz.izq, dato, nrr)
         else:
             raiz.der = insertar_nodo(raiz.der, dato, nrr)
+    raiz = balancear(raiz)
+    actualizaraltura(raiz)
     return raiz
 
 def inorden(raiz):
@@ -34,7 +51,6 @@ def inorden(raiz):
         print(raiz.info)
         inorden(raiz.der)
 
-from tda_archivo import leer
 
 def inorden_lightsaber(raiz, archivo):
     if(raiz is not None):
@@ -43,6 +59,13 @@ def inorden_lightsaber(raiz, archivo):
         if(jedi[4].find('green') > -1):
             print(raiz.info, jedi[4])
         inorden_lightsaber(raiz.der, archivo)
+
+def inorden_name(raiz, archivo, jedis):
+    if(raiz is not None):
+        inorden_name(raiz.izq, archivo, jedis)
+        jedi = leer(archivo, raiz.nrr)
+        jedis.append(jedi)
+        inorden_name(raiz.der, archivo, jedis)
 
 def postorden(raiz):
     if(raiz is not None):
@@ -56,6 +79,12 @@ def preorden(raiz):
         preorden(raiz.izq)
         preorden(raiz.der)
 
+def padre(raiz, buscado):
+    if(raiz is not None):
+        if((raiz.der is not None and raiz.der.info == buscado) or (raiz.izq is not None and raiz.izq.info == buscado)):
+            print('el padre de buscado es', raiz.info)
+        preorden(raiz.izq)
+        preorden(raiz.der)
 
 def por_nivel(raiz):
     cola = Cola()
@@ -86,6 +115,22 @@ def busqueda_proximidad(raiz, buscado):
         busqueda_proximidad(raiz.izq, buscado)
         busqueda_proximidad(raiz.der, buscado)
 
+def busqueda_proximidad_archivo(raiz, buscado, archivo):
+    if(raiz is not None):
+        if(raiz.info[0:len(buscado)] == buscado):
+            libro = leer(archivo, raiz.nrr)
+            print(libro.isbn, libro.cant, libro.titulo, libro.autores)
+        busqueda_proximidad_archivo(raiz.izq, buscado, archivo)
+        busqueda_proximidad_archivo(raiz.der, buscado, archivo)
+
+def busqueda_archivo(raiz, cantidad, archivo):
+    if(raiz is not None):
+        libro = leer(archivo, raiz.nrr)
+        if(libro.cant > cantidad):
+            print(libro.isbn, libro.cant, libro.titulo, libro.autores)
+        busqueda_archivo(raiz.izq, cantidad, archivo)
+        busqueda_archivo(raiz.der, cantidad, archivo)
+
 def arbol_vacio(raiz):
     return raiz is None
 
@@ -115,6 +160,8 @@ def eliminar_nodo(raiz, clave):
             else:
                 raiz.izq, aux = remplazar(raiz.izq)
                 raiz.info = aux.info
+    raiz = balancear(raiz)
+    actualizaraltura(raiz)
     return raiz, x
 
 def hijo_der(arbol):
@@ -129,6 +176,66 @@ def hijo_izq(arbol):
     else:
         print(arbol.izq.info)
 
+def rotar_simple(raiz, control):
+    """Realiza una rotación simple de nodos a la derecha o a la izquierda."""
+    if control:
+        aux = raiz.izq
+        raiz.izq = aux.der
+        aux.der = raiz
+    else:
+        aux = raiz.der
+        raiz.der = aux.izq
+        aux.izq = raiz
+    actualizaraltura(raiz)
+    actualizaraltura(aux)
+    raiz = aux
+    return raiz
+
+def rotar_doble(raiz, control):
+    """Realiza una rotación doble de nodos a la derecha o a la izquierda."""
+    if control:
+        raiz.izq = rotar_simple(raiz.izq, False)
+        raiz = rotar_simple(raiz, True)
+    else:
+        raiz.der = rotar_simple(raiz.der, True)
+        raiz = rotar_simple(raiz, False)
+    return raiz
+
+
+def balancear(raiz):
+    """Determina que rotación hay que hacer para balancear el árbol."""
+    if(raiz is not None):
+        if(altura(raiz.izq)-altura(raiz.der) == 2):
+            if(altura(raiz.izq.izq) >= altura(raiz.izq.der)):
+                raiz = rotar_simple(raiz, True)
+            else:
+                raiz = rotar_doble(raiz, True)
+        elif(altura(raiz.der)-altura(raiz.izq) == 2):
+            if(altura(raiz.der.der) >= altura(raiz.der.izq)):
+                raiz = rotar_simple(raiz, False)
+            else:
+                raiz = rotar_doble(raiz, False)
+    return raiz
+
+def cortar_por_nivel(raiz, bosque):
+    cola = Cola()
+    arribo(cola, raiz)
+    while(not cola_vacia(cola)):
+        nodo = atencion(cola)
+        if(altura(nodo) == 7 ):
+            bosque.append(nodo.izq)
+            bosque.append(nodo.der)
+        if(nodo.izq is not None):
+            arribo(cola, nodo.izq)
+        if(nodo.der is not None):
+            arribo(cola, nodo.der)
+
+def contar(raiz, cantidad):
+    if(raiz is not None):
+        contar(raiz.izq, cantidad)
+        contar(raiz.der, cantidad)
+        cantidad[0] += 1
+        
 # arbol = None
 
 # arbol = insertar_nodo(arbol, 5)
@@ -146,28 +253,28 @@ def hijo_izq(arbol):
 # 3 5
 # cantp, canti = 0, 0
 
-def contar(raiz, cp, ci):
-    if(raiz is not None):
-        if(raiz.info % 2 == 0):
-            cp += 1
-        else:
-            ci += 1
-        cp, ci = contar(raiz.izq, cp, ci)
-        cp, ci = contar(raiz.der, cp, ci)
-    return cp, ci
+# def contar(raiz, cp, ci):
+#     if(raiz is not None):
+#         if(raiz.info % 2 == 0):
+#             cp += 1
+#         else:
+#             ci += 1
+#         cp, ci = contar(raiz.izq, cp, ci)
+#         cp, ci = contar(raiz.der, cp, ci)
+#     return cp, ci
 
 # cantp, canti = contar(arbol, cantp, canti)
 # print(cantp, canti)
 
 
-def contar_repetidos(raiz, buscado, cant):
-    if(raiz is not None):
-        if(raiz.info == buscado):
-            cant += 1
-            cant = contar_repetidos(raiz.der, buscado, cant)
-        else:
-            cant = contar_repetidos(raiz.izq, buscado, cant)
-    return cant
+# def contar_repetidos(raiz, buscado, cant):
+#     if(raiz is not None):
+#         if(raiz.info == buscado):
+#             cant += 1
+#             cant = contar_repetidos(raiz.der, buscado, cant)
+#         else:
+#             cant = contar_repetidos(raiz.izq, buscado, cant)
+#     return cant
 
 # cant = 0
 # bus = 7

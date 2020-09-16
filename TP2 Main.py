@@ -1,10 +1,10 @@
 
 from Pila_Dinamico import Pila, apilar, desapilar, pila_vacia, cima, tamanio
 from random import choice
-'''
+
 from Pilas import Pila, Pila_Llena, Pila_Vacia, Desapilar, Apilar
 from random import randint
-'''
+
 '''
 #Ejercicio 1
 
@@ -127,7 +127,7 @@ if (status == True):
 else:
     print('No es palindromo')
 
-
+'''
 #Ejercicio 6
 
 pila = Pila()
@@ -140,6 +140,7 @@ while not Pila_Vacia(pila):
     x = Desapilar(pila)
     print(x)
 
+'''
 #Ejercicio 7
 
 pila = Pila()

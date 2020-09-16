@@ -1,7 +1,97 @@
 from Archivos import abrir, leer, cerrar, guardar
-from Arbol_Binario import insertar_nodo, inorden, por_nivel, busqueda, inorden_lightsaber, busqueda_proximidad
+from Arbol_Binario import insertar_nodo, inorden, por_nivel, busqueda, inorden_lightsaber, busqueda_proximidad, nodoArbolGreek, busqueda_nario, insertar_nario, insertar_nario
+from Arbol_Binario_AVL import insertar_nodo, altura, cortar_por_nivel, contar, inorden
+from random import randint, choice
 
 '''
+#Ejercicio 1
+
+arbol = None
+
+arbol = insertar_nodo(arbol, 5)
+arbol = insertar_nodo(arbol, 3)
+arbol = insertar_nodo(arbol, 4)
+arbol = insertar_nodo(arbol, 7)
+arbol = insertar_nodo(arbol, 9)
+arbol = insertar_nodo(arbol, 0)
+arbol = insertar_nodo(arbol, 1)
+arbol = insertar_nodo(arbol, 6)
+
+arbol = insertar_nodo(arbol, 7)
+arbol = insertar_nodo(arbol, 7)
+
+3 5
+cantp, canti = 0, 0
+
+def contar(raiz, cp, ci):
+    if(raiz is not None):
+        if(raiz.info % 2 == 0):
+            cp += 1
+        else:
+            ci += 1
+        cp, ci = contar(raiz.izq, cp, ci)
+        cp, ci = contar(raiz.der, cp, ci)
+    return cp, ci
+
+cantp, canti = contar(arbol, cantp, canti)
+print(cantp, canti)
+
+
+def contar_repetidos(raiz, buscado, cant):
+    if(raiz is not None):
+        if(raiz.info == buscado):
+            cant += 1
+            cant = contar_repetidos(raiz.der, buscado, cant)
+        else:
+            cant = contar_repetidos(raiz.izq, buscado, cant)
+    return cant
+
+cant = 0
+bus = 7
+pos = busqueda(arbol, bus)
+if(pos is not None):
+    print('asdas', contar_repetidos(pos, bus, cant))
+else:
+    print(0)
+
+
+
+arbol, dato = eliminar_nodo(arbol, 5)
+por_nivel(arbol)
+
+pos = busqueda(arbol, 20)
+if(pos is not None):
+    print(pos.info)
+else:
+    print(pos)
+
+from random import randint
+
+for i in range(0, 1000):
+    arbol = insertar_nodo(arbol, randint(0, 50000))
+
+print('barrido inorden')
+inorden(arbol)
+a = input()
+print('barrido preorden')
+preorden(arbol)
+a = input()
+print('barrido postorden')
+postorden(arbol)
+a = input()
+print('barrido por nivel')
+por_nivel(arbol)
+# a = input()
+
+buscado = int(input('ingrese valor buscado '))
+pos = busqueda(arbol, buscado)
+
+if(pos is not None):
+    print('esta')
+else:
+    print('no esta')
+
+
 #Ejercicio 6
 
 arbol_nombre = None
@@ -111,6 +201,28 @@ print('cadena decodificada')
 cadena_deco = decodificar(cadena_cod, bosque[0])
 print(cadena_deco)
 
+#Ejercicio 12
+
+arbol = None
+
+for i in range(1,1024):
+    arbol = insertar_nodo(arbol, i)
+
+cantidad = [0]
+contar(arbol, cantidad)
+print(altura(arbol), cantidad[0])
+
+bosque = []
+cortar_por_nivel(arbol, bosque)
+
+print(len(bosque))
+
+for arbol in bosque:
+    print('raiz del arbol', arbol.info)
+    cantidad = [0]
+    contar(arbol, cantidad)
+    print('cantidad de nodos del arbol', cantidad[0])
+
 #Ejercicio 16
 
 tabla = []
@@ -204,7 +316,7 @@ print(cadena_cod)
 print('cadena decodificada')
 cadena_deco = decodificar(cadena_cod, bosque[0])
 print(cadena_deco)
-'''
+
 
 #Ejercicio 19
 
@@ -217,26 +329,185 @@ class Libro():
         self.editorial = editorial
         self.cant = cant
 
+arbol_titulo = None
+arbol_ISBN = None
+arbol_autor = None
+autor = ['J. K. Rowling','Edgar Allan Poe','Beca Flitzpatrick','John Green','Tanenbaum','Connoly','Riordan','Morgan', 'Kass','Sommerville', 'Morgan-Kass']
+tit = ['Los 100','Algoritmos','Minería de Datos','Bases de Datos','Ingeniería de Software','Harry Potter','Hush Hush','Ciudades de Papel','El Gato Negro']
+#A
+
 file = abrir('libros')
 
-l1 = Libro('123', 'algoritmos', 'nuevo', 'uader', 230)
-guardar(file, l1)
-l1 = Libro('234', 'algoritmos', 'nuevo', 'uader', 230)
-guardar(file, l1)
-l1 = Libro('567', 'algoritmos', 'nuevo', 'uader', 230)
-guardar(file, l1)
-l1 = Libro('890', 'algoritmos', 'nuevo', 'uader', 230)
-guardar(file, l1)
-l1 = Libro('012', 'algoritmos', 'nuevo', 'uader', 230)
-guardar(file, l1)
-l1 = Libro('033', 'algoritmos', 'nuevo', 'uader', 230)
-guardar(file, l1)
-pos = 0
+#B
 
+for i in range (0, 100):
+    l1 = Libro(randint(1000, 9789504967453), choice(tit), choice(autor), 'UADER', randint(50,2000))
+    guardar(file, l1)
+
+#C
+
+arbol_titulo = None
+arbol_ISBN = None
+arbol_autor = None
+pos = 0
 
 while(pos<len(file)):
     libro = leer(file, pos)
-    print(libro.isbn, libro.cant, libro.titulo)
+    arbol_ISBN = insertar_nodo(arbol_ISBN, libro.isbn, pos)
+    arbol_titulo = insertar_nodo(arbol_titulo, libro.titulo, pos)
+    arbol_autor = insertar_nodo(arbol_autor , libro.autores, pos)
     pos += 1
 
 cerrar(file)
+#D
+#.1 Busqueda por exactitud en arbol ISBN
+
+buscado = int(input('Ingrese ISBN del libro a buscar: '))
+x = busqueda(arbol_ISBN, buscado)
+
+if(x is not None):
+    file = abrir('libros')
+    libro = leer(file, x.nrr)
+    cerrar(file)
+    print('El libro buscado es de ISBN ', libro.isbn,', titulo', libro.titulo, ',y autores', libro.autores)
+else:
+    print('El libro no ha sido encontrado')
+#.2 Si son más de un autor y busco por uno, debería encontrarlo de encontrarlo igual
+
+buscado = input('Ingrese autor del libro a buscar: ')
+x = busqueda(arbol_autor, buscado)
+
+if(x is not None):
+    file = abrir('libros')
+    libro = leer(file, x.nrr)
+    cerrar(file)
+    palabra = libro.autores.split('-')
+    if (palabra[0] or palabra[1] == buscado):
+        print('El libro correspondiente a este autor es: ', libro.titulo)
+else:
+    print('Libro no encontrado')
+
+#.3
+buscado = input('Ingrese titulo del libro a buscar: ')
+busqueda_proximidad(arbol_titulo, buscado)
+
+
+#a Mostrar libros de Tanenbaum, Connolly, Rowling, Riordan, Morgan-Kass;
+
+aut = ['Tanenbaum', 'Connolly', 'J. K. Rowling', 'Riordan', 'Morgan-Kass']
+
+for i in aut:
+    x = busqueda(arbol_autor, i)
+    if(x is not None):
+        file = abrir('libros')
+        libro = leer(file, x.nrr)
+        cerrar(file)
+        print('Libro de', i , libro.titulo)
+    else:
+        print('El autor no fue encontrado')
+
+#b Mostrar los libros de “minería de datos”, “algoritmos” y “bases de datos”
+
+libs = ['Mineria de Datos','Algoritmos','Bases de Datos']
+
+for i in libs:
+    x = busqueda(arbol_titulo, i)
+    if(x is not None):
+        file = abrir('libros')
+        libro = leer(file, x.nrr)
+        cerrar(file)
+        print('Libro de titulo ', i , 'con ISBN', libro.isbn, 'y autores', libro.autores)
+    else:
+        print('El autor no fue encontrado')
+
+#c. Mostrar los libros de más de 873 páginas
+
+pos = 0
+file = abrir('libros')
+while(pos < len(file)):
+    libro = leer(file, pos)
+    if (libro.cant > 873):
+        print('ISBN del libro', libro.isbn,'cantidad de paginas del libro', libro.cant, 'titulo del libro', libro.titulo)
+    pos += 1
+cerrar(file)
+
+#d. Mostrar los datos del libro ISBN 9789504967453
+
+x = busqueda(arbol_ISBN, 9789504967453)
+
+if(x is not None):
+    file = abrir('libros')
+    libro = leer(file, x.nrr)
+    cerrar(file)
+    print('El libro buscado es de ISBN ', libro.isbn,', titulo', libro.titulo, ',y autores', libro.autores)
+else:
+    print('Libro de ISBN ingresado no fue encontrado')
+
+#e. mostrar el autor del libro “los 100”
+
+x = busqueda(arbol_titulo, 'Los 100')
+if(x is not None):
+    file = abrir('libros')
+    libro = leer(file, x.nrr)
+    cerrar(file)
+    print('El autor del libro Los 100 es: ', libro.autores)
+else:
+    print('El libro con titulo Los 100 no fue encontrado')
+
+
+#Ejercicio 21
+
+arbol = None
+
+
+archivo = open('greek_gods')
+
+linea = archivo.readline()
+
+print('archivo')
+while linea:        
+    linea = linea.replace('\n', '')
+    dios = linea.split(';')
+    nodo = nodoArbolGreek(dios[0], dios[2])
+    #print('insertar', dios[0])
+    if(arbol is None):
+        arbol = nodo
+    else:
+        pos = []
+        busqueda_nario(arbol, dios[1], pos)
+        #print('resultado de busqueda', pos[0].info)
+        insertar_nario(pos[0], nodo)
+
+    #preorden(arbol)
+    #a = input()
+    linea = archivo.readline()
+
+
+archivo.close()
+
+#por_nivel_nario(arbol)
+
+# pos = []
+# busqueda_nario(arbol, 'zeus', pos)
+
+# hijo = pos[0].izq
+
+# while(hijo is not None):
+#     print(hijo.info)
+#     hijo = hijo.der
+
+bosque = []
+hijo = arbol.izq
+
+while(hijo is not None):
+    aux = hijo.der
+    hijo.der = None
+    bosque.append(hijo)
+    hijo = aux
+
+print('cantidad de arboles del bosque', len(bosque))
+for arbol in bosque:
+    print('raiz ------------------>', arbol.info)
+    inorden(arbol)
+    print()
+'''
