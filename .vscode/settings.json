@@ -1,8 +1,8 @@
 {
-    "python.pythonPath": "C:\\Users\\axell\\AppData\\Local\\Programs\\Python\\Python38\\python.exe",
-    "python.linting.enabled": false,
-    "python.linting.flake8Enabled": true,
-    "python.linting.pylintEnabled": false,
+    "python.pythonPath": "C:\\Users\\axell\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe",
+    "python.linting.enabled": true,
+    "python.linting.flake8Enabled": false,
+    "python.linting.pylintEnabled": true,
     "python.autoComplete.extraPaths":  ["./src"],
     "python.envFile": "${Python}/.env",
 }

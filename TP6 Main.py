@@ -3,7 +3,7 @@ from Arbol_Binario import por_nivel, busqueda, inorden_lightsaber, busqueda_prox
 from Arbol_Binario_AVL import insertar_nodo, altura, cortar_por_nivel, contar, eliminar_nodo, inorden
 from random import randint, choice
 
-
+'''
 #Ejercicio 1
 
 arbol = None
@@ -93,7 +93,7 @@ cantp, canti = contar(arbol, cantp, canti)
 print('La cantidad de números pares es de: ', cantp)
 print('La cantidad de números impares es de: ', canti)
 
-'''
+
 #Ejercicio 6
 
 arbol_nombre = None

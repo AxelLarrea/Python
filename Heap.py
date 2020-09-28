@@ -87,17 +87,53 @@ def heapsort(heap):
         quitar(heap)
     heap.tamanio = aux
 
+# Cola de prioridad
+def arribo(heap, dato, prioridad):
+    """Arriba el dato a la cola utilizando prioridad."""
+    agregar(heap, [prioridad, dato])
 
 
-monticulo = Heap(20)
-vector = [3, 2, 8, 0, 4, 6, 88, 99, 1, 2]
+def atencion(heap):
+    """Antiende el elemento en el frente de la cola y lo devuelve."""
+    return quitar(heap)
 
-monticulo.vector = vector
-monticulo.tamanio = 10
 
-monticulizar(monticulo)
+def cambiar_prioridad(heap, indice, prioridad):
+    """Cambia la prioridad de un elemento y lo acomoda en el montículo."""
+    prioridad_anterior = heap.vector[indice][0]
+    heap.vector[indice][0] = prioridad
+    if(prioridad > prioridad_anterior):
+        flotar(heap, indice)
+    elif(prioridad < prioridad_anterior):
+        hundir(heap, indice)
 
-print(monticulo.vector)
+# from random import randint
+# nombre = ['ana', 'juan', 'walter', 'tito', 'julieta']
+
+# cola_prioiridad = Heap(10)
+
+# i = 0
+# while(i < 10):
+#     arribo(cola_prioiridad, nombre[randint(0,4)], randint(1, 3))
+#     print(cola_prioiridad.vector)
+#     i += 1
+
+# a = input()
+# cambiar_prioridad(cola_prioiridad, 3, 0)
+
+# while (not heap_vacio(cola_prioiridad)):
+#     print(atencion(cola_prioiridad))
+
+
+# monticulo = Heap(20)
+# vector = [3, 2, 8, 0, 4, 6, 88, 99, 1, 2]
+
+# monticulo.vector = vector
+# monticulo.tamanio = 10
+
+# monticulizar(monticulo)
+
+# print(monticulo.vector)
 
 # agregar(monticulo, 4)
 # #print(monticulo.vector)
