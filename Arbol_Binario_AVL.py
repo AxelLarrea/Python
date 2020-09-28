@@ -1,9 +1,9 @@
 from Cola_Dinamico import Cola, cola_vacia, arribo, atencion
-from tda_archivo import leer
+from Archivos import leer
 
 class nodoArbol(object):
 
-    def __init__(self, info, nrr = None, altura):
+    def __init__(self, info, nrr = None):
         self.izq = None
         self.der = None
         self.info = info
@@ -236,19 +236,6 @@ def contar(raiz, cantidad):
         contar(raiz.der, cantidad)
         cantidad[0] += 1
         
-# arbol = None
-
-# arbol = insertar_nodo(arbol, 5)
-# arbol = insertar_nodo(arbol, 3)
-# arbol = insertar_nodo(arbol, 4)
-# arbol = insertar_nodo(arbol, 7)
-# arbol = insertar_nodo(arbol, 9)
-# arbol = insertar_nodo(arbol, 0)
-# arbol = insertar_nodo(arbol, 1)
-# arbol = insertar_nodo(arbol, 6)
-
-# arbol = insertar_nodo(arbol, 7)
-# arbol = insertar_nodo(arbol, 7)
 
 # 3 5
 # cantp, canti = 0, 0
@@ -275,48 +262,3 @@ def contar(raiz, cantidad):
 #         else:
 #             cant = contar_repetidos(raiz.izq, buscado, cant)
 #     return cant
-
-# cant = 0
-# bus = 7
-# pos = busqueda(arbol, bus)
-# if(pos is not None):
-#     print('asdas', contar_repetidos(pos, bus, cant))
-# else:
-#     print(0)
-
-
-
-#arbol, dato = eliminar_nodo(arbol, 5)
-# por_nivel(arbol)
-
-# pos = busqueda(arbol, 20)
-# if(pos is not None):
-#     print(pos.info)
-# else:
-#     print(pos)
-
-# from random import randint
-
-# for i in range(0, 1000):
-#     arbol = insertar_nodo(arbol, randint(0, 50000))
-
-# print('barrido inorden')
-# inorden(arbol)
-# a = input()
-# print('barrido preorden')
-# preorden(arbol)
-# a = input()
-# print('barrido postorden')
-# postorden(arbol)
-# a = input()
-# print('barrido por nivel')
-# por_nivel(arbol)
-# # a = input()
-
-# buscado = int(input('ingrese valor buscado '))
-# pos = busqueda(arbol, buscado)
-
-# if(pos is not None):
-#     print('esta')
-# else:
-#     print('no esta')

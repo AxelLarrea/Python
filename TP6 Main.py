@@ -1,26 +1,82 @@
 from Archivos import abrir, leer, cerrar, guardar
-from Arbol_Binario import insertar_nodo, inorden, por_nivel, busqueda, inorden_lightsaber, busqueda_proximidad, nodoArbolGreek, busqueda_nario, insertar_nario, insertar_nario
-from Arbol_Binario_AVL import insertar_nodo, altura, cortar_por_nivel, contar, inorden
+from Arbol_Binario import por_nivel, busqueda, inorden_lightsaber, busqueda_proximidad, nodoArbolGreek, busqueda_nario, insertar_nario, insertar_nario, preorden, postorden
+from Arbol_Binario_AVL import insertar_nodo, altura, cortar_por_nivel, contar, eliminar_nodo, inorden
 from random import randint, choice
 
-'''
+
 #Ejercicio 1
 
 arbol = None
 
-arbol = insertar_nodo(arbol, 5)
-arbol = insertar_nodo(arbol, 3)
-arbol = insertar_nodo(arbol, 4)
-arbol = insertar_nodo(arbol, 7)
-arbol = insertar_nodo(arbol, 9)
-arbol = insertar_nodo(arbol, 0)
-arbol = insertar_nodo(arbol, 1)
-arbol = insertar_nodo(arbol, 6)
+for i in range(1000):
+    arbol = insertar_nodo(arbol, randint(0,100))
 
-arbol = insertar_nodo(arbol, 7)
-arbol = insertar_nodo(arbol, 7)
+#A Realizar los barridos preorden, inorden, postorden y por nivel.
+print('Barrido inorden: ')
+print()
+inorden(arbol)
+a = input()
 
-3 5
+print('Barrido preorden')
+print()
+preorden(arbol)
+a = input()
+
+print('Barrido postorden')
+print()
+postorden(arbol)
+a = input()
+
+print('Barrido por nivel')
+print()
+por_nivel(arbol)
+a = input()
+
+#B Determinar si un número está cargado en el árbol o no.
+buscado = int(input('Ingrese el número buscado: '))
+pos = busqueda(arbol, buscado)
+
+if(pos is not None):
+    print('El número indicado está em el árbol')
+else:
+    print('El número indicado no está en el árbol')
+
+#C Eliminar tres valores del árbol.
+arbol, dato = eliminar_nodo(arbol, 5)
+print('El número', dato, 'ha sido eliminado')
+
+arbol, dato = eliminar_nodo(arbol, 13)
+print('El número', dato, 'ha sido eliminado')
+
+arbol, dato = eliminar_nodo(arbol, 57)
+print('El número', dato, 'ha sido eliminado')
+
+#D Determinar la altura del subárbol izquierdo y del subárbol derecho.
+
+print('La altura del subárbol derecho es: ',altura(arbol.der))
+print('La altura del subárbol izquierdo es: ',altura(arbol.izq))
+
+#E Determinar la cantidad de ocurrencias de un elemento en el árbol.
+
+def contar_repetidos(raiz, buscado, cant):
+    if(raiz is not None):
+        if(raiz.info == buscado):
+            cant += 1
+            cant = contar_repetidos(raiz.der, buscado, cant)
+        else:
+            cant = contar_repetidos(raiz.izq, buscado, cant)
+    return cant
+
+cant = 0
+buscado = 73
+pos = busqueda(arbol, buscado)
+if(pos is not None):
+    print('El número ',buscado, 'está', contar_repetidos(pos, buscado, cant), 'veces en el árbol')
+else:
+    print('El número no se encuentra en el árbol')
+
+#F Contar cuántos números pares e impares hay en el árbol.
+
 cantp, canti = 0, 0
 
 def contar(raiz, cp, ci):
@@ -34,64 +90,10 @@ def contar(raiz, cp, ci):
     return cp, ci
 
 cantp, canti = contar(arbol, cantp, canti)
-print(cantp, canti)
+print('La cantidad de números pares es de: ', cantp)
+print('La cantidad de números impares es de: ', canti)
 
-
-def contar_repetidos(raiz, buscado, cant):
-    if(raiz is not None):
-        if(raiz.info == buscado):
-            cant += 1
-            cant = contar_repetidos(raiz.der, buscado, cant)
-        else:
-            cant = contar_repetidos(raiz.izq, buscado, cant)
-    return cant
-
-cant = 0
-bus = 7
-pos = busqueda(arbol, bus)
-if(pos is not None):
-    print('asdas', contar_repetidos(pos, bus, cant))
-else:
-    print(0)
-
-
-
-arbol, dato = eliminar_nodo(arbol, 5)
-por_nivel(arbol)
-
-pos = busqueda(arbol, 20)
-if(pos is not None):
-    print(pos.info)
-else:
-    print(pos)
-
-from random import randint
-
-for i in range(0, 1000):
-    arbol = insertar_nodo(arbol, randint(0, 50000))
-
-print('barrido inorden')
-inorden(arbol)
-a = input()
-print('barrido preorden')
-preorden(arbol)
-a = input()
-print('barrido postorden')
-postorden(arbol)
-a = input()
-print('barrido por nivel')
-por_nivel(arbol)
-# a = input()
-
-buscado = int(input('ingrese valor buscado '))
-pos = busqueda(arbol, buscado)
-
-if(pos is not None):
-    print('esta')
-else:
-    print('no esta')
-
-
+'''
 #Ejercicio 6
 
 arbol_nombre = None
