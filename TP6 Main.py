@@ -1,6 +1,7 @@
 from Archivos import abrir, leer, cerrar, guardar
-from Arbol_Binario import por_nivel, busqueda, inorden_lightsaber, busqueda_proximidad, nodoArbolGreek, busqueda_nario, insertar_nario, insertar_nario, preorden, postorden
-from Arbol_Binario_AVL import insertar_nodo, altura, cortar_por_nivel, contar, eliminar_nodo, inorden
+from Arbol_Binario import por_nivel, busqueda, inorden_lightsaber, busqueda_proximidad, nodoArbolGreek, busqueda_nario, insertar_nario, nodoArbolMarvel
+from Arbol_Binario import por_nivel, preorden, postorden
+from Arbol_Binario_AVL import altura, cortar_por_nivel, contar, eliminar_nodo, inorden, hijo_der, hijo_izq, insertar_nodo
 from random import randint, choice
 
 '''
@@ -92,6 +93,130 @@ def contar(raiz, cp, ci):
 cantp, canti = contar(arbol, cantp, canti)
 print('La cantidad de números pares es de: ', cantp)
 print('La cantidad de números impares es de: ', canti)
+
+#Ejercicio 4
+
+arbol = None
+
+for i in range(10):
+    arbol = insertar_nodo(arbol, randint(0,10))
+    print('Recorrido numero: ',i)
+    por_nivel(arbol)
+print()
+
+hijo_der(arbol)
+hijo_izq(arbol)
+
+
+#Ejercicio 5
+
+arbol = None
+arbol_villanos = None
+lista = [['Iron-Man', True], ['Capitán América', True], ['Thanos', False], ['Misterio', False], ['Hulk', True], ['Galactus', False], ['Doctor Estrange', True]]
+
+#A En cada nodo del árbol se almacenará un campo booleano que indica si es un héroe o un villano.
+
+for i in lista:
+    nodo = nodoArbolMarvel(i[0], i[1])
+    arbol = insertar_nodo(arbol, [nodo.nombre, nodo.heroe])
+    if i[1] is False:
+        arbol_villanos = insertar_nodo(arbol_villanos, nodo.nombre)
+
+#B Listar los villanos ordenados alfabéticamente.
+
+print('-Villanos: ')
+inorden(arbol_villanos)
+print()
+
+#C Mostrar todos los superhéroes que empiezan con C.
+
+def comienzo(raiz):
+    if (raiz is not None):
+        if ((raiz.info[0][0] == 'C') and (raiz.info[1] is True)):
+            print(raiz.info[0])
+        comienzo(raiz.der)
+        comienzo(raiz.izq)
+
+print('-Superheroes que comienzan con C: ')
+comienzo(arbol)
+print()
+
+#D Determinar cuántos superhéroes hay el árbol.
+
+c = 0
+
+def contar_heroes(raiz, c):
+    if (raiz is not None):
+        if (raiz.info[1] is True):
+           c += 1
+        c = contar_heroes(raiz.der, c)
+        c = contar_heroes(raiz.izq, c)
+    return c
+
+print('-Hay',contar_heroes(arbol, c), 'superhéroes en el árbol')
+print()
+
+#E Doctor Strange en realidad está mal cargado. Utilice una búsqueda por proximidad para encontrarlo en el árbol y modificar su nombre.
+
+def busqueda_proximidad_dr(raiz, buscado):
+    if(raiz is not None):
+        if(raiz.info[0][0:len(buscado)] == buscado):
+            print('Encontrado:', raiz.info[0])
+            return raiz
+        else:
+            if(raiz.info[0] > buscado):         
+                return busqueda_proximidad_dr(raiz.izq, buscado)
+            else:
+                return busqueda_proximidad_dr(raiz.der, buscado)
+
+pos = busqueda_proximidad_dr(arbol, 'Doctor')
+pos.info[0] = 'Doctor Strange'
+print('-Corregido')
+print()
+
+#F Listar los superhéroes ordenados de manera descendente.
+arbol_heroes = None
+listita = []
+
+
+def cargar_heroes(raiz, listita):
+    if (raiz is not None):
+        if (raiz.info[1] is True):
+            listita += [raiz.info[0]]
+        cargar_heroes(raiz.izq, listita)
+        cargar_heroes(raiz.der, listita)
+
+
+cargar_heroes(arbol, listita)
+print('-Superhéroes ordenados de manera descendente: ')
+print()
+
+for i in listita:
+    arbol_heroes = insertar_nodo(arbol_heroes, i)
+
+postorden(arbol_heroes)
+print()
+#G Generar un bosque a partir de este árbol, un árbol debe contener a los superhéroes y otro a los villanos.
+
+bosque = []
+
+bosque.append(arbol_heroes)
+bosque.append(arbol_villanos)
+
+#.1
+
+print('-La altura del primer árbol es: ',altura(bosque[0]))
+print('-La altura del segundo árbol es: ',altura(bosque[1]))
+print()
+
+#.2
+
+print('-Barrido primer árbol del bosque: ')
+inorden(bosque[0])
+print()
+
+print('-Barrido segundo árbol del bosque: ')
+inorden(bosque[1])
 
 
 #Ejercicio 6

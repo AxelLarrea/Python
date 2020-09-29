@@ -168,13 +168,13 @@ def hijo_der(arbol):
     if(arbol.der is None):
         print(arbol.der)
     else:
-        print(arbol.der.info)
+        print('Hijo derecho:', arbol.der.info)
 
 def hijo_izq(arbol):
     if(arbol.izq is None):
         print(arbol.izq)
     else:
-        print(arbol.izq.info)
+        print('Hijo izquierdo:', arbol.izq.info)
 
 def rotar_simple(raiz, control):
     """Realiza una rotación simple de nodos a la derecha o a la izquierda."""

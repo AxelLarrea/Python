@@ -26,6 +26,15 @@ class nodoArbolGreek(object):
         self.madre = madre
         self.descripcion = descipcion
 
+class nodoArbolMarvel(object):
+
+    def __init__(self, nombre, heroe):
+        self.izq = None
+        self.der = None
+        self.nombre = nombre
+        self.heroe = heroe
+
+
 def insertar_nodo(raiz, dato, nrr=None):
     if(raiz is None):
         raiz = nodoArbol(dato, nrr)
@@ -41,6 +50,7 @@ def inorden(raiz):
         inorden(raiz.izq)
         print(raiz.info)
         inorden(raiz.der)
+
 
 from Archivos import leer
 
@@ -132,18 +142,6 @@ def eliminar_nodo(raiz, clave):
                 raiz.izq, aux = remplazar(raiz.izq)
                 raiz.info = aux.info
     return raiz, x
-
-def hijo_der(arbol):
-    if(arbol.der is None):
-        print(arbol.der)
-    else:
-        print(arbol.der.info)
-
-def hijo_izq(arbol):
-    if(arbol.izq is None):
-        print(arbol.izq)
-    else:
-        print(arbol.izq.info)
 
 def insertar_nario(padre, hijo):
     if(padre.izq is None):
