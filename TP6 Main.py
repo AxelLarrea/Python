@@ -260,6 +260,57 @@ if(pos is not None):
     cerrar(file)
     print(jedi)
 
+#Ejercicio 8
+
+nmin = None
+nmax = None
+arbol = None
+
+def nodo_min(raiz):
+    if (raiz is not None):
+        return raiz
+    else:
+        print('No posee nodos')
+
+def nodo_max(raiz):
+    if (raiz is None):
+        print('No posee nodos')
+    else:
+        if (raiz.altura == 0):
+            return raiz
+        else:
+            if (raiz.der is not None):
+                if (raiz.der.altura == 0):
+                    return raiz.der
+                else:
+                    return nodo_max(raiz.der)
+            if (raiz.izq is not None):
+                if (raiz.izq.altura == 0):
+                    return raiz.izq
+                else:
+                    return nodo_max(raiz.izq)
+
+
+for i in range(10):
+    arbol = insertar_nodo(arbol, randint(0,10))
+print()
+
+nmin = nodo_min(arbol)
+nmax = nodo_max(arbol)
+
+por_nivel(arbol)
+print()
+
+if (nmin is not None):
+    print('Datos del nodo minimo:', nmin.info)
+else:
+    print('Ta vacio')
+
+if (nmax is not None):
+    print('Datos del nodo maximo:', nmax.info)
+else:
+    print('Ta vacio')
+
 #ejercicio 9
 
 tabla = [['A', 0.2], ['F', 0.17], ['1', 0.13], ['3', 0.21], ['0', 0.05], ['M', 0.09], ['T', 0.15]]
