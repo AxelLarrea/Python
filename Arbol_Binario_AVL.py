@@ -82,9 +82,10 @@ def preorden(raiz):
 def padre(raiz, buscado):
     if(raiz is not None):
         if((raiz.der is not None and raiz.der.info == buscado) or (raiz.izq is not None and raiz.izq.info == buscado)):
-            print('el padre de buscado es', raiz.info)
-        preorden(raiz.izq)
-        preorden(raiz.der)
+            print('El padre de buscado es', raiz.info)
+        else:
+            padre(raiz.izq, buscado)
+            padre(raiz.der, buscado)
 
 def por_nivel(raiz):
     cola = Cola()

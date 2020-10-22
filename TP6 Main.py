@@ -1,7 +1,8 @@
 from Archivos import abrir, leer, cerrar, guardar
 from Arbol_Binario import por_nivel, busqueda, inorden_lightsaber, busqueda_proximidad, nodoArbolGreek, busqueda_nario, insertar_nario, nodoArbolMarvel
-from Arbol_Binario import por_nivel, preorden, postorden
-from Arbol_Binario_AVL import altura, cortar_por_nivel, contar, eliminar_nodo, inorden, hijo_der, hijo_izq, insertar_nodo
+from Arbol_Binario import por_nivel, preorden, postorden, insertar_nodo as ins_nod
+from Arbol_Binario_AVL import altura, cortar_por_nivel, contar, eliminar_nodo, inorden, hijo_der, hijo_izq, insertar_nodo, padre
+from Colas import Cola, cola_vacia, arribo, atencion
 from random import randint, choice
 
 '''
@@ -376,6 +377,118 @@ print(getsizeof(cadena_cod), getsizeof(b'00000110011011110100000'))
 print('cadena decodificada')
 cadena_deco = decodificar(cadena_cod, bosque[0])
 print(cadena_deco)
+
+#Ejercicio 10
+
+def nodos_totales_posibles (numero):
+    return 2**(numero-1)
+
+
+def cantidad_nodos(raiz, numero, cont_nodos, cont):
+    control = False
+    if (raiz is not None):
+        if (control is False):
+            cont += 1
+            control = True
+        if(cont == (numero-1)):
+            cola = Cola()
+            arribo(cola, raiz)
+            while(not cola_vacia(cola) and cont == (numero-1)):
+                nodo = atencion(cola)
+                if(nodo.izq is not None):
+                    cont_nodos += 1
+                    arribo(cola, nodo.izq)
+                if(nodo.der is not None):
+                    cont_nodos += 1
+                    arribo(cola, nodo.der)
+                cont += 1
+        else:
+            if(raiz.izq is not None):
+                cont_nodos = cantidad_nodos(raiz.izq, numero, cont_nodos, cont)
+            if(raiz.der is not None):
+                cont_nodos = cantidad_nodos(raiz.der, numero, cont_nodos, cont)
+    return cont_nodos
+
+
+arbol = None
+cont_nodos = 0
+cont = 0
+
+for i in range(31):
+    arbol = insertar_nodo(arbol, randint(0,100))    
+
+num = int(input('Ingrese el nivel del árbol del cual determinar la máxima cantidad de nodos posibles: '))
+posibles = nodos_totales_posibles(num)
+print('Total de nodos permitidos en el nivel seleccionado:', posibles)
+print()
+
+x = (cantidad_nodos(arbol, num, cont_nodos, cont))
+if (x != 0):
+    print('Hay', x, 'nodos en el nivel', num)
+elif (num == 1):
+    print('Hay 1 nodo en el nivel', num)
+else:
+    print('No hay nodos en este nivel')
+print()
+
+#A Determinar si el nivel del árbol está completo.
+#B ¿Cuántos nodos faltan para completar dicho nivel?.
+if (x == posibles):
+    print('El nivel está completo')
+else:
+    print('Le faltan', posibles-x, 'nodos para estar completo')
+
+#Ejercicio 11
+
+Arbol = None
+Cont = 0
+
+for i in range(10):
+    Arbol = insertar_nodo(Arbol, randint(0, 100))
+
+por_nivel(Arbol)
+print()
+
+#A Contar el número de nodos del árbol.
+
+def contar_nodos (raiz, cont):
+    if (raiz is not None):
+        cont += 1
+        cont = contar_nodos(raiz.izq, cont)
+        cont = contar_nodos(raiz.der, cont)
+    return cont
+
+x = contar_nodos(Arbol, Cont)
+if (x is not None):
+    print('El arbol contiene', x, 'nodos')
+
+#B Determinar el número de hojas del árbol.
+#C mostrar la información de los nodos hojas.
+
+Cont = 0
+
+def contar_hojas (raiz, cont):
+    if (raiz is not None):
+        if (raiz.izq is None and raiz.der is None):
+            cont += 1
+            print('Información que contiene la hoja', raiz.info)
+        else:
+            cont = contar_hojas(raiz.izq, cont)
+            cont = contar_hojas(raiz.der, cont)
+    return cont
+
+n = contar_hojas(Arbol, Cont)
+if (n is not None):
+    print('El arbol contiene', n, 'hojas')
+
+#D determinar el padre de un nodo.
+
+buscado = int(input('Ingrese el número a buscar: '))
+padre(Arbol, buscado)
+
+#E determinar la altura de un árbol.
+
+print('La altura del arbol es:', altura(Arbol))
 
 #Ejercicio 12
 
