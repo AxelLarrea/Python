@@ -1,6 +1,6 @@
 from Archivos import abrir, leer, cerrar, guardar
 from Arbol_Binario import por_nivel, busqueda, inorden_lightsaber, busqueda_proximidad, nodoArbolGreek, busqueda_nario, insertar_nario, nodoArbolMarvel
-from Arbol_Binario import por_nivel, preorden, postorden, insertar_nodo as ins_nod
+from Arbol_Binario import por_nivel, preorden, postorden, insertar_nodo as ins_nod, insertar_nodo_morse, nodoArbolHuffman
 from Arbol_Binario_AVL import altura, cortar_por_nivel, contar, eliminar_nodo, inorden, hijo_der, hijo_izq, insertar_nodo, padre
 from Colas import Cola, cola_vacia, arribo, atencion
 from random import randint, choice
@@ -511,6 +511,51 @@ for arbol in bosque:
     cantidad = [0]
     contar(arbol, cantidad)
     print('cantidad de nodos del arbol', cantidad[0])
+'''
+#Ejercicio 14
+
+arbol = None
+tabla = [[''], ['E', '.'], ['T', '-'], ['I', '..'], ['A','.-'], ['N', '-.'], ['M', '--'], ['S', '...'], ['U', '..-']]
+
+# , ['R', '.-.'], ['W','.--'], ['D', '-..'], ['K', '-.-'], ['G', '--.'], ['O', '---']
+#         , ['H', '....'], ['V', '...-'], ['F', '..-.'], ['L', '.-..'], ['P', '.--.'], ['J', '.---'], ['B', '-...'], ['Z', '--..'], ['C', '-.-.'], ['X', '-..-'], ['Q', '--.-'], ['Y', '-.--']
+#         , ['1', '.----'], ['2', '..---'], ['3', '...--'], ['4', '....-'], ['5', '.....'], ['6', '-....'], ['7', '--...'], ['8', '---..'], ['9', '----.'], ['0', '-----']]
+
+arbol = insertar_nodo_morse(arbol, tabla[0])
+for i in range(1, len(tabla)):
+    arbol = insertar_nodo_morse(arbol, tabla[i])
+
+por_nivel(arbol)
+print()
+
+def pasolaletra (caracter, raiz):
+    if (raiz is not None):
+        if (caracter == '.'):
+            return raiz.izq
+        else:
+            return raiz.der
+    return raiz
+
+# def pasolaletra(caracter, raiz, pos):
+#     if (raiz is not None):
+#         if (caracter[pos] == '.'):
+#             pasolaletra(caracter, raiz.izq, pos)
+#         else:
+#             pasolaletra(caracter, raiz.der, pos)
+#         pos += 1
+#     return raiz
+
+msj = '.--. .- ... . / .-.. --- / --.- ..- . / .--. .- ... . / -- .- .--. .- / .--. .-. --- -- - .- -- . / .- .-.. --. --- / --.-'
+letra = '.--.'
+
+for palabra in msj.split('/'):
+    print('Palabra:', palabra)
+    for letra in palabra.split(' '):
+        print(letra)
+        for caracter in letra:
+            print(caracter)
+
+
 
 #Ejercicio 16
 
@@ -606,7 +651,7 @@ print('cadena decodificada')
 cadena_deco = decodificar(cadena_cod, bosque[0])
 print(cadena_deco)
 
-
+'''
 #Ejercicio 19
 
 class Libro():
