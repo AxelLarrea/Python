@@ -45,6 +45,17 @@ def insertar_nodo(raiz, dato, nrr=None):
             raiz.der = insertar_nodo(raiz.der, dato, nrr)
     return raiz
 
+def insertar_nodo_morse(raiz, dato):
+    if(raiz is None):
+        raiz = nodoArbol(dato)
+    else:
+        if(raiz.info[0] > dato[0]):
+            raiz.izq = insertar_nodo(raiz.izq, dato)
+        else:
+            raiz.der = insertar_nodo(raiz.der, dato)
+    return raiz
+
+
 def inorden(raiz):
     if(raiz is not None):
         inorden(raiz.izq)

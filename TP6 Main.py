@@ -1,6 +1,6 @@
 from Archivos import abrir, leer, cerrar, guardar
 from Arbol_Binario import por_nivel, busqueda, inorden_lightsaber, busqueda_proximidad, nodoArbolGreek, busqueda_nario, insertar_nario, nodoArbolMarvel
-from Arbol_Binario import por_nivel, preorden, postorden, insertar_nodo as ins_nod, nodoArbolHuffman
+from Arbol_Binario import por_nivel, preorden, postorden, insertar_nodo as ins_nod, nodoArbolHuffman, insertar_nodo_morse
 from Arbol_Binario_AVL import altura, cortar_por_nivel, contar, eliminar_nodo, inorden, hijo_der, hijo_izq, insertar_nodo, padre
 from Colas import Cola, cola_vacia, arribo, atencion
 from random import randint, choice
@@ -398,9 +398,11 @@ def cantidad_nodos(raiz, numero, cont_nodos, cont):
                 if(nodo.izq is not None):
                     cont_nodos += 1
                     arribo(cola, nodo.izq)
+                    print('Info del nodo izq: ',nodo.izq.info)
                 if(nodo.der is not None):
                     cont_nodos += 1
                     arribo(cola, nodo.der)
+                    print('Info del nodo der: ',nodo.der.info)
                 cont += 1
         else:
             if(raiz.izq is not None):
@@ -408,7 +410,6 @@ def cantidad_nodos(raiz, numero, cont_nodos, cont):
             if(raiz.der is not None):
                 cont_nodos = cantidad_nodos(raiz.der, numero, cont_nodos, cont)
     return cont_nodos
-
 
 arbol = None
 cont_nodos = 0
@@ -511,52 +512,76 @@ for arbol in bosque:
     cantidad = [0]
     contar(arbol, cantidad)
     print('cantidad de nodos del arbol', cantidad[0])
+    
 '''
 #Ejercicio 14
 
+mensaje = ''
 arbol = None
 tabla = [[10000, ''], 
                                                                     [5000, 'E'],                                                                                                                    [15000, 'T'],
                                     [2500, 'I'],                                                     [7500, 'A'],                                                    [12500, 'N'],                                                   [17500, 'M'],
-                            [1500, 'S'], [3500, 'U'],                                           [6500, 'R'], [8500, 'W'],                                      ['D', 11500], ['K', 13500],                                  ['G', 16500], ['O', 18500],
-                [1000, 'H'], [2000, 'V'], [3000, 'F'], [4000, ''],                  ['L', 6000], ['', 7000] , ['P', 8000], ['J', 9000],           ['B', 11000], ['X', 12000], ['C', 13000], ['Y', 14000],      ['Z', 16000], ['Q', 17000], ['', 18000], ['', 19000],
-    [750, '5'], [1250, '4'],        [2250,'3'],            [4250, '2'],                                                        ['1', 9250], ['6', 10750],                                                ['7', 15750],              ['8', 17750], ['9', 18750], ['0', 19250]]
+                            [1500, 'S'], [3500, 'U'],                                           [6500, 'R'], [8500, 'W'],                                      [11500, 'D'], [13500, 'K'],                                  [16500, 'G'], [18500, 'O'],
+                [1000, 'H'], [2000, 'V'], [3000, 'F'], [4000, ''],                  [6000, 'L'], [7000, ''] , [8000, 'P'], [9000, 'J'],           [11000, 'B'], [12000, 'X'], [13000, 'C'], [14000, 'Y'],      [16000, 'Z'], [17000, 'Q'], [18000, ''], [19000, ''],
+    [750, '5'], [1250, '4'],        [2250,'3'],            [4250, '2'],                                                        [9250, '1'], [10750, '6'],                                                [15750, '7'],              [17750, '8'], [18750, '9'], [19250, '0']]
 
-arbol = ins_nod(arbol, tabla[0])
+#A Generar un árbol que contenga todo el alfabeto y los dígitos del 0 al 9.
+#B Cuya raíz es vacía y, a partir de esta, la izquierda significa punto y la derecha guion, y se cargaran según su codificación morse.
+
 for letra in tabla:
-    arbol = ins_nod(arbol, letra)
+    arbol = insertar_nodo_morse(arbol, letra)
 
-inorden(arbol)
+def decodificar_morse(raiz, cadena):
+    cadena_deco = ''
+    raiz_aux = raiz
+    pos = 0
+    while(pos < len(cadena)):
+        if(cadena[pos] == '.'):
+            #print('Dato izq: ',raiz_aux.izq.info)
+            raiz_aux = raiz_aux.izq
+        else:
+            #print('Dato der: ',raiz_aux.der.info)
+            raiz_aux = raiz_aux.der
+        pos += 1
+    if (raiz_aux is not None):
+        cadena_deco += raiz_aux.info[1]
+    raiz_aux = raiz
+    return cadena_deco
+
+def descifrar_morse(msj, mensaje):
+    for palabra in msj.split('/'):
+        x = ''
+        #print('Palabra:', palabra)
+        for letra in palabra.split(' '):
+            #print(letra)
+            x += decodificar_morse(arbol, letra)
+        mensaje += x
+        mensaje += ' '
+    return mensaje
+
+
+#D Descifrar los siguientes mensajes.
+
+msj1 = '.--. .- ... . / .-.. --- / --.- ..- . / .--. .- ... . / -- .- .- -. .- / .--. .-. --- -- . - .- -- . / .- .-.. --. --- / --.- ..- . / ... . --. ..- .. .-. / ... .. . -. -.. --- / ..- ... - . -.. / -. --- / ..- -. / ... --- .-.. -.. .- -.. --- / .--. . .-. ..-. . -.-. - --- / ... .. -. --- / ..- -. / -... ..- . -. / .... --- -- -... .-. . .-.-.'
+msj2 = '-. --- ... --- - .-. --- ... / ... --- -- --- ... / .-.. --- ... / -- .- .-.. -.. .. - --- ... / --. ..- .- .-. -.. .. .- -. . ... / -.. . / .-.. .- / --. .- .-.. .- -..- .. .- .-.-.'
+msj3 = '-.-- --- / ... --- .-.. --- / .- -.-. - ..- --- / -.-. --- -- --- / ... .. / . -. / ...- . .-. -.. .- -.. / .-.. --- / ... ..- .--. .. . .-. .- / - --- -.. --- .-.-.'
+msj4 = '-.-. .... .. -.-. --- ... / . ... - --- -.-- / .-.. .-.. . ...- .- -. -.. --- / .-.. .- / ..-. .. . ... - .- / .... .- -.-. .. .- / ..- ... - . -.. . ... .-.-.'
+msj5 = '.--. --- -.. .-. .. .- / .... .- -.-. . .-. / . ... - --- / - --- -.. --- / . .-.. / -.. .. .- .-.-.'
+
+print('Mensaje 1 (Dr. Abraham Erskine): ',descifrar_morse(msj1, mensaje))
 print()
 
-def pasolaletra (caracter, raiz):
-    if (raiz is not None):
-        if (caracter == '.'):
-            return raiz.izq
-        else:
-            return raiz.der
-    return raiz
+print('Mensaje 2 (Rocket Raccoon): ',descifrar_morse(msj2, mensaje))
+print()
 
-# def pasolaletra(caracter, raiz, pos):
-#     if (raiz is not None):
-#         if (caracter[pos] == '.'):
-#             pasolaletra(caracter, raiz.izq, pos)
-#         else:
-#             pasolaletra(caracter, raiz.der, pos)
-#         pos += 1
-#     return raiz
+print('Mensaje 3 (Natasha Romanoff): ',descifrar_morse(msj3, mensaje))
+print()
 
-msj = '.--. .- ... . / .-.. --- / --.- ..- . / .--. .- ... . / -- .- .--. .- / .--. .-. --- -- - .- -- . / .- .-.. --. --- / --.-'
-letra = '.--.'
+print('Mensaje 4 (Tony Stark): ',descifrar_morse(msj4, mensaje))
+print()
 
-for palabra in msj.split('/'):
-    print('Palabra:', palabra)
-    for letra in palabra.split(' '):
-        print(letra)
-        for caracter in letra:
-            print(caracter)
-
-
+print('Mensaje 5 (Steve Rogers): ',descifrar_morse(msj5, mensaje))
+print()
 
 '''
 #Ejercicio 16
