@@ -1,6 +1,6 @@
 from Archivos import abrir, leer, cerrar, guardar
 from Arbol_Binario import por_nivel, busqueda, inorden_lightsaber, busqueda_proximidad, nodoArbolGreek, busqueda_nario, insertar_nario, nodoArbolMarvel
-from Arbol_Binario import por_nivel, preorden, postorden, insertar_nodo as ins_nod, insertar_nodo_morse, nodoArbolHuffman
+from Arbol_Binario import por_nivel, preorden, postorden, insertar_nodo as ins_nod, nodoArbolHuffman
 from Arbol_Binario_AVL import altura, cortar_por_nivel, contar, eliminar_nodo, inorden, hijo_der, hijo_izq, insertar_nodo, padre
 from Colas import Cola, cola_vacia, arribo, atencion
 from random import randint, choice
@@ -515,17 +515,18 @@ for arbol in bosque:
 #Ejercicio 14
 
 arbol = None
-tabla = [[''], ['E', '.'], ['T', '-'], ['I', '..'], ['A','.-'], ['N', '-.'], ['M', '--'], ['S', '...'], ['U', '..-']]
+tabla = [[10000, ''], 
+                                                                    [5000, 'E'],                                                                                                                    [15000, 'T'],
+                                    [2500, 'I'],                                                     [7500, 'A'],                                                    [12500, 'N'],                                                   [17500, 'M'],
+                            [1500, 'S'], [3500, 'U'],                                           [6500, 'R'], [8500, 'W'],                                      ['D', 11500], ['K', 13500],                                  ['G', 16500], ['O', 18500],
+                [1000, 'H'], [2000, 'V'], [3000, 'F'], [4000, ''],                  ['L', 6000], ['', 7000] , ['P', 8000], ['J', 9000],           ['B', 11000], ['X', 12000], ['C', 13000], ['Y', 14000],      ['Z', 16000], ['Q', 17000], ['', 18000], ['', 19000],
+    [750, '5'], [1250, '4'],        [2250,'3'],            [4250, '2'],                                                        ['1', 9250], ['6', 10750],                                                ['7', 15750],              ['8', 17750], ['9', 18750], ['0', 19250]]
 
-# , ['R', '.-.'], ['W','.--'], ['D', '-..'], ['K', '-.-'], ['G', '--.'], ['O', '---']
-#         , ['H', '....'], ['V', '...-'], ['F', '..-.'], ['L', '.-..'], ['P', '.--.'], ['J', '.---'], ['B', '-...'], ['Z', '--..'], ['C', '-.-.'], ['X', '-..-'], ['Q', '--.-'], ['Y', '-.--']
-#         , ['1', '.----'], ['2', '..---'], ['3', '...--'], ['4', '....-'], ['5', '.....'], ['6', '-....'], ['7', '--...'], ['8', '---..'], ['9', '----.'], ['0', '-----']]
+arbol = ins_nod(arbol, tabla[0])
+for letra in tabla:
+    arbol = ins_nod(arbol, letra)
 
-arbol = insertar_nodo_morse(arbol, tabla[0])
-for i in range(1, len(tabla)):
-    arbol = insertar_nodo_morse(arbol, tabla[i])
-
-por_nivel(arbol)
+inorden(arbol)
 print()
 
 def pasolaletra (caracter, raiz):
@@ -557,6 +558,7 @@ for palabra in msj.split('/'):
 
 
 
+'''
 #Ejercicio 16
 
 tabla = []
@@ -651,7 +653,8 @@ print('cadena decodificada')
 cadena_deco = decodificar(cadena_cod, bosque[0])
 print(cadena_deco)
 
-'''
+
+
 #Ejercicio 19
 
 class Libro():
