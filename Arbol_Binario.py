@@ -73,6 +73,25 @@ def inorden_lightsaber(raiz, archivo):
             print(raiz.info, jedi[4])
         inorden_lightsaber(raiz.der, archivo)
 
+
+def inorden_altura(raiz, archivo):
+    if(raiz is not None):
+        inorden_altura(raiz.izq, archivo)
+        personaje = leer(archivo, raiz.nrr)
+        if(personaje.altura > 1.00):
+            print(raiz.info, personaje.altura)
+        inorden_altura(raiz.der, archivo)
+
+
+def inorden_peso(raiz, archivo):
+    if(raiz is not None):
+        inorden_peso(raiz.izq, archivo)
+        personaje = leer(archivo, raiz.nrr)
+        if(personaje.peso < 75):
+            print(raiz.info, personaje.peso)
+        inorden_peso(raiz.der, archivo)
+
+
 def postorden(raiz):
     if(raiz is not None):
         postorden(raiz.der)

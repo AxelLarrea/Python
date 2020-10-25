@@ -1,6 +1,6 @@
-from Archivos import abrir, leer, cerrar, guardar
-from Arbol_Binario import por_nivel, busqueda, inorden_lightsaber, busqueda_proximidad, nodoArbolGreek, busqueda_nario, insertar_nario, nodoArbolMarvel
-from Arbol_Binario import por_nivel, preorden, postorden, insertar_nodo as ins_nod, nodoArbolHuffman, insertar_nodo_morse
+from Archivos import abrir, leer, cerrar, guardar, modificar
+from Arbol_Binario import busqueda, inorden_lightsaber, busqueda_proximidad, nodoArbolGreek, busqueda_nario, insertar_nario, nodoArbolMarvel
+from Arbol_Binario import por_nivel, preorden, postorden, insertar_nodo as ins_nod, nodoArbolHuffman, insertar_nodo_morse, inorden_altura, inorden_peso
 from Arbol_Binario_AVL import altura, cortar_por_nivel, contar, eliminar_nodo, inorden, hijo_der, hijo_izq, insertar_nodo, padre
 from Colas import Cola, cola_vacia, arribo, atencion
 from random import randint, choice
@@ -513,7 +513,8 @@ for arbol in bosque:
     contar(arbol, cantidad)
     print('cantidad de nodos del arbol', cantidad[0])
     
-'''
+
+
 #Ejercicio 14
 
 mensaje = ''
@@ -583,7 +584,126 @@ print()
 print('Mensaje 5 (Steve Rogers): ',descifrar_morse(msj5, mensaje))
 print()
 
-'''
+
+
+#Ejercicio 15
+
+arbol = None
+tabla = [['Obi Wan Kenobi', 1.74, 82], ['Chewbacca', 2.04, 113], ['Darth Vader', 1.85, 93], ['Yoda', 1.10, 47], ['Leia Organa', 1.73, 74], ['Han Solo', 1.77, 83]]
+
+class Personaje():
+
+    def __init__(self, nombre, altura, peso):
+        self.nombre = nombre
+        self.altura = altura
+        self.peso = peso
+
+#A Se almacena el nombre y la posición en la que se encuentra en el archivo(nrr).
+
+print(tabla)
+
+file = abrir('Star_Wars')
+
+for i in tabla:
+    sw = Personaje(i[0], i[1], i[2])
+    guardar(file, sw)
+
+pos = 0
+while(pos < len(tabla)):
+    personaje = leer(file, pos)
+    arbol = insertar_nodo(arbol, personaje.nombre, pos)
+    print(pos)
+    print(len(file))
+    pos += 1
+cerrar(file)
+
+# print('Arbol antes de cualquier modificacion: ')
+# por_nivel(arbol)
+print()
+
+#B Se debe poder cargar un nuevo personaje, modificarlo (cualquiera de sus campos) y darlo de baja.
+
+a = input('¿Quiere cargar un nuevo personaje? Si/No: ')
+if(a == 'Si' or a == 'si'):
+    file = abrir('Star_Wars')
+    name = input('Ingrese nombre del personaje: ')
+    height = int(input('Ingrese altura del personaje: '))
+    weight = int(input('Ingrese peso del personaje: '))
+    sw = Personaje(name, height, weight)
+    guardar(file, sw)
+    arbol = insertar_nodo(arbol, sw.nombre, len(file))
+    cerrar(file)
+    tabla.append([name, height, weight])
+
+# print('Arbol y tabla luego de cargar un nuevo personaje: ')
+# por_nivel(arbol)
+# print()
+# print(tabla)
+print()
+
+a = input('¿Quiere modificar algún campo de un personaje? Si/No: ')
+if(a == 'Si' or a == 'si'):
+    file = abrir('Star_Wars')
+    buscado = input('Ingrese nombre del personaje a buscar: ')
+    arbol, x = eliminar_nodo(arbol, buscado)
+    print('Nodo eliminado:', x)
+    print()
+    for i in range (0, len(tabla)):
+        psj = leer(file, i)
+        if(psj.nombre == buscado):
+            pos = i
+            break
+
+    a = input('Elija campo a modificar nombre/altura/peso: ')
+    if a == 'nombre':
+        name = input('Ingrese el nuevo nombre: ')
+        sw = Personaje(name, psj.altura, psj.peso)
+        modificar(file, pos, sw)
+        psj = leer(file, pos)
+        arbol = insertar_nodo(arbol, psj.nombre, pos)
+    elif a == 'altura':
+        height = int(input('Ingrese la nueva altura: '))
+        sw = Personaje(psj.nombre, height, psj.peso)
+        modificar(file, pos, sw)
+        psj = leer(file, pos)
+        arbol = insertar_nodo(arbol, psj.nombre, pos)
+    else:
+        weight = int(input('Ingrese el nuevo peso: '))
+        sw = Personaje(psj.nombre, psj.altura, weight)
+        modificar(file, pos, sw)
+        psj = leer(file, pos)
+        arbol = insertar_nodo(arbol, psj.nombre, pos)
+cerrar(file)
+print()
+
+#C Mostrar toda la info de Yoda y Boba Feet.
+
+file = abrir('Star_Wars')
+for i in range (0, len(tabla)):
+    psj = leer(file, i)
+    if(psj.nombre == 'Yoda'):
+        print(psj.nombre, psj.altura, psj.peso)
+    elif(psj.nombre == 'Boba Feet'):
+        print(psj.nombre, psj.altura, psj.peso)
+cerrar(file)
+print()
+
+#D Listar personajes con altura mayor a 1m.
+
+file = abrir('Star_Wars')
+inorden_altura(arbol, file)
+cerrar(file)
+print()
+
+#E Listar personajes con peso menor a 75kg.
+
+file = abrir('Star_Wars')
+inorden_peso(arbol, file)
+cerrar(file)
+print()
+
+
+
 #Ejercicio 16
 
 tabla = []
@@ -708,12 +828,8 @@ for i in range (0, 100):
 
 #C
 
-arbol_titulo = None
-arbol_ISBN = None
-arbol_autor = None
 pos = 0
-
-while(pos<len(file)):
+while(pos < len(file)):
     libro = leer(file, pos)
     arbol_ISBN = insertar_nodo(arbol_ISBN, libro.isbn, pos)
     arbol_titulo = insertar_nodo(arbol_titulo, libro.titulo, pos)
