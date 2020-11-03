@@ -1,4 +1,7 @@
 from Colas import Cola, cola_vacia, arribo, atencion
+from Heap import Heap, arribo as arribo_h, heap_vacio, atencion as atencion_h, cambiar_prioridad, buscar as buscar_h
+from Pila_Dinamico import Pila, apilar, pila_vacia, desapilar
+from math import inf
 
 class nodoArista(object):
     """Clase nodo vértice."""
@@ -208,6 +211,88 @@ def barrido_amplitud(grafo, vertice):
         vertice = vertice.sig
 
 
+def dijkstra(grafo, origen, destino):
+    """Algoritmo de Dijkstra para hallar el camino mas corto."""
+    no_visitados = Heap(tamanio(grafo))
+    camino = Pila()
+    aux = grafo.inicio
+    while(aux is not None):
+        if(aux.info == origen):
+            arribo_h(no_visitados, [aux, None], 0)
+        else:
+            arribo_h(no_visitados, [aux, None], inf)
+        aux = aux.sig
+
+    while(not heap_vacio(no_visitados)):
+        dato = atencion_h(no_visitados)
+        apilar(camino, dato)
+        aux = dato[1][0].adyacentes.inicio
+        while(aux is not None):
+            pos = buscar_h(no_visitados, aux.destino)
+            if(no_visitados.vector[pos][0] > dato[0] + aux.info):
+                no_visitados.vector[pos][1][1] = dato[1][0].info
+                cambiar_prioridad(no_visitados, pos, dato[0] + aux.info)
+            aux = aux.sig
+    return camino
+
+
+def kruskal(grafo):
+    """Algoritmo de Kruskal para hallar el árbol de expansión mínimo."""
+    bosque = []
+    aristas = Heap(tamanio(grafo) ** 2)
+    aux = grafo.inicio
+    while(aux is not None):
+        bosque.append([aux.info])
+        adyac = aux.adyacentes.inicio
+        while(adyac is not None):
+            arribo_h(aristas, [aux.info, adyac.destino], adyac.info)
+            adyac = adyac.sig
+        aux = aux.sig
+    while(len(bosque) > 1 and not heap_vacio(aristas)):
+        dato = atencion_h(aristas)
+        origen = None
+        for elemento in bosque:
+            if(dato[1][0] in elemento):
+                origen = bosque.pop(bosque.index(elemento))
+                break
+        destino = None
+        for elemento in bosque:
+            if(dato[1][1] in elemento):
+                destino = bosque.pop(bosque.index(elemento))
+                break
+        if(origen is not None and destino is not None):
+            if(len(origen) > 1 and len(destino) == 1):
+                destino = [dato[1][0], dato[1][1]]
+            elif(len(destino) > 1 and len(origen) == 1):
+                origen = [dato[1][0], dato[1][1]]
+            elif(len(destino) > 1 and len(origen) > 1):
+                origen += [dato[1][0], dato[1][1]]
+            bosque.append(origen + destino)
+        else:
+            bosque.append(origen)
+    return bosque[0]
+
+
+def prim(grafo):
+    """Algoritmo de Prim para hallar el árbol de expansión mínimo."""
+    bosque = []
+    aristas = Heap(tamanio(grafo) ** 2)
+    adyac = grafo.inicio.adyacentes.inicio
+    while(adyac is not None):
+        arribo_h(aristas, [grafo.inicio.info, adyac.destino], adyac.info)
+        adyac = adyac.sig
+    while(len(bosque) // 2 < tamanio(grafo) and not heap_vacio(aristas)):
+        dato = atencion_h(aristas)
+        if(len(bosque) == 0 or ((dato[1][0] not in bosque) ^ (dato[1][1] not in bosque))):
+            bosque += dato[1]
+            destino = buscar_vertice(grafo, dato[1][1])
+            adyac = destino.adyacentes.inicio
+            while(adyac is not None):
+                arribo_h(aristas, [destino.info, adyac.destino], adyac.info)
+                adyac = adyac.sig
+    return bosque
+
+
 g = Grafo(False)
 
 insertar_vertice(g, 'A')
@@ -238,9 +323,9 @@ ori = buscar_vertice(g, 'J')
 des = buscar_vertice(g, 'W')
 insertar_arista(g, 13, ori, des)
 
-# ori = buscar_vertice(g, 'W')
-# des = buscar_vertice(g, 'F')
-# insertar_arista(g, 33, ori, des)
+ori = buscar_vertice(g, 'W')
+des = buscar_vertice(g, 'F')
+insertar_arista(g, 33, ori, des)
 
 ori = buscar_vertice(g, 'F')
 des = buscar_vertice(g, 'B')
@@ -256,3 +341,30 @@ print()
 print('amplitud')
 ori = buscar_vertice(g, 'F')
 barrido_amplitud(g, ori)
+print()
+
+print('dijkstra')
+camino_mas_corto = dijkstra(g, 'A', 'J')
+fin = 'Z'
+peso_total = None
+while(not pila_vacia(camino_mas_corto)):
+    dato = desapilar(camino_mas_corto)
+    if(peso_total is None and fin == dato[1][0].info):
+        peso_total = dato[0]
+    if(fin == dato[1][0].info):
+        print(dato[1][0].info)
+        fin = dato[1][1]
+print('peso total:', peso_total)
+
+print()
+print('prim')
+bosque = prim(g)
+
+for i in range(0, len(bosque), 2):
+    print(bosque[i], bosque[i+1])
+
+print()
+print('kruskal')
+bosque = kruskal(g)
+for i in range(0, len(bosque), 2):
+    print(bosque[i], bosque[i+1])

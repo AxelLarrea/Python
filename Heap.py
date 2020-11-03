@@ -30,7 +30,7 @@ def quitar(heap):
 
 def flotar(heap, indice):
     """Flota el elemento en la posición índice."""
-    while(indice > 0 and heap.vector[indice] > heap.vector[(indice - 1) // 2]):
+    while(indice > 0 and heap.vector[indice][0] < heap.vector[(indice - 1) // 2][0]):
         #print('flotando', heap.vector[indice])
         padre = (indice - 1) // 2
         intercambio(heap.vector, indice, padre)
@@ -46,10 +46,9 @@ def hundir(heap, indice):
         hijo_der = hijo_izq + 1
         aux = hijo_izq
         if(hijo_der < heap.tamanio):
-            if heap.vector[hijo_der] > heap.vector[hijo_izq]:
+            if heap.vector[hijo_der][0] < heap.vector[hijo_izq][0]:
                 aux = hijo_der
-
-        if (heap.vector[indice] < heap.vector[aux]):
+        if (heap.vector[indice][0] > heap.vector[aux][0]):
             #print('se hundio')
             intercambio(heap.vector, indice, aux)
             indice = aux
@@ -57,7 +56,6 @@ def hundir(heap, indice):
             #print('luego de hundir', heap.vector)
         else:
             control = False
-        
 
 
 def cantidad_elementos(heap):
@@ -80,6 +78,7 @@ def monticulizar(heap):
     for i in range(len(heap.vector)):
         flotar(heap, i)
 
+
 def heapsort(heap):
     """Método de ordenamiento heapsort."""
     aux = heap.tamanio
@@ -88,6 +87,8 @@ def heapsort(heap):
     heap.tamanio = aux
 
 # Cola de prioridad
+
+
 def arribo(heap, dato, prioridad):
     """Arriba el dato a la cola utilizando prioridad."""
     agregar(heap, [prioridad, dato])
@@ -102,10 +103,18 @@ def cambiar_prioridad(heap, indice, prioridad):
     """Cambia la prioridad de un elemento y lo acomoda en el montículo."""
     prioridad_anterior = heap.vector[indice][0]
     heap.vector[indice][0] = prioridad
-    if(prioridad > prioridad_anterior):
+    if(prioridad < prioridad_anterior):
         flotar(heap, indice)
-    elif(prioridad < prioridad_anterior):
+    elif(prioridad > prioridad_anterior):
         hundir(heap, indice)
+
+
+def buscar(heap, buscado):
+    pos = -1
+    for i in range(len(heap.vector)):
+        if(heap.vector[i][1][0].info == buscado):
+            pos = i
+    return pos
 
 # from random import randint
 # nombre = ['ana', 'juan', 'walter', 'tito', 'julieta']
