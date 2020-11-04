@@ -2,6 +2,8 @@ from Listas_de_listas import busqueda, barrido, tamanio, lista_vacia
 from Listas_de_listas import Lista, barrido_con_sublista, nodoLista, insertar, eliminar
 from random import randint
 '''
+
+
 #Ejercicio 1
 
 lista = Lista()
@@ -13,6 +15,8 @@ while (tamanio(lista) < randint(0, 20)):
 barrido(lista)
 print()
 print('La cantidad de elementos de la lista es:', tamanio(lista))
+
+
 
 #Ejercicio 2
 
@@ -49,6 +53,8 @@ while(dato is not None):
 print('Datos de la lista sin vocales:')
 barrido(lista)
 
+
+
 #Ejercicio 3
 
 lista = Lista()
@@ -84,6 +90,8 @@ print()
 print('Lista impar: ')
 barrido(lista_impar)
 
+
+
 #Ejercicio 4
 
 lista = Lista()
@@ -114,6 +122,8 @@ if (pos >= 0 and pos <= tamanio(lista)):
 barrido(lista)
 print('El tamaño de la lista es:', tamanio(lista))
 
+
+
 #Ejercicio 5
 
 lista = Lista()
@@ -137,6 +147,8 @@ while (aux is not None):
     cont = 0
 print('Lista sin números primos: ')
 barrido(lista)
+
+
 
 #Ejercicio 6
 
@@ -199,6 +211,8 @@ while (aux is not None):
     aux = aux.sig
 print('Marvel tiene un total de', marvel,'héroes/heroínas')
 print('DC tiene un total de', dc,'héroes/heroínas')
+
+
 
 #Ejercicio 7
 
@@ -263,6 +277,8 @@ while aux2 is not None:
     print('Contenido del nodo a eliminar:', dato)
     eliminar(lista2, dato)
     aux2 = aux2.sig
+
+
 
 #Ejercicio 9
 
@@ -336,6 +352,8 @@ while aux is not None:
     aux = aux.sig
     print()
 
+
+
 #Ejercicio 10
 
 top = ['Harry Styles - Watermelon Sugar','One Direction - You & I','Niall Horan - On The Loose','One Direction - History','One Direction - Little Things'
@@ -401,4 +419,4 @@ while not opcion == 0:
         for i in range(0, 40):
             print(i+1,'-',top[i])
     opcion = int(input('Ingrese una de las siguientes opciones: 1 = TOP 5, 2 = TOP10, 3 = TOP40, 0 = SALIR'))
-    '''
+'''

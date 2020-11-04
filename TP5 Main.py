@@ -5,6 +5,8 @@ from Tablas_Hash import buscar_ta, quitar_ta, bernstein_catedra, hash_diccionari
 from Tablas_Hash import agregar_tc, buscar_tc, quitar_tc
 
 '''
+
+
 #Ejercicio 1
 
 class Palabra(object):
@@ -38,6 +40,8 @@ for i in tabla:
     if i is not None:
         barrido(i)
 
+
+
 #Ejercicio 2
 
 class Guia(object):
@@ -65,6 +69,8 @@ print()
 for i in tabla:
     if i is not None:
         barrido(i)
+
+
 
 #Ejercicio 3
 
@@ -103,6 +109,44 @@ if(posicion is not None):
 
 for catedra in tabla:
     print(catedra)
+
+
+
+#Ejercicio 6
+
+letras = ['FL', 'TF', 'TK', 'CT', 'FN', 'FO']
+tabla_legion = crear_tabla(10)
+tabla_codigos = crear_tabla(1000)
+class Stormtrooper(object):
+    def __init__(self, legion, codigo):
+        self.legion = legion
+        self.codigo = codigo
+    
+    def __str__(self):
+        return self.legion+' '+str(self.codigo)
+for i in range(1,2000):
+    legion = choice(letras)
+    codigo = randint(1000, 9999)
+    trooper = Stormtrooper(legion, codigo)
+    agregar_ta(tabla_legion, bernstein_troopers, trooper, 'legion')
+    agregar_ta(tabla_codigos, hash_division_troopers, trooper, 'codigo')
+posicion = bernstein('FN', tabla_legion)
+if(tabla_legion[posicion]):
+    barrido(tabla_legion[posicion])
+print()
+posicion = bernstein('CT', tabla_legion)
+if(tabla_legion[posicion]):
+    barrido(tabla_legion[posicion])
+print()
+posicion = hash_division(537, tabla_codigos)
+if(tabla_codigos[posicion]):
+    barrido(tabla_codigos[posicion])
+print()
+posicion = hash_division(781, tabla_codigos)
+if(tabla_codigos[posicion]):
+    barrido(tabla_codigos[posicion])
+
+
 
 #Ejercicio 9
 
@@ -158,37 +202,6 @@ print(msj)
 
 #print(valor.info.significado)
 
-#Ejercicio 6
 
-letras = ['FL', 'TF', 'TK', 'CT', 'FN', 'FO']
-tabla_legion = crear_tabla(10)
-tabla_codigos = crear_tabla(1000)
-class Stormtrooper(object):
-    def __init__(self, legion, codigo):
-        self.legion = legion
-        self.codigo = codigo
-    
-    def __str__(self):
-        return self.legion+' '+str(self.codigo)
-for i in range(1,2000):
-    legion = choice(letras)
-    codigo = randint(1000, 9999)
-    trooper = Stormtrooper(legion, codigo)
-    agregar_ta(tabla_legion, bernstein_troopers, trooper, 'legion')
-    agregar_ta(tabla_codigos, hash_division_troopers, trooper, 'codigo')
-posicion = bernstein('FN', tabla_legion)
-if(tabla_legion[posicion]):
-    barrido(tabla_legion[posicion])
-print()
-posicion = bernstein('CT', tabla_legion)
-if(tabla_legion[posicion]):
-    barrido(tabla_legion[posicion])
-print()
-posicion = hash_division(537, tabla_codigos)
-if(tabla_codigos[posicion]):
-    barrido(tabla_codigos[posicion])
-print()
-posicion = hash_division(781, tabla_codigos)
-if(tabla_codigos[posicion]):
-    barrido(tabla_codigos[posicion])
+
 '''

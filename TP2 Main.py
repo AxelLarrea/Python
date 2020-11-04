@@ -6,6 +6,8 @@ from Pilas import Pila, Pila_Llena, Pila_Vacia, Desapilar, Apilar
 from random import randint
 
 '''
+
+
 #Ejercicio 1
 
 pila = Pila()
@@ -22,6 +24,8 @@ while not Pila_Vacia(pila):
     if(x == y):
         Total += 1
 print('El total de ocurrencias es: ', Total)
+
+
 
 #Ejercicio 2
 
@@ -53,6 +57,7 @@ while not Pila_Vacia(pilaimpar):
     print(x)
 
 
+
 #Ejercicio 3
 
 pila = Pila()
@@ -81,6 +86,8 @@ while not Pila_Vacia(pila_aux):
     z = Desapilar(pila_aux)
     print(z)
 
+
+
 #Ejercicio 4
 
 pila = Pila()
@@ -94,6 +101,8 @@ while not Pila_Vacia(pila):
     x = Desapilar(pila)
     print(x)
     Apilar(pila_aux, x)
+
+
 
 #Ejercicio 5
 
@@ -127,7 +136,8 @@ if (status == True):
 else:
     print('No es palindromo')
 
-'''
+
+
 #Ejercicio 6
 
 pila = Pila()
@@ -140,7 +150,8 @@ while not Pila_Vacia(pila):
     x = Desapilar(pila)
     print(x)
 
-'''
+
+
 #Ejercicio 7
 
 pila = Pila()
@@ -157,6 +168,8 @@ while not Pila_Vacia(pila):
     x = Desapilar(pila)
     print(x)
 
+
+
 #Ejercicio 8
 
 #a) Crear los mazos
@@ -170,6 +183,8 @@ while(tamanio(mazo)<40):
 
 while(not pila_vacia(mazo)):
     print(desapilar(mazo))
+
+
 
 #Ejercicio 9
 
@@ -188,6 +203,8 @@ while not Pila_Vacia(pila):
     print(dato)
 
 print ('El factorial es:', fact)
+
+
 
 #Ejercicio 10
 
@@ -208,6 +225,8 @@ while not pila_vacia(pila):
     x = desapilar(pila)
     print(x)
 
+
+
 #Ejercicio 11
 
 pila = Pila()
@@ -223,6 +242,8 @@ while not pila_vacia(pila):
         cont += 1
 
 print('Hay una cantidad total de', cont, 'vocales')
+
+
 
 #Ejercicio 12
 
@@ -244,6 +265,8 @@ if (status == True):
     print('Uno de los dos, o ambos se encuentran en la pila')
 else:
     print('Ninguno está en la pila')
+
+
 
 #Ejercicio 13
 
@@ -273,6 +296,8 @@ while dato != 0:
 while(not pila_vacia(pila)):
     print(desapilar(pila))
 
+
+
 #Ejercicio 15
 
 ep5 = Pila()
@@ -299,6 +324,8 @@ while(not pila_vacia(ep5)):
     while(not pila_vacia(paux)):
         xaux = desapilar(paux)
         apilar(ep7, xaux)
+
+
 
 #Ejercicio 21
 
@@ -337,6 +364,8 @@ while not pila_vacia(pila2):
     if x < media:
         print(x, 'está por debajo de la media')
     apilar(pila, x)
+
+
 
 #Ejercicio 22
 

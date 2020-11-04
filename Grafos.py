@@ -16,10 +16,11 @@ class nodoArista(object):
 class nodoVertice(object):
     """Clase nodo vértice."""
 
-    def __init__(self, info):
+    def __init__(self, info, datos):
         """Crea un nodo vértice con la información cargada."""
         self.info = info
         self.sig = None
+        self.datos = datos
         self.visitado = False
         self.adyacentes = Arista() # lista de aristas
 
@@ -43,9 +44,9 @@ class Arista(object):
         self.tamanio = 0
 
 
-def insertar_vertice(grafo, dato):
+def insertar_vertice(grafo, dato, datos = None):
     """Inserta un vértice al grafo."""
-    nodo = nodoVertice(dato)
+    nodo = nodoVertice(dato, datos)
     if (grafo.inicio is None or grafo.inicio.info > dato):
         nodo.sig = grafo.inicio
         grafo.inicio = nodo
@@ -129,12 +130,13 @@ def eliminar_arista(vertice, destino):
     return x
 
 def barrido_vertices(grafo):
-    """Realiza un barrido de la grafo mostrando sus valores."""
+    """Realiza un barrido del grafo mostrando sus valores."""
     aux = grafo.inicio
     while(aux is not None):
-        print('vertice:', aux.info)
+        print('vertice:', aux.info, aux.datos)
         print('adyacentes:')
         adyacentes(aux)
+        print()
         aux = aux.sig
 
 
@@ -209,6 +211,22 @@ def barrido_amplitud(grafo, vertice):
                         arribo(cola, adyacente)
                     adyacentes = adyacentes.sig
         vertice = vertice.sig
+
+
+def existe_paso(grafo, origen, destino):
+    """Barrido en profundidad del grafo."""
+    resultado = False
+    if(not origen.visitado):
+        origen.visitado = True
+        vadyacentes = origen.adyacentes.inicio
+        while(vadyacentes is not None and not resultado):
+            adyacente = buscar_vertice(grafo, vadyacentes.destino)
+            if(adyacente.info == destino.info):
+                return True
+            elif(not adyacente.visitado):
+                resultado = existe_paso(grafo, adyacente, destino)
+            vadyacentes = vadyacentes.sig
+    return resultado
 
 
 def dijkstra(grafo, origen, destino):
@@ -293,78 +311,78 @@ def prim(grafo):
     return bosque
 
 
-g = Grafo(False)
+# g = Grafo(False)
 
-insertar_vertice(g, 'A')
-insertar_vertice(g, 'B')
-insertar_vertice(g, 'C')
-insertar_vertice(g, 'F')
-insertar_vertice(g, 'Z')
-insertar_vertice(g, 'J')
-insertar_vertice(g, 'W')
+# insertar_vertice(g, 'A')
+# insertar_vertice(g, 'B')
+# insertar_vertice(g, 'C')
+# insertar_vertice(g, 'F')
+# insertar_vertice(g, 'Z')
+# insertar_vertice(g, 'J')
+# insertar_vertice(g, 'W')
 
-ori = buscar_vertice(g, 'A')
-des = buscar_vertice(g, 'C')
-insertar_arista(g, 5, ori, des)
-des = buscar_vertice(g, 'B')
-insertar_arista(g, 15, ori, des)
+# ori = buscar_vertice(g, 'A')
+# des = buscar_vertice(g, 'C')
+# insertar_arista(g, 5, ori, des)
+# des = buscar_vertice(g, 'B')
+# insertar_arista(g, 15, ori, des)
 
-ori = buscar_vertice(g, 'C')
-des = buscar_vertice(g, 'B')
-insertar_arista(g, 15, ori, des)
-des = buscar_vertice(g, 'F')
-insertar_arista(g, 15, ori, des)
+# ori = buscar_vertice(g, 'C')
+# des = buscar_vertice(g, 'B')
+# insertar_arista(g, 15, ori, des)
+# des = buscar_vertice(g, 'F')
+# insertar_arista(g, 15, ori, des)
 
-ori = buscar_vertice(g, 'B')
-des = buscar_vertice(g, 'A')
-insertar_arista(g, 3, ori, des)
+# ori = buscar_vertice(g, 'B')
+# des = buscar_vertice(g, 'A')
+# insertar_arista(g, 3, ori, des)
 
-ori = buscar_vertice(g, 'J')
-des = buscar_vertice(g, 'W')
-insertar_arista(g, 13, ori, des)
+# ori = buscar_vertice(g, 'J')
+# des = buscar_vertice(g, 'W')
+# insertar_arista(g, 13, ori, des)
 
-ori = buscar_vertice(g, 'W')
-des = buscar_vertice(g, 'F')
-insertar_arista(g, 33, ori, des)
+# ori = buscar_vertice(g, 'W')
+# des = buscar_vertice(g, 'F')
+# insertar_arista(g, 33, ori, des)
 
-ori = buscar_vertice(g, 'F')
-des = buscar_vertice(g, 'B')
-insertar_arista(g, 10, ori, des)
-des = buscar_vertice(g, 'Z')
-insertar_arista(g, 19, ori, des)
+# ori = buscar_vertice(g, 'F')
+# des = buscar_vertice(g, 'B')
+# insertar_arista(g, 10, ori, des)
+# des = buscar_vertice(g, 'Z')
+# insertar_arista(g, 19, ori, des)
 
-print('profundidad')
-ori = buscar_vertice(g, 'F')
-barrido_profundidad(g, ori)
-marcar_no_visitado(g)
-print()
-print('amplitud')
-ori = buscar_vertice(g, 'F')
-barrido_amplitud(g, ori)
-print()
+# print('profundidad')
+# ori = buscar_vertice(g, 'F')
+# barrido_profundidad(g, ori)
+# marcar_no_visitado(g)
+# print()
+# print('amplitud')
+# ori = buscar_vertice(g, 'F')
+# barrido_amplitud(g, ori)
+# print()
 
-print('dijkstra')
-camino_mas_corto = dijkstra(g, 'A', 'J')
-fin = 'Z'
-peso_total = None
-while(not pila_vacia(camino_mas_corto)):
-    dato = desapilar(camino_mas_corto)
-    if(peso_total is None and fin == dato[1][0].info):
-        peso_total = dato[0]
-    if(fin == dato[1][0].info):
-        print(dato[1][0].info)
-        fin = dato[1][1]
-print('peso total:', peso_total)
+# print('dijkstra')
+# camino_mas_corto = dijkstra(g, 'A', 'J')
+# fin = 'Z'
+# peso_total = None
+# while(not pila_vacia(camino_mas_corto)):
+#     dato = desapilar(camino_mas_corto)
+#     if(peso_total is None and fin == dato[1][0].info):
+#         peso_total = dato[0]
+#     if(fin == dato[1][0].info):
+#         print(dato[1][0].info)
+#         fin = dato[1][1]
+# print('peso total:', peso_total)
 
-print()
-print('prim')
-bosque = prim(g)
+# print()
+# print('prim')
+# bosque = prim(g)
 
-for i in range(0, len(bosque), 2):
-    print(bosque[i], bosque[i+1])
+# for i in range(0, len(bosque), 2):
+#     print(bosque[i], bosque[i+1])
 
-print()
-print('kruskal')
-bosque = kruskal(g)
-for i in range(0, len(bosque), 2):
-    print(bosque[i], bosque[i+1])
+# print()
+# print('kruskal')
+# bosque = kruskal(g)
+# for i in range(0, len(bosque), 2):
+#     print(bosque[i], bosque[i+1])

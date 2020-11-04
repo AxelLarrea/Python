@@ -4,6 +4,8 @@ from random import randint, choice
 from math import asin, cos, sin, sqrt, radians
 
 '''
+
+
 #Ejercicio 1
 
 cola = Cola()
@@ -24,6 +26,8 @@ while not cola_vacia(cola):
 while not cola_vacia(cola2):
     x = atencion(cola2)   
     print('Lista de letras sin vocales: ', x)
+
+
 
 # Ejercicio 2
 
@@ -48,7 +52,10 @@ while not pila_vacia(pila):
     x = desapilar(pila)
     print(x)
 
+
+
 #Ejercicio 3
+
 cola = Cola()
 cola2 = Cola()
 pila = Pila()
@@ -79,6 +86,8 @@ if (status == True):
 else:
     print('No es palindromo')
 
+
+
 #Ejercicio 4
 
 cola = Cola()
@@ -106,6 +115,8 @@ print('Los datos sin números compuestos: ')
 for i in range(0, tamanio(cola2)):
     print(mover_final(cola2))
 
+
+
 #Ejercicio 5
 
 pila = Pila()
@@ -123,6 +134,8 @@ print('Los datos invertidos son: ')
 while not cola_vacia(cola):
     x = atencion(cola)
     print(x)
+
+
 
 #Ejercicio 6
 
@@ -144,6 +157,8 @@ for i in range (0, tamanio(cola)):
         cont += 1
 
 print('La cantidad de ocurrencias de', c, 'es:', cont )
+
+
 
 #Ejercicio 7
 
@@ -168,6 +183,8 @@ while not (en_frente(cola) == c):
 for i in range (0, tamanio(cola)):
     print(mover_final(cola))
 
+
+
 #Ejercicio 8
 
 cola = Cola()
@@ -187,6 +204,8 @@ for i in range(0, 10):
 print('Elementos de Cola: ')
 for i in range (0, tamanio(cola)):
     print(mover_final(cola))
+
+
 
 #Ejercicio 9
 
@@ -213,6 +232,8 @@ print()
 
 print('El rango es:', rango)
 print('La cantidad de números negativos es:', cant)
+
+
 
 #Ejercicio 10
 
@@ -276,6 +297,8 @@ print('Los elementos de la cola son: ')
 
 for i in range(0, tamanio(cola)):
     print(mover_final(cola))
+
+
 
 #Ejercicio 11
 
@@ -351,6 +374,8 @@ print('Elementos de la nueva cola: ')
 for i in range (0, tamanio(cola)):
         print(mover_final(cola))
 
+
+
 #Ejercicio 12
 
 cola = Cola()
@@ -401,6 +426,9 @@ if(existe == False):
     print('Los caracteres no existen')
 else:
     print('El/los caracteres si existen')
+
+
+
 '''
 #Ejercicio 14
 
@@ -443,6 +471,9 @@ while not cola_vacia(cola):
 
 print('La base más cercana llamada', name, 'está a: ', cercana,'metros de distancia')
 print('Distancia a la base con mayor flota aerea:', distancia)
+
+
+
 '''
 #Ejercicio 19
 

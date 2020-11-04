@@ -1,4 +1,7 @@
 '''
+
+
+
 #Ejercicio 1 "Fibonacci"
 
 # n = int(input('Ingrese cuantos números de la sucesión quiere ver: '))
@@ -23,6 +26,7 @@ def FibonacciRec(num):
         
 num = int(input('Ingrese la posición del número: '))
 print(FibonacciRec(num))
+
 
 
 #Ejercicio 2
@@ -52,6 +56,7 @@ def SumatoriaRec(num):
 print(SumatoriaRec(num))
 
 
+
 #Ejercicio 3
 
 # n1 = int(input('Ingrese su primer número: '))
@@ -69,6 +74,8 @@ def ProductoRec(num1, num2):
         return num1 + ProductoRec(num1, num2 - 1)
 
 print('El producto es: ', ProductoRec(n1, n2))
+
+
 
 #Ejercicio 4
 
@@ -89,6 +96,7 @@ def PotenciaRec(num1, num2):
 print('La potencia es: ', PotenciaRec(n1, n2))
 
 
+
 #Ejercicio 5
 
 cadena = input('Ingrese la palabra o número a invertir: ')
@@ -101,6 +109,7 @@ def InvertirRec(cadena, ind):
         return cadena[ind - 1] + InvertirRec(cadena, ind -1)
 
 print(InvertirRec(cadena, ind))
+
 
 
 #Ejercicio 6
@@ -116,6 +125,7 @@ def SerieRec(num):
 print(SerieRec(num))
 
 
+
 #Ejercicio 7
 
 num = int(input('Ingrese el número a transformar en binario: '))
@@ -127,6 +137,7 @@ def BinarioRec(num):
         return BinarioRec(num // 2) + (str(num % 2))
 
 print(BinarioRec(num))
+
 
 
 #Ejercicio 8
@@ -143,6 +154,7 @@ def LogaritmoRec(base, num):
 print('El logaritmo es: ', LogaritmoRec(base, num))
 
 
+
 #Ejercicio 9
 
 num = int(input('Ingrese el número a ser contado: '))
@@ -155,6 +167,8 @@ def ContadorRec(num):
 
 print('La cantidad de dígitos es: ', str(ContadorRec(num)))
 
+
+
 #Ejercicio 10
 
 numero = int(input('Ingrese el número a invertir: '))
@@ -166,6 +180,8 @@ def invertir(numero):
         return (numero % 10) * (10 ** (len(str(numero))-1)) + invertir(numero//10)
 
 print('El número invertido es: ', invertir(numero))
+
+
 
 #Ejercicio 11
 
@@ -180,6 +196,8 @@ def mcdRec(m, n):
 
 print('El M.C.D es: ', mcdRec(m, n))
 
+
+
 #Ejercicio 12
 
 m = int(input('Ingrese el primer número: '))
@@ -193,6 +211,8 @@ def mcmRec(m, n):
 
 print('El M.C.M es: ', mcmRec(m, n))
 
+
+
 #Ejercicio 13
 
 n = int(input('Ingrese el número deseado: '))
@@ -204,6 +224,8 @@ def sumdigRec(n):
         return n % 10 + sumdigRec(n//10)
  
 print('La suma de los dígitos es:', sumdigRec(n))
+
+
 
 #Ejercicio 14
 
@@ -223,6 +245,8 @@ def raizC(num):
 
 print('El resultado es:', raizC(num))
 
+
+
 #Ejercicio 15
 
 termino = int(input('Ingrese el termino mayor a 0 a calcular: '))
@@ -236,6 +260,8 @@ def suc_geo(termino):
 for i in range(1, termino + 1):
     print('Valor en el término', i, ':', suc_geo(i))
 
+
+
 #Ejercicio 16
 
 def barrido(vec):
@@ -248,6 +274,8 @@ def barrido(vec):
 vec = [1,2,3,4]
 
 print(barrido(vec))
+
+
 
 #Ejercicio 17
 
@@ -272,6 +300,8 @@ for i in range(0, len(mat)):
     for j in range(0, len(mat[i])):
         print(barrido_matriz(mat, i, j))
 
+
+
 #Ejercicio 18
 
 num = int(input('Ingrese el termino deseado mayor a 0 : '))
@@ -283,7 +313,6 @@ def sucesionRec(num):
         return num + (1 / sucesionRec(num - 1))
 
 print('El valor de la sucesion es:', sucesionRec(num))
-
 
 
 
@@ -348,73 +377,86 @@ def derribado(vec, aux, pos):
 print(derribado(troopers, aux, pos))
 
 
+
 #Ejercicio 22
 
 def matriz_laberinto(i, j, mat):
     tam = len(mat)
-    if i == tam-1 and j == tam-1:
-        return 'Salio del laberinto'
+    if (i == tam-1):
+        if (i == tam-1 and j == tam-1):
+            print('Salida del laberinto')
+        elif mat[i][j+1] == 0:
+            print('derecha')
+            mat[i][j] = 1
+            return matriz_laberinto(i, j+1, mat)
+        else:
+            if mat[i-1][j] == 0:
+                print('arriba')
+                mat[i][j] = 1
+                return matriz_laberinto(i-1, j, mat)
+            else:
+                print('Salida del laberinto')
+    elif (j == tam-1):
+        if mat[i+1][j] == 0:
+            print('abajo')
+            mat[i][j] = 1
+            return matriz_laberinto(i+1, j, mat)
+        else:
+            if mat[i][j-1] == 0:
+                print('izquierda')
+                mat[i][j] = 1
+                return matriz_laberinto(i, j-1, mat)
+            else:
+                print('Salida del laberinto')
     else:
-        if i == tam-1:
-            if mat[i][j+1] == 0:
+        if mat[i+1][j] == 0:
+            print('abajo')
+            mat[i][j] = 1
+            return matriz_laberinto(i+1, j, mat)
+        else:
+            if mat[i][j+1] == 0:                   
                 print('derecha')
+                mat[i][j] = 1
                 return matriz_laberinto(i, j+1, mat)
             else:
                 if mat[i-1][j] == 0:
                     print('arriba')
                     mat[i][j] = 1
                     return matriz_laberinto(i-1, j, mat)
-        else:
-            if j == tam-1:
-                if mat[i+1][j] == 0:
-                    print('abajo')
-                    return matriz_laberinto(i+1, j, mat)
-                else:
-                    if mat[i][j-1] == 0:
-                        print('izquierda')
-                        mat[i][j] = 1
-                        return matriz_laberinto(i, j-1, mat)
-            else:
-                if mat[i+1][j] == 0:
-                    print('arriba')
-                    return matriz_laberinto(i+1, j, mat)
-                else:
-                    if mat[i][j+1] == 0:
-                        print('derecha')
-                        return matriz_laberinto(i, j+1, mat)
-                    else:
-                        # mat[i][j] = 1
-                        if mat[i-1][j] == 0:
-                            print('arriba')
-                            return matriz_laberinto(i-1, j, mat)
+                elif (mat[i][j-1] == 0):
+                    print('izquierda')
+                    mat[i][j] = 1
+                    return matriz_laberinto(i, j-1, mat)
 
-mat = [[0,1,1], 
-       [0,1,0], 
-       [0,0,0], 
-       [1,1,0]]
+# Hacer manualmente la matriz cuadrada (si o si cuadrada)
+
+mat = [[0,1,1,1,1], 
+       [0,0,0,1,1], 
+       [1,1,0,1,1],
+       [1,1,0,0,0],
+       [1,1,1,1,0]]
 
 matriz_laberinto(0, 0, mat)
 
 
-'''
+
 #Ejercicio 23
 
-def torre_hanoi(discos, aguja1, aguja2, aguja3, cont):
-    if (discos <= 0):
-        print('Listo. La cantidad de movimientos fueron:', cont)
-    else:
-        torre_hanoi(discos-1, aguja1, aguja3, aguja2, cont+1)
-        #print('Se mueve de aguja1 a aguja3')
-        torre_hanoi(discos-1, aguja2, aguja1, aguja3, cont+1)
+def torre_hanoi(discos, aguja1, aguja2, aguja3):
+    if (discos > 0):
+        torre_hanoi(discos-1, aguja1, aguja3, aguja2)
+        print('Se mueve de', aguja1,  'a', aguja3)
+        torre_hanoi(discos-1, aguja2, aguja1, aguja3)
 
-cont = 0
-aguja1 = 10
-aguja2, aguja3 = 0, 0
-discos = 10
-torre_hanoi(discos, aguja1, aguja2, aguja3, cont)
-print('A1:', aguja1,'A2:', aguja2, 'A3:', aguja3)
 
-'''
+aguja1 = '1'
+aguja2 = '2'
+aguja3 = '3'
+discos = 74
+torre_hanoi(discos, aguja1, aguja2, aguja3)
+
+
+
 #Ejercicio 24
 
 termino = int(input('Ingrese el término de la sucesión que desee ver: '))
@@ -427,15 +469,20 @@ def sucesiongeo(termino):
 
 print('El resultado es: ', sucesiongeo(termino))
 
+
+
 #Ejercicio 25
 
-num = int(input('Ingrese el termino a calcular: '))
+num = int(input('Ingrese el termino a calcular (numero mayor a cero): '))
 
 def suc_rec(num):
     if num == 1:
         return 3
-    else:
+    elif num >= 2:
         return (2*num) + suc_rec(num - 1)
+    else:
+        return 'Error'
 
 print('El resultado es:', suc_rec(num))
 '''
+
