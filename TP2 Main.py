@@ -2,7 +2,7 @@
 from Pila_Dinamico import Pila, apilar, desapilar, pila_vacia, cima, tamanio
 from random import choice
 
-from Pilas import Pila, Pila_Llena, Pila_Vacia, Desapilar, Apilar
+#from Pilas import Pila, Pila_Llena, Pila_Vacia, Desapilar, Apilar
 from random import randint
 
 '''
@@ -324,6 +324,83 @@ while(not pila_vacia(ep5)):
     while(not pila_vacia(paux)):
         xaux = desapilar(paux)
         apilar(ep7, xaux)
+
+
+
+#Ejercicio 17
+
+P1 = Pila()
+P2 = Pila()
+P3 = Pila()
+
+parrafo = 'Dado un parrafo que finaliza en punto, separar dicho parrafo en 3 pilas: vocales, consonantes y otros caracteres que no sean letras'
+vocales = 'AEIOUaeiou'
+consonantes = 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ'
+numeros = '1234567890'
+c1 = 0
+
+for caracter in parrafo:
+    if (caracter in vocales):
+        apilar(P1, caracter)
+    elif (caracter in consonantes):
+        apilar(P2, caracter)
+    else:
+        apilar(P3, caracter)
+
+#A Cantidad de caracteres que hay de cada tipo (vocales, consonantes y otros).
+
+print('Cantidad de vocales en el parrafo:',tamanio(P1))
+print('Cantidad de consonantes en el parrafo:',tamanio(P2))
+print('Cantidad de otros caracteres en el parrafo:',tamanio(P3))
+
+#B Cantidad de espacios en blanco.
+
+aux = Pila()
+while not pila_vacia(P3):
+    x = desapilar(P3)
+    if x == ' ':
+        c1 += 1
+    apilar(aux, x)
+
+print('Cantidad de espacios en blanco:',c1)
+
+#C Porcentaje que representan las vocales respecto de las consonantes sobre el total de caracteres del párrafo.
+
+total = tamanio(P1) + tamanio(P2) + tamanio(aux)
+
+print('Porcentaje de vocales sobre el total de caracteres del párrafo:', (tamanio(P1)*100)/total,'%')
+print('Porcentaje de consonantes sobre el total de caracteres del párrafo:', (tamanio(P2)*100)/total,'%')
+
+#D Cantidad de números.
+
+c2 = 0
+while not pila_vacia(aux):
+    x = desapilar(aux)
+    if x in numeros:
+        c2 += 1
+    apilar(P3, x)
+
+print('Cantidad de números en el párrafo:',c2)
+
+#E Determinar si la cantidad de vocales y otros caracteres son iguales.
+
+if tamanio(P1) == tamanio(P3):
+    print('Hay la misma cantidad de vocales y otros caracteres')
+else:
+    print('No hay la misma cantidad de vocales y otros caracteres')
+
+#F Determinar si existe al menos una z en la pila de consonantes.
+
+existe = False
+while not pila_vacia(P2):
+    x = desapilar(P2)
+    if x == 'z' or x == 'Z':
+        existe = True
+
+if existe:
+    print('Hay al menos una letra Z en el párrafo')
+else:
+    print('No hay letra Z en el párrafo')
 
 
 
