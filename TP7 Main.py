@@ -1,10 +1,11 @@
 from Grafos import Grafo, grafo_vacio, insertar_vertice, buscar_vertice, insertar_arista, barrido_vertices, tamanio, adyacentes, existe_paso
+from Grafos import barrido_amplitud, barrido_profundidad, marcar_no_visitado, dijkstra, prim
 from Heap import Heap, heap_vacio, arribo as arribo_h, atencion as atencion_h, buscar as buscar_h, cambiar_prioridad
 from Pila_Dinamico import Pila, apilar, pila_vacia, desapilar
 from math import inf
 
 
-
+'''
 #Ejercicio 1
 
 g = Grafo(False)
@@ -158,5 +159,137 @@ for elemento in lista:
         while not pila_vacia(pilita):
             x = desapilar(pilita)
             print(x[1][0].info, x[1][0].adyacentes.inicio.info)
+'''
 
+#Ejercicio 2
 
+#H Utilizar grafo no dirigido.
+
+g = Grafo(False)
+
+#A Cada nodo tiene el nombre y el tipo.
+
+insertar_vertice(g, 'Ubuntu', 'PC')
+insertar_vertice(g, 'Debian', 'Notebook')
+insertar_vertice(g, 'Switch 1', 'Switch')
+insertar_vertice(g, 'Impresora', 'Impresora')
+insertar_vertice(g, 'Mint', 'PC')
+insertar_vertice(g, 'Router 1', 'Router')
+insertar_vertice(g, 'Router 2', 'Router')
+insertar_vertice(g, 'Router 3', 'Router')
+insertar_vertice(g, 'Red Hat', 'Notebook')
+insertar_vertice(g, 'Guarani', 'Servidor')
+insertar_vertice(g, 'Switch 2', 'Switch')
+insertar_vertice(g, 'Manjaro', 'PC')
+insertar_vertice(g, 'Parrot', 'PC')
+insertar_vertice(g, 'Fedora', 'PC')
+insertar_vertice(g, 'Arch', 'Notebook')
+insertar_vertice(g, 'MongoDB', 'Servidor')
+
+# print('Listado de vértices')
+# barrido_vertices(g)
+# print()
+
+#Carga de aristas desde Switch 1
+ori = buscar_vertice(g, 'Switch 1')
+des = buscar_vertice(g, 'Debian')
+insertar_arista(g, 17, ori, des)
+des = buscar_vertice(g, 'Ubuntu')
+insertar_arista(g, 18, ori, des)
+des = buscar_vertice(g, 'Impresora')
+insertar_arista(g, 22, ori, des)
+des = buscar_vertice(g, 'Mint')
+insertar_arista(g, 80, ori, des)
+des = buscar_vertice(g, 'Router 1')
+insertar_arista(g, 29, ori, des)
+
+#Carga de aristas desde Router 1
+ori = buscar_vertice(g, 'Router 1')
+des = buscar_vertice(g, 'Router 2')
+insertar_arista(g, 37, ori, des)
+des = buscar_vertice(g, 'Router 3')
+insertar_arista(g, 43, ori, des)
+
+#Carga de aristas desde Router 2
+ori = buscar_vertice(g, 'Router 2')
+des = buscar_vertice(g, 'Router 3')
+insertar_arista(g, 50, ori, des)
+des = buscar_vertice(g, 'Red Hat')
+insertar_arista(g, 25, ori, des)
+des = buscar_vertice(g, 'Guarani')
+insertar_arista(g, 9, ori, des)
+
+#Carga de aristas desde Switch 2
+ori = buscar_vertice(g, 'Switch 2')
+des = buscar_vertice(g, 'Router 3')
+insertar_arista(g, 61, ori, des)
+des = buscar_vertice(g, 'Manjaro')
+insertar_arista(g, 40, ori, des)
+des = buscar_vertice(g, 'Parrot')
+insertar_arista(g, 12, ori, des)
+des = buscar_vertice(g, 'MongoDB')
+insertar_arista(g, 5, ori, des)
+des = buscar_vertice(g, 'Arch')
+insertar_arista(g, 56, ori, des)
+des = buscar_vertice(g, 'Fedora')
+insertar_arista(g, 3, ori, des)
+
+# print('Listado de vértices y aristas')
+# barrido_vertices(g)
+# print()
+
+#B Realizar barrido en profundidad y amplitud desde las tres netbooks
+
+print('Barrido en profundidad desde Debian: ')
+
+ori = buscar_vertice(g, 'Debian')
+barrido_profundidad(g, ori)
+print()
+marcar_no_visitado(g)
+
+print('Barrido en amplitud desde Debian: ')
+ori = buscar_vertice(g, 'Debian')
+barrido_amplitud(g, ori)
+print()
+marcar_no_visitado(g)
+
+print('Barrido en profundidad desde Red Hat: ')
+
+ori = buscar_vertice(g, 'Red Hat')
+barrido_profundidad(g, ori)
+print()
+marcar_no_visitado(g)
+
+print('Barrido en amplitud desde Red Hat: ')
+ori = buscar_vertice(g, 'Red Hat')
+barrido_amplitud(g, ori)
+print()
+marcar_no_visitado(g)
+
+print('Barrido en profundidad desde Arch: ')
+
+ori = buscar_vertice(g, 'Arch')
+barrido_profundidad(g, ori)
+print()
+marcar_no_visitado(g)
+
+print('Barrido en amplitud desde Arch: ')
+ori = buscar_vertice(g, 'Arch')
+barrido_amplitud(g, ori)
+print()
+marcar_no_visitado(g)
+
+#C encontrar el camino más corto para enviar a imprimir un documento desde la pc: Manjaro, Red Hat, Fedora hasta la impresora.
+
+ori = buscar_vertice(g, 'Manjaro')
+des = buscar_vertice(g, 'Impresora')
+caminito = dijkstra(g, ori, des)
+fin = 'Impresora'
+peso_total = None
+print('Camino más corto desde Manjaro: ')
+while not pila_vacia(caminito):
+    x = desapilar(caminito)
+    if(fin == x[1][0].info):
+        break
+    else:
+        print(x[1][0].info, x[1][0].adyacentes.inicio.info)
