@@ -1,5 +1,5 @@
 from Grafos import Grafo, grafo_vacio, insertar_vertice, buscar_vertice, insertar_arista, barrido_vertices, tamanio, adyacentes, existe_paso
-from Grafos import barrido_amplitud, barrido_profundidad, marcar_no_visitado, dijkstra, prim
+from Grafos import barrido_amplitud, barrido_profundidad, marcar_no_visitado, dijkstra, prim, eliminar_arista
 from Heap import Heap, heap_vacio, arribo as arribo_h, atencion as atencion_h, buscar as buscar_h, cambiar_prioridad
 from Pila_Dinamico import Pila, apilar, pila_vacia, desapilar
 from math import inf
@@ -159,7 +159,8 @@ for elemento in lista:
         while not pila_vacia(pilita):
             x = desapilar(pilita)
             print(x[1][0].info, x[1][0].adyacentes.inicio.info)
-'''
+
+
 
 #Ejercicio 2
 
@@ -279,17 +280,220 @@ barrido_amplitud(g, ori)
 print()
 marcar_no_visitado(g)
 
-#C encontrar el camino más corto para enviar a imprimir un documento desde la pc: Manjaro, Red Hat, Fedora hasta la impresora.
+#C Encontrar el camino más corto para enviar a imprimir un documento desde la pc: Manjaro, Red Hat, Fedora hasta la impresora.
 
-ori = buscar_vertice(g, 'Manjaro')
-des = buscar_vertice(g, 'Impresora')
-caminito = dijkstra(g, ori, des)
+caminito = dijkstra(g, 'Manjaro', 'Impresora')
 fin = 'Impresora'
 peso_total = None
 print('Camino más corto desde Manjaro: ')
-while not pila_vacia(caminito):
-    x = desapilar(caminito)
-    if(fin == x[1][0].info):
-        break
-    else:
-        print(x[1][0].info, x[1][0].adyacentes.inicio.info)
+while(not pila_vacia(caminito)):
+    dato = desapilar(caminito)
+    if(peso_total is None and fin == dato[1][0].info):
+        peso_total = dato[0]
+    if(fin == dato[1][0].info):
+        print(dato[1][0].info)
+        fin = dato[1][1]
+print('El camino tiene un peso total de:', peso_total)
+print()
+marcar_no_visitado(g)
+
+caminito = dijkstra(g, 'Red Hat', 'Impresora')
+fin = 'Impresora'
+peso_total = None
+print('Camino más corto desde Red Hat: ')
+while(not pila_vacia(caminito)):
+    dato = desapilar(caminito)
+    if(peso_total is None and fin == dato[1][0].info):
+        peso_total = dato[0]
+    if(fin == dato[1][0].info):
+        print(dato[1][0].info)
+        fin = dato[1][1]
+print('El camino tiene un peso total de:', peso_total)
+print()
+marcar_no_visitado(g)
+
+caminito = dijkstra(g, 'Fedora', 'Impresora')
+fin = 'Impresora'
+peso_total = None
+print('Camino más corto desde Fedora: ')
+while(not pila_vacia(caminito)):
+    dato = desapilar(caminito)
+    if(peso_total is None and fin == dato[1][0].info):
+        peso_total = dato[0]
+    if(fin == dato[1][0].info):
+        print(dato[1][0].info)
+        fin = dato[1][1]
+print('El camino tiene un peso total de:', peso_total)
+print()
+marcar_no_visitado(g)
+
+#D Encontrar el árbol de expansión mínimo
+
+print('Árbol de expansión mínimo: ')
+bosque = prim(g)
+
+for i in range(0, len(bosque), 2):
+    print(bosque[i], bosque[i+1])
+print()
+
+#E Determinar desde que PC es el camino más corto hasta el sv Guaraní
+
+min = []
+
+# Dijkstra Parrot
+caminito = dijkstra(g, 'Parrot', 'Guarani')
+fin = 'Guarani'
+peso_total = None
+while(not pila_vacia(caminito)):
+    dato = desapilar(caminito)
+    if(peso_total is None and fin == dato[1][0].info):
+        peso_total = dato[0]
+    if(fin == dato[1][0].info):
+        fin = dato[1][1]
+min = ['Parrot', peso_total] 
+marcar_no_visitado(g)
+
+# Dijkstra Manjaro
+caminito = dijkstra(g, 'Manjaro', 'Guarani')
+fin = 'Guarani'
+peso_total = None
+while(not pila_vacia(caminito)):
+    dato = desapilar(caminito)
+    if(peso_total is None and fin == dato[1][0].info):
+        peso_total = dato[0]
+    if(fin == dato[1][0].info):
+        fin = dato[1][1]
+if (peso_total < min[1]):
+    min = ['Manjaro', peso_total]
+marcar_no_visitado(g)
+
+# Dijkstra Fedora
+caminito = dijkstra(g, 'Fedora', 'Guarani')
+fin = 'Guarani'
+peso_total = None
+while(not pila_vacia(caminito)):
+    dato = desapilar(caminito)
+    if(peso_total is None and fin == dato[1][0].info):
+        peso_total = dato[0]
+    if(fin == dato[1][0].info):
+        fin = dato[1][1]
+if (peso_total < min[1]):
+    min = ['Fedora', peso_total]
+marcar_no_visitado(g)
+
+# Dijkstra Mint
+caminito = dijkstra(g, 'Mint', 'Guarani')
+fin = 'Guarani'
+peso_total = None
+while(not pila_vacia(caminito)):
+    dato = desapilar(caminito)
+    if(peso_total is None and fin == dato[1][0].info):
+        peso_total = dato[0]
+    if(fin == dato[1][0].info):
+        fin = dato[1][1]
+if (peso_total < min[1]):
+    min = ['Mint', peso_total]
+marcar_no_visitado(g)
+
+# Dijkstra Ubuntu
+caminito = dijkstra(g, 'Ubuntu', 'Guarani')
+fin = 'Guarani'
+peso_total = None
+while(not pila_vacia(caminito)):
+    dato = desapilar(caminito)
+    if(peso_total is None and fin == dato[1][0].info):
+        peso_total = dato[0]
+    if(fin == dato[1][0].info):
+        fin = dato[1][1]
+if (peso_total < min[1]):
+    min = ['Ubuntu', peso_total]
+marcar_no_visitado(g)
+
+print('La PC con el camino más corto hasta el server Guaraní es:', min[0], 'con un peso de', min[1])
+print()
+
+#F Indicar que computadora del Switch 1 es el camino más corto hasta el sv MongoDB
+
+mini = []
+
+# Dijkstra Ubuntu
+caminito = dijkstra(g, 'Ubuntu', 'MongoDB')
+fin = 'MongoDB'
+peso_total = None
+while(not pila_vacia(caminito)):
+    dato = desapilar(caminito)
+    if(peso_total is None and fin == dato[1][0].info):
+        peso_total = dato[0]
+    if(fin == dato[1][0].info):
+        fin = dato[1][1]
+mini = ['Ubuntu', peso_total]
+marcar_no_visitado(g)
+
+# Dijkstra Mint
+caminito = dijkstra(g, 'Mint', 'MongoDB')
+fin = 'MongoDB'
+peso_total = None
+while(not pila_vacia(caminito)):
+    dato = desapilar(caminito)
+    if(peso_total is None and fin == dato[1][0].info):
+        peso_total = dato[0]
+    if(fin == dato[1][0].info):
+        fin = dato[1][1]
+if (peso_total < mini[1]):
+    mini = ['Mint', peso_total]
+marcar_no_visitado(g)
+
+print('La PC con el camino más corto hasta el server MongoDB es:', mini[0], 'con un peso de', mini[1])
+print()
+
+#G Cambiar la conexión de la impresora el Router 2 y resolver el punto B nuevamente
+
+
+ori = buscar_vertice(g, 'Impresora')
+des = buscar_vertice(g, 'Switch 1')
+eliminar_arista(g, ori, 'Switch 1')
+# barrido_vertices(g)
+print()
+des = buscar_vertice(g, 'Router 2')
+insertar_arista(g, 50, ori, des)
+# barrido_vertices(g)
+
+print('Barrido en profundidad desde Debian: ')
+
+ori = buscar_vertice(g, 'Debian')
+barrido_profundidad(g, ori)
+print()
+marcar_no_visitado(g)
+
+print('Barrido en amplitud desde Debian: ')
+ori = buscar_vertice(g, 'Debian')
+barrido_amplitud(g, ori)
+print()
+marcar_no_visitado(g)
+
+print('Barrido en profundidad desde Red Hat: ')
+
+ori = buscar_vertice(g, 'Red Hat')
+barrido_profundidad(g, ori)
+print()
+marcar_no_visitado(g)
+
+print('Barrido en amplitud desde Red Hat: ')
+ori = buscar_vertice(g, 'Red Hat')
+barrido_amplitud(g, ori)
+print()
+marcar_no_visitado(g)
+
+print('Barrido en profundidad desde Arch: ')
+
+ori = buscar_vertice(g, 'Arch')
+barrido_profundidad(g, ori)
+print()
+marcar_no_visitado(g)
+
+print('Barrido en amplitud desde Arch: ')
+ori = buscar_vertice(g, 'Arch')
+barrido_amplitud(g, ori)
+print()
+marcar_no_visitado(g)
+'''

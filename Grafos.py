@@ -103,30 +103,39 @@ def eliminar_vertice(grafo, clave):
         aux = grafo.inicio
         while(aux is not None):
             if(aux.adyacentes.inicio is not None):
-                eliminar_arista(aux.adyacentes, clave)
+                quitar_arista(aux.adyacentes, clave)
             aux = aux.sig
         # aca terminar eliminar aristas adyacenes grafo no dirigido
     return x
 
 
-def eliminar_arista(vertice, destino):
-    """Elimina una arsita del vertice y lo devuelve si lo encuentra."""
+def quitar_arista(vertice, destino):
     x = None
-    if(vertice.inicio.destino == destino):
-        x = vertice.inicio.info
-        vertice.inicio = vertice.inicio.sig
-        vertice.tamanio -= 1
+    if(vertice.adyacentes.inicio.destino == destino):
+        x = vertice.adyacentes.inicio.info
+        vertice.adyacentes.inicio = vertice.adyacentes.inicio.sig
+        vertice.adyacentes.tamanio -= 1
     else:
-        ant = vertice.inicio
-        act = vertice.inicio.sig
+        ant = vertice.adyacentes.inicio
+        act = vertice.adyacentes.inicio.sig
         while(act is not None and act.destino != destino):
             ant = act
             act = act.sig
         if (act is not None):
             x = act.info
             ant.sig = act.sig
-            vertice.tamanio -= 1
-    # aca terminar eliminar arista no dirigido
+            vertice.adyacentes.tamanio -= 1
+    return x
+
+
+def eliminar_arista(grafo, vertice, destino):
+    """Elimina una arsita del vertice y lo devuelve si lo encuentra."""
+    x = quitar_arista(vertice, destino)
+
+    if(not grafo.dirigido):
+        ori = buscar_vertice(grafo, destino)
+        quitar_arista(ori, vertice.info)
+
     return x
 
 def barrido_vertices(grafo):
