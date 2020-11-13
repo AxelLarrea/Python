@@ -298,6 +298,43 @@ while(not pila_vacia(pila)):
 
 
 
+#Ejercicio 14
+
+vector = [0,19,9,32,30,17,2,3,99]
+
+def quicksort(vector, pri, ult):
+    pila = Pila()
+    apilar(pila, [pri, ult])
+    datos = []
+    while not pila_vacia(pila):
+        datos = desapilar(pila)
+        i = datos[0]
+        j = datos[1] - 1
+        pivot = datos[1]
+        while (i < j):
+            while (vector[i] <= vector[pivot]) and (i < j):
+                i += 1
+            while (vector[j] > vector[pivot]) and (i < j):
+                j -= 1
+            if (i <= j):
+                aux = vector[i]
+                vector[i] = vector[j]
+                vector[j] = aux
+        if (vector[pivot] < vector[i]):
+            aux = vector[pivot]
+            vector[pivot] = vector[i]
+            vector[i] = aux
+        if (datos[0] < j):
+            apilar(pila, [datos[0], j])
+        if (datos[1] > i):
+            apilar(pila, [i+1, datos[1]])
+
+print('Vector sin ordenar:', vector)
+quicksort(vector, 0, len(vector)-1)
+print('Vector ordenado:', vector)
+
+
+
 #Ejercicio 15
 
 ep5 = Pila()
@@ -327,7 +364,7 @@ while(not pila_vacia(ep5)):
 
 
 
-#Ejercicio 17
+#Ejercicio 16
 
 P1 = Pila()
 P2 = Pila()
@@ -401,6 +438,62 @@ if existe:
     print('Hay al menos una letra Z en el párrafo')
 else:
     print('No hay letra Z en el párrafo')
+
+
+
+#Ejercicio 17
+
+pila = Pila()
+
+objetos = ['Mesa', 'Teclado', 'Silla', 'Computadora', 'Impresora']
+peso = [12, 1, 5, 5, 3]
+
+for i in range(0, 5):
+    apilar(pila, [objetos[i], peso[i]])
+
+Paux = Pila()
+while not pila_vacia(pila):
+    c = 0
+    dato = desapilar(pila)
+    while not pila_vacia(Paux) and cima(Paux)[1] >= dato[1]:
+        apilar(pila, desapilar(Paux))
+        c += 1
+    apilar(Paux, dato)
+    for i in range(0, c):
+        apilar(Paux, desapilar(pila))
+
+while not pila_vacia(Paux):
+    x = desapilar(Paux)
+    print(x)
+
+
+
+#Ejercicio 18
+
+pila = Pila()
+
+pelis = [['Avengers - End Game', 'Marvel Studios', 2019], ['American Pie', 'Universal Pictories', 1999],
+        ['John Wick 3', 'Summit Entertainmetn', 2019], ['Interstellar', 'Legendary Pictures', 2014], 
+        ['Koe no Katachi', 'Kyoto Animation', 2016], ['Captain America - Civil War', 'Marvel Studios', 2016],
+        ['Avengers - Infinity War', 'Marvel Studios', 2018]]
+cont = 0
+
+for i in range (0, len(pelis)):
+    apilar(pila, pelis[i])
+
+while not pila_vacia(pila):
+    x = desapilar(pila)
+    #A Mostrar los nombre películas estrenadas en el año 2014.
+    if (x[2] == 2014):
+        print('Película estrenada en 2014:', x[0])
+    #B Indicar cuántas películas se estrenaron en el año 2018.
+    if (x[2] == 2018):
+        cont += 1
+    #C Mostrar las películas de Marvel Studios estrenadas en el año 2016.
+    if ((x[2] == 2016) and (x[1] == 'Marvel Studios')):
+        print('Película de Marvel estrenada en 2016:', x[0])
+
+print('Total de películas estrenadas en 2018:', cont)
 
 
 
