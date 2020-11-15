@@ -1,8 +1,9 @@
 from Tablas_Hash import crear_tabla, agregar_ta, bernstein_troopers, hash_division_troopers, bernstein_palabra, hash_division, hash_cifrado
+from Tablas_Hash import buscar_ta, quitar_ta, bernstein_catedra, hash_diccionario, hash_guia, cantidad_elementos_tc
+from Tablas_Hash import agregar_tc, buscar_tc, quitar_tc, bernstein, barrido_ta, barrido_tc, rehashing, bernstein_contacto
 from random import choice, randint
 from Listas import barrido
-from Tablas_Hash import buscar_ta, quitar_ta, bernstein_catedra, hash_diccionario, hash_guia
-from Tablas_Hash import agregar_tc, buscar_tc, quitar_tc
+
 
 '''
 
@@ -79,7 +80,7 @@ class Catedra(object):
         self.codigo = codigo
         self.nombre = nombre
         self.modalidad = modlidad
-        self. horas = horas
+        self.horas = horas
         self.docentes = []
     
     def __str__(self):
@@ -109,7 +110,49 @@ if(posicion is not None):
 
 for catedra in tabla:
     print(catedra)
+print(tabla)
 
+
+
+#Ejercicio 4
+
+#A Tamaño de 20
+tabla = crear_tabla(20)
+nombres = ['Kylo Ren', 'Darth Vader', 'Yoda', 'Jar Jar Binks', 'Jabba the Hutt', 'Han Solo', 'Leia Organa', 'Chewbacca',
+           'R2D2', 'C3PO', 'Anakin Skywalker', 'Luke Skywalker', 'Boba Fett', 'Darth Maul', 'Palpatine', 'Obi-Wan Kenobi',
+           'Lando', 'General Grievous', 'Darth Sidious', 'Breha Organa']
+
+for i in range(20):
+    agregar_tc(tabla, bernstein, nombres[i])
+
+#C Hacer rehashing si hay al menos un 75% de la tabla en uso
+porcentaje = (cantidad_elementos_tc(tabla)*100)/len(tabla)
+print(porcentaje)
+print(len(tabla))
+if porcentaje >= 75:
+    print('Haciendo rehashing')
+    tabla = rehashing(tabla, bernstein)
+
+
+
+#Ejercicio 5
+
+class Contacto(object):
+    def __init__(self, nombre, apellido, correo):
+        self.nombre = nombre
+        self.apellido = apellido
+        self.correo = correo
+    
+    def __str__(self):
+        return self.nombre + ' ' + self.apellido + ' ' + self.correo
+
+tabla = crear_tabla(3)
+datos = Contacto('Axel', 'Larrea', 'axel.larrea@gmail.com')
+agregar_tc(tabla, bernstein_contacto, datos)
+datos = Contacto('Juan', 'Pérez', 'juan.perez@gmail.com')
+agregar_tc(tabla, bernstein_contacto, datos)
+datos = Contacto('Martin', 'Diaz', 'martin.diaz@gmail.com')
+agregar_tc(tabla, bernstein_contacto, datos)
 
 
 #Ejercicio 6
@@ -117,6 +160,7 @@ for catedra in tabla:
 letras = ['FL', 'TF', 'TK', 'CT', 'FN', 'FO']
 tabla_legion = crear_tabla(10)
 tabla_codigos = crear_tabla(1000)
+
 class Stormtrooper(object):
     def __init__(self, legion, codigo):
         self.legion = legion
@@ -124,27 +168,35 @@ class Stormtrooper(object):
     
     def __str__(self):
         return self.legion+' '+str(self.codigo)
+#A, B
 for i in range(1,2000):
     legion = choice(letras)
     codigo = randint(1000, 9999)
     trooper = Stormtrooper(legion, codigo)
     agregar_ta(tabla_legion, bernstein_troopers, trooper, 'legion')
     agregar_ta(tabla_codigos, hash_division_troopers, trooper, 'codigo')
-posicion = bernstein('FN', tabla_legion)
-if(tabla_legion[posicion]):
-    barrido(tabla_legion[posicion])
-print()
-posicion = bernstein('CT', tabla_legion)
-if(tabla_legion[posicion]):
-    barrido(tabla_legion[posicion])
-print()
+
+#C Mostrar los finalizados en 537 y 781
 posicion = hash_division(537, tabla_codigos)
 if(tabla_codigos[posicion]):
     barrido(tabla_codigos[posicion])
 print()
+
 posicion = hash_division(781, tabla_codigos)
 if(tabla_codigos[posicion]):
     barrido(tabla_codigos[posicion])
+print()
+
+#D Mostrar los de código CT y TF
+posicion = bernstein('TF', tabla_legion)
+if(tabla_legion[posicion]):
+    barrido(tabla_legion[posicion])
+print()
+
+posicion = bernstein('CT', tabla_legion)
+if(tabla_legion[posicion]):
+    barrido(tabla_legion[posicion])
+print()
 
 
 
