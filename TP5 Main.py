@@ -200,16 +200,76 @@ print()
 
 
 
+#Ejercicio 8
+
+def encriptar(cadena):
+    clave = ''
+    for caracter in cadena: 
+        # print(ord(caracter))  
+        clave  += hex(ord(caracter))*2
+    return clave
+
+# palabra = 'Hola'
+# palabra = encriptar(palabra)
+# print('Palabra encriptada: ')
+# print(palabra)
+# print()
+
+def desencriptar(cadena):
+    i = 0
+    j = 4
+    clave = ''
+    letra = ''
+    letra = str(cadena[i:j])
+    # print(int(letra, 16))
+    while letra != '':
+        letra = int(letra, 16)
+        # print(letra)
+        clave += str(chr(letra))
+        i += 2**3
+        j += 2**3
+        letra = str(cadena[i:j])
+    return clave
+
+# print(desencriptar(palabra))
+# print()
+
+encriptado = ''
+desencriptado = ''
+mensaje = 'Pinche vida culera xD'
+
+
+
+print('Mensaje encriptado: ')
+encriptado = encriptar(mensaje)
+print(encriptado)
+print()
+
+
+i = 0
+j = 4
+while encriptado[i:j] != '':
+    desencriptado += desencriptar(encriptado[i:j])
+    i += 2**3
+    j += 2**3
+
+print('Mensaje desencriptado: ')
+print(desencriptado)
+
+
+
 #Ejercicio 9
 
 tabla = crear_tabla(10)
 tabla2 = crear_tabla(10)
+
 def desifrar(dato):
     dic = {"#?&": '0',"abc": '1',"def":'2',"ghi":'3',"jkl":'4',"mnñ":'5',"opq":'6',"rst":'7',"uvw":'8',"xyz":'9'}
     cadena = ''
     for i in range (0, len(dato),3):
         cadena += dic[dato[i:i+3]]
     return chr(int(cadena))
+
 def cifrar(dato):
     valor = str(ord(dato))
     valor_cirado = ["#?&","abc","def","ghi","jkl","mnñ","opq","rst","uvw","xyz"]
@@ -219,6 +279,7 @@ def cifrar(dato):
         cadena += valor_cirado[numInt]
     cadena += "%"
     return cadena
+
 a = 'Holaaaaaaaaa Mundo des tda hash'
 a_cifrado = ''
 for letra in a:
@@ -231,6 +292,7 @@ for letra in a:
     else:
         cifrado = valor.info.significado
     a_cifrado += cifrado
+
 print(a_cifrado)
 lista = a_cifrado.split('%')
 lista.pop()

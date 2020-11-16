@@ -1,7 +1,7 @@
 from flask import Flask #, flash
 from flask import render_template, jsonify, request, redirect, url_for
 from Archivos import abrir, leer, cerrar, guardar
-from Arbol_Binario import insertar_nodo, inorden, por_nivel, busqueda, busqueda_proximidad, inorden_name
+from Arbol_Binario import insertar_nodo, inorden, por_nivel, busqueda, busqueda_proximidad
 
 app = Flask(__name__)
 
@@ -11,17 +11,30 @@ arbol_especie = None
 
 jedis = []
 
-file = abrir('jedis')
 pos = 0
-while (pos <len(file)):
-    jedi = leer(file, pos)
-    jedis.append(jedi)
-    arbol_nombre = insertar_nodo(arbol_nombre, jedi[0], pos)
-    arbol_ranking = insertar_nodo(arbol_ranking, jedi[1], pos)
-    arbol_especie = insertar_nodo(arbol_especie , jedi[2], pos)
-    pos += 1
 
-cerrar(file)
+file = open('jedis.dat')
+linea = file.readline()
+pos = 0
+while linea:
+    linea = linea.replace('\n', '')
+    jedis.append(linea)
+    arbol_nombre = insertar_nodo(arbol_nombre, linea.split(';')[0], pos)
+    arbol_ranking = insertar_nodo(arbol_ranking, linea.split(';')[1], pos)
+    arbol_especie = insertar_nodo(arbol_especie , linea.split(';')[2], pos)
+    pos += 1
+    linea = file.readline()    
+file.close()
+
+# while (pos <len(file)):
+#     jedi = leer(file, pos)
+#     jedis.append(jedi)
+#     arbol_nombre = insertar_nodo(arbol_nombre, jedi[0], pos)
+#     arbol_ranking = insertar_nodo(arbol_ranking, jedi[1], pos)
+#     arbol_especie = insertar_nodo(arbol_especie , jedi[2], pos)
+#     pos += 1
+
+# cerrar(file)
 
 
 @app.route('/')

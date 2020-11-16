@@ -5,6 +5,7 @@ from Arbol_Binario_AVL import altura, cortar_por_nivel, contar, eliminar_nodo, i
 from Colas import Cola, cola_vacia, arribo, atencion
 from random import randint, choice
 
+
 '''
 #Ejercicio 1
 
@@ -95,6 +96,8 @@ cantp, canti = contar(arbol, cantp, canti)
 print('La cantidad de números pares es de: ', cantp)
 print('La cantidad de números impares es de: ', canti)
 
+
+
 #Ejercicio 4
 
 arbol = None
@@ -107,6 +110,7 @@ print()
 
 hijo_der(arbol)
 hijo_izq(arbol)
+
 
 
 #Ejercicio 5
@@ -219,26 +223,41 @@ print()
 print('-Barrido segundo árbol del bosque: ')
 inorden(bosque[1])
 
+
+'''
 #Ejercicio 6
 
 arbol_nombre = None
 arbol_ranking = None
 arbol_especie = None
 
-file = abrir('jedis')
+# file = abrir('jedis')
+file = open('jedis.dat')
+linea = file.readline()
 pos = 0
-while (pos < len(file)):
-    jedi = leer(file, pos)
-    arbol_nombre = insertar_nodo(arbol_nombre, jedi[0], pos)
-    arbol_ranking = insertar_nodo(arbol_ranking, jedi[1], pos)
-    arbol_especie = insertar_nodo(arbol_especie , jedi[2], pos)
+while linea:
+    linea = linea.replace('\n', '')
+    arbol_nombre = insertar_nodo(arbol_nombre, linea.split(';')[0], pos)
+    arbol_ranking = insertar_nodo(arbol_ranking, linea.split(';')[1], pos)
+    arbol_especie = insertar_nodo(arbol_especie , linea.split(';')[2], pos)
     pos += 1
-cerrar(file)
+    linea = file.readline()    
+file.close()
+
+# while (pos < len(file)):
+#     jedi = leer(file, pos)
+#     arbol_nombre = insertar_nodo(arbol_nombre, jedi[0], pos)
+#     arbol_ranking = insertar_nodo(arbol_ranking, jedi[1], pos)
+#     arbol_especie = insertar_nodo(arbol_especie , jedi[2], pos)
+#     pos += 1
+# cerrar(file)
+print('Termino de cargar los arboles')
 
 #b
-file = abrir('jedis')
-inorden_lightsaber(arbol_nombre, file)
-cerrar(file)
+# file = abrir('jedis')
+# inorden_lightsaber(arbol_nombre, file)
+# cerrar(file)
+file = open('jedis.dat')
 inorden(arbol_nombre)
 a=input()
 
@@ -251,13 +270,18 @@ busqueda_proximidad(arbol_nombre, 'l')
 
 #d
 pos = busqueda(arbol_nombre, 'luke skywalker')
-
+index = 0
 if(pos is not None):
     print(pos.nrr)
-    file = abrir('jedis')
-    jedi = leer(file, pos.nrr)
-    cerrar(file)
-    print(jedi)
+    file = open('jedis.dat')
+    linea = file.readline()
+    while linea and index < pos.nrr:
+        linea = linea.replace('\n', '')
+        linea = file.readline()
+        index += 1
+    print(linea)
+'''
+
 
 #Ejercicio 8
 
@@ -310,6 +334,8 @@ if (nmax is not None):
 else:
     print('Ta vacio')
 
+
+
 #ejercicio 9
 
 tabla = [['A', 0.2], ['F', 0.17], ['1', 0.13], ['3', 0.21], ['0', 0.05], ['M', 0.09], ['T', 0.15]]
@@ -337,7 +363,7 @@ print()
 while(len(bosque) > 1):
     elemento1 = bosque.pop(0)
     elemento2 = bosque.pop(0)
-    nodo = nodoArbolHuffman('', elemento1.valor+elemento2.valor)
+    nodo = nodoArbolHuffman('', elemento1.valor + elemento2.valor)
     nodo.izq = elemento1
     nodo.der = elemento2
     bosque.append(nodo)
@@ -378,6 +404,8 @@ print('cadena decodificada')
 cadena_deco = decodificar(cadena_cod, bosque[0])
 print(cadena_deco)
 
+
+
 #Ejercicio 10
 
 def nodos_totales_posibles (numero):
@@ -390,7 +418,7 @@ def cantidad_nodos(raiz, numero, cont_nodos, cont):
         if (control is False):
             cont += 1
             control = True
-        if(cont == (numero-1)):
+        if (cont == (numero-1)):
             cola = Cola()
             arribo(cola, raiz)
             while(not cola_vacia(cola) and cont == (numero-1)):
@@ -438,6 +466,8 @@ if (x == posibles):
     print('El nivel está completo')
 else:
     print('Le faltan', posibles-x, 'nodos para estar completo')
+
+
 
 #Ejercicio 11
 
@@ -490,6 +520,8 @@ padre(Arbol, buscado)
 #E determinar la altura de un árbol.
 
 print('La altura del arbol es:', altura(Arbol))
+
+
 
 #Ejercicio 12
 
@@ -704,6 +736,7 @@ print()
 
 
 
+'''
 #Ejercicio 16
 
 tabla = []
@@ -712,7 +745,7 @@ archivo = open('Valores')
 
 linea = archivo.readline()
 
-print('archivo')
+print('Archivo')
 while linea:
     linea = linea.replace('\n', '')
     tabla.append(linea.split(';'))
@@ -735,19 +768,18 @@ for elemento in tabla:
     nodo = nodoArbolHuffman(elemento[0], elemento[1])
     bosque.append(nodo)
 
-# for elemento in bosque:
-#     print(elemento.info, elemento.valor)
-# print()
+for elemento in bosque:
+    print(elemento.info, elemento.valor)
+print()
 
 while(len(bosque) > 1):
     elemento1 = bosque.pop(0)
     elemento2 = bosque.pop(0)
-    nodo = nodoArbolHuffman('', elemento1.valor+elemento2.valor)
+    nodo = nodoArbolHuffman('', elemento1.valor + elemento2.valor)
     nodo.izq = elemento1
     nodo.der = elemento2
     bosque.append(nodo)
     bosque.sort(key=como_comparo_nodo)
-
 
 #por_nivel(bosque[0])
 
@@ -755,7 +787,8 @@ def generar_tabla(raiz, dic, cadena=''):
     if(raiz is not None):
         if(raiz.izq is None):
             dic[raiz.info] = cadena
-            #print(raiz.info, cadena)
+            print('Parte de tabla generada:')
+            print(raiz.info, cadena)
         else:
             cadena += '0'
             generar_tabla(raiz.izq, dic, cadena)
@@ -797,7 +830,7 @@ print(cadena_cod)
 print('cadena decodificada')
 cadena_deco = decodificar(cadena_cod, bosque[0])
 print(cadena_deco)
-
+'''
 
 
 #Ejercicio 19
@@ -870,7 +903,7 @@ buscado = input('Ingrese titulo del libro a buscar: ')
 busqueda_proximidad(arbol_titulo, buscado)
 
 
-#a Mostrar libros de Tanenbaum, Connolly, Rowling, Riordan, Morgan-Kass;
+#A Mostrar libros de Tanenbaum, Connolly, Rowling, Riordan, Morgan-Kass;
 
 aut = ['Tanenbaum', 'Connolly', 'J. K. Rowling', 'Riordan', 'Morgan-Kass']
 
@@ -884,7 +917,7 @@ for i in aut:
     else:
         print('El autor no fue encontrado')
 
-#b Mostrar los libros de “minería de datos”, “algoritmos” y “bases de datos”
+#B Mostrar los libros de “minería de datos”, “algoritmos” y “bases de datos”
 
 libs = ['Mineria de Datos','Algoritmos','Bases de Datos']
 
@@ -898,7 +931,7 @@ for i in libs:
     else:
         print('El autor no fue encontrado')
 
-#c. Mostrar los libros de más de 873 páginas
+#C Mostrar los libros de más de 873 páginas
 
 pos = 0
 file = abrir('libros')
@@ -909,7 +942,7 @@ while(pos < len(file)):
     pos += 1
 cerrar(file)
 
-#d. Mostrar los datos del libro ISBN 9789504967453
+#D Mostrar los datos del libro ISBN 9789504967453
 
 x = busqueda(arbol_ISBN, 9789504967453)
 
@@ -921,7 +954,7 @@ if(x is not None):
 else:
     print('Libro de ISBN ingresado no fue encontrado')
 
-#e. mostrar el autor del libro “los 100”
+#E mostrar el autor del libro “los 100”
 
 x = busqueda(arbol_titulo, 'Los 100')
 if(x is not None):
@@ -931,6 +964,7 @@ if(x is not None):
     print('El autor del libro Los 100 es: ', libro.autores)
 else:
     print('El libro con titulo Los 100 no fue encontrado')
+
 
 
 #Ejercicio 21

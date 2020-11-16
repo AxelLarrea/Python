@@ -497,3 +497,24 @@ barrido_amplitud(g, ori)
 print()
 marcar_no_visitado(g)
 '''
+#Ejercicio 3
+
+g = Grafo(False)
+
+#Maravillas Modernas
+insertar_vertice(g, 'Ciudad de Petra', ['Jordania','Arquitectonica'])
+insertar_vertice(g, 'Taj Mahal', ['India', 'Arquitectonica'])
+insertar_vertice(g, 'Machu Picchu', ['Peru', 'Arquitectonica'])
+insertar_vertice(g, 'Chichen Itza', ['Mexico', 'Arquitectonica'])
+insertar_vertice(g, 'Coliseo', ['Roma', 'Arquitectonica'])
+insertar_vertice(g, 'Gran Muralla', ['China', 'Arquitectonica'])
+insertar_vertice(g, 'Cristo Redentor', ['Brasil', 'Arquitectonica'])
+
+#Maravillas Naturales
+insertar_vertice(g, 'Argentina', [" S34°0'0'' O64°0'0'' ",'17'])
+insertar_vertice(g, 'Alemania', [" N10°3'0'' E45°0'0'' ", '12'])
+insertar_vertice(g, 'Brasil', [" S10°3'0'' O55°0'0'' ", '22'])
+insertar_vertice(g, 'China', [" S54°3'0'' E33°0'0'' ", '43'])
+insertar_vertice(g, 'Estados Unidos', [" S10°3'32'' E55°11'0'' ", '52'])
+insertar_vertice(g, 'Francia', [" N10°3'0'' E12°0'0'' ", '11'])
+insertar_vertice(g, 'Grecia', [" N21°3'0'' E07°30'0'' ", '11'])
