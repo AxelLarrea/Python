@@ -3,6 +3,7 @@ from Grafos import barrido_amplitud, barrido_profundidad, marcar_no_visitado, di
 from Heap import Heap, heap_vacio, arribo as arribo_h, atencion as atencion_h, buscar as buscar_h, cambiar_prioridad
 from Pila_Dinamico import Pila, apilar, pila_vacia, desapilar
 from math import inf
+from random import randint
 
 
 '''
@@ -52,7 +53,8 @@ insertar_arista(g, ['21:00 hs', '00:00 hs', 'French Airlines', '$10000', 3, 3200
 des = buscar_vertice(g, 'China')
 insertar_arista(g, ['23:00 hs', '04:00 hs', 'Chinese Airlines', '$10000', 5, 4700], ori, des)
 
-#barrido_vertices(g)
+barrido_vertices(g)
+
 
 #E calcular el camino más corto desde el aeropuerto de Argentina a Tailandia considerando los siguientes criterios:
 
@@ -496,10 +498,14 @@ ori = buscar_vertice(g, 'Arch')
 barrido_amplitud(g, ori)
 print()
 marcar_no_visitado(g)
+
 '''
 #Ejercicio 3
 
+#F Utilizar grafo no dirigido
 g = Grafo(False)
+
+#A Nombre, país de ubicación y tipo de maravilla
 
 #Maravillas Modernas
 insertar_vertice(g, 'Ciudad de Petra', ['Jordania','Arquitectonica'])
@@ -511,10 +517,137 @@ insertar_vertice(g, 'Gran Muralla', ['China', 'Arquitectonica'])
 insertar_vertice(g, 'Cristo Redentor', ['Brasil', 'Arquitectonica'])
 
 #Maravillas Naturales
-insertar_vertice(g, 'Argentina', [" S34°0'0'' O64°0'0'' ",'17'])
-insertar_vertice(g, 'Alemania', [" N10°3'0'' E45°0'0'' ", '12'])
-insertar_vertice(g, 'Brasil', [" S10°3'0'' O55°0'0'' ", '22'])
-insertar_vertice(g, 'China', [" S54°3'0'' E33°0'0'' ", '43'])
-insertar_vertice(g, 'Estados Unidos', [" S10°3'32'' E55°11'0'' ", '52'])
-insertar_vertice(g, 'Francia', [" N10°3'0'' E12°0'0'' ", '11'])
-insertar_vertice(g, 'Grecia', [" N21°3'0'' E07°30'0'' ", '11'])
+insertar_vertice(g, 'Bahía de Ha Long', ['Vietnam', 'Naturales'])
+insertar_vertice(g, 'Isla de Komodo', ['Indonesia', 'Naturales'])
+insertar_vertice(g, 'Río subterráneo de Puerto Princesa', ['Filipinas', 'Naturales'])
+insertar_vertice(g, 'Montaña de la Mesa', ['Sudáfrica', 'Naturales'])
+insertar_vertice(g, 'Cataratas del Iguazú', [['Argentina', 'Brasil'], 'Naturales'])
+insertar_vertice(g, 'Río Amazonas', [['Perú', 'Colombia', 'Brasil'], 'Naturales'])
+insertar_vertice(g, '2 Islas Jeju', ['Corea del Sur', 'Naturales'])
+
+barrido_vertices(g)
+
+#B Cada una debe estar relacionada con las otras seis de su tipo, para lo que se debe almacenar la distancia que las separa
+
+#Carga de Maravillas Arquitectónicas
+ori = buscar_vertice(g, 'Ciudad de Petra')
+des = buscar_vertice(g, 'Taj Mahal')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Machu Picchu')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Chichen Itza')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Coliseo')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Gran Muralla')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Cristo Redentor')
+insertar_arista(g, randint(1000, 8000), ori, des)
+
+ori = buscar_vertice(g, 'Taj Mahal')
+des = buscar_vertice(g, 'Machu Picchu')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Chichen Itza')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Coliseo')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Gran Muralla')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Cristo Redentor')
+insertar_arista(g, randint(1000, 8000), ori, des)
+
+ori = buscar_vertice(g, 'Machu Picchu')
+des = buscar_vertice(g, 'Chichen Itza')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Coliseo')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Gran Muralla')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Cristo Redentor')
+insertar_arista(g, randint(1000, 8000), ori, des)
+
+ori = buscar_vertice(g, 'Chichen Itza')
+des = buscar_vertice(g, 'Coliseo')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Gran Muralla')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Cristo Redentor')
+insertar_arista(g, randint(1000, 8000), ori, des)
+
+ori = buscar_vertice(g, 'Coliseo')
+des = buscar_vertice(g, 'Gran Muralla')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Cristo Redentor')
+insertar_arista(g, randint(1000, 8000), ori, des)
+
+ori = buscar_vertice(g, 'Gran Muralla')
+des = buscar_vertice(g, 'Cristo Redentor')
+insertar_arista(g, randint(1000, 8000), ori, des)
+
+
+#Carga de Maravillas Naturales
+ori = buscar_vertice(g, 'Bahía de Ha Long')
+des = buscar_vertice(g, 'Isla de Komodo')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Río subterráneo de Puerto Princesa')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Montaña de la Mesa')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Cataratas del Iguazú')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Río Amazonas')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, '2 Islas Jeju')
+insertar_arista(g, randint(1000, 8000), ori, des)
+
+ori = buscar_vertice(g, 'Isla de Komodo')
+des = buscar_vertice(g, 'Río subterráneo de Puerto Princesa')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Montaña de la Mesa')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Cataratas del Iguazú')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Río Amazonas')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, '2 Islas Jeju')
+insertar_arista(g, randint(1000, 8000), ori, des)
+
+ori = buscar_vertice(g, 'Río subterráneo de Puerto Princesa')
+des = buscar_vertice(g, 'Montaña de la Mesa')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Cataratas del Iguazú')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Río Amazonas')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, '2 Islas Jeju')
+insertar_arista(g, randint(1000, 8000), ori, des)
+
+ori = buscar_vertice(g, 'Montaña de la Mesa')
+des = buscar_vertice(g, 'Cataratas del Iguazú')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, 'Río Amazonas')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, '2 Islas Jeju')
+insertar_arista(g, randint(1000, 8000), ori, des)
+
+ori = buscar_vertice(g, 'Cataratas del Iguazú')
+des = buscar_vertice(g, 'Río Amazonas')
+insertar_arista(g, randint(1000, 8000), ori, des)
+des = buscar_vertice(g, '2 Islas Jeju')
+insertar_arista(g, randint(1000, 8000), ori, des)
+
+ori = buscar_vertice(g, 'Río Amazonas')
+des = buscar_vertice(g, '2 Islas Jeju')
+insertar_arista(g, randint(1000, 8000), ori, des)
+
+
+#C Hallar el árbol de expansión mínimo de cada tipo de las maravillas
+bosque = prim(g)
+
+print('Arbol de expansion minimo: ')
+for i in range(0, len(bosque), 2):
+    print(bosque[i], bosque[i+1])
+print()
+
+
+#D determinar si existen países que dispongan de maravillas arquitectónicas y naturales

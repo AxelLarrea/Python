@@ -1,8 +1,11 @@
 {
-    "python.pythonPath": "C:\\Users\\54341\\AppData\\Local\\Programs\\Python\\Python39\\python.exe",
+    "python.pythonPath": "C:\\Users\\axell\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe",
     "python.linting.enabled": true,
     "python.linting.flake8Enabled": false,
     "python.linting.pylintEnabled": true,
     "python.autoComplete.extraPaths":  ["./src"],
     "python.envFile": "${Python}/.env",
+    "python.analysis.extraPaths": [
+        "./src"
+    ],
 }

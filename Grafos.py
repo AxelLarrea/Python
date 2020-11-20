@@ -3,6 +3,7 @@ from Heap import Heap, arribo as arribo_h, heap_vacio, atencion as atencion_h, c
 from Pila_Dinamico import Pila, apilar, pila_vacia, desapilar
 from math import inf
 
+
 class nodoArista(object):
     """Clase nodo vértice."""
 

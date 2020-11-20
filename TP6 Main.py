@@ -736,7 +736,7 @@ print()
 
 
 
-'''
+
 #Ejercicio 16
 
 tabla = []
@@ -830,7 +830,7 @@ print(cadena_cod)
 print('cadena decodificada')
 cadena_deco = decodificar(cadena_cod, bosque[0])
 print(cadena_deco)
-'''
+
 
 
 #Ejercicio 19
