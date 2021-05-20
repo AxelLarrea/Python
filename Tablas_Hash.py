@@ -16,7 +16,7 @@ def agregar_tc(tabla, hash, dato):
         if(posicion == len(tabla)-1):
             posicion = -1
         posaux = posicion
-        while(tabla[posicion+1] is not None and hash(tabla[posicion+1],tabla)==posaux):
+        while (tabla[posicion+1] is not None and hash(tabla[posicion+1], tabla) == posaux):
             posicion += 1
             if(posicion == len(tabla)-1):
                 posicion = -1
@@ -80,6 +80,26 @@ def buscar_tc(tabla, hash, dato):
                     break
     return pos
 
+def barrido_tc(tabla):
+    '''Muestra los elementos de una tabla cerrada'''
+    for indice in tabla:
+        if indice is not None:
+            print(indice)
+
+def barrido_ta(tabla):
+    '''Muestra elementos de una tabla abierta'''
+    for i in tabla:
+        if(i is not None):
+            barrido(i)
+
+def rehashing(tabla, hash):
+    tam = len(tabla)*2
+    nueva_tabla = crear_tabla(tam)
+    for dato in tabla:
+        if dato is not None:
+            agregar_tc(nueva_tabla, hash, dato)
+    return nueva_tabla
+
 def hash_division(clave, tabla):
     return clave % len(tabla)
 
@@ -111,6 +131,13 @@ def bernstein_catedra(dato, tabla):
     """Función hash de Bernstein para cadenas."""
     h = 0
     for caracter in dato.codigo[4:]:
+        h = h * 33 + ord(caracter)
+    return h % len(tabla)
+
+def bernstein_contacto(dato, tabla):
+    """Función hash de Bernstein para cadenas."""
+    h = 0
+    for caracter in dato.nombre + dato.apellido:
         h = h * 33 + ord(caracter)
     return h % len(tabla)
 

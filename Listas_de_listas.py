@@ -72,7 +72,7 @@ def barrido_con_sublista(lista):
     while(aux is not None):
         print(aux.info)
         barrido(aux.sublista)
-
+        print()
         aux = aux.sig  
 
 def tamanio(lista):

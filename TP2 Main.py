@@ -1,10 +1,13 @@
 
 from Pila_Dinamico import Pila, apilar, desapilar, pila_vacia, cima, tamanio
-'''
-from Pilas import Pila, Pila_Llena, Pila_Vacia, Desapilar, Apilar
+from random import choice
+
+#from Pilas import Pila, Pila_Llena, Pila_Vacia, Desapilar, Apilar
 from random import randint
+
 '''
-'''
+
+
 #Ejercicio 1
 
 pila = Pila()
@@ -21,6 +24,8 @@ while not Pila_Vacia(pila):
     if(x == y):
         Total += 1
 print('El total de ocurrencias es: ', Total)
+
+
 
 #Ejercicio 2
 
@@ -52,6 +57,7 @@ while not Pila_Vacia(pilaimpar):
     print(x)
 
 
+
 #Ejercicio 3
 
 pila = Pila()
@@ -80,6 +86,8 @@ while not Pila_Vacia(pila_aux):
     z = Desapilar(pila_aux)
     print(z)
 
+
+
 #Ejercicio 4
 
 pila = Pila()
@@ -93,6 +101,8 @@ while not Pila_Vacia(pila):
     x = Desapilar(pila)
     print(x)
     Apilar(pila_aux, x)
+
+
 
 #Ejercicio 5
 
@@ -127,6 +137,7 @@ else:
     print('No es palindromo')
 
 
+
 #Ejercicio 6
 
 pila = Pila()
@@ -138,6 +149,8 @@ while not Pila_Llena(pila):
 while not Pila_Vacia(pila):
     x = Desapilar(pila)
     print(x)
+
+
 
 #Ejercicio 7
 
@@ -155,6 +168,8 @@ while not Pila_Vacia(pila):
     x = Desapilar(pila)
     print(x)
 
+
+
 #Ejercicio 8
 
 #a) Crear los mazos
@@ -168,6 +183,8 @@ while(tamanio(mazo)<40):
 
 while(not pila_vacia(mazo)):
     print(desapilar(mazo))
+
+
 
 #Ejercicio 9
 
@@ -186,6 +203,8 @@ while not Pila_Vacia(pila):
     print(dato)
 
 print ('El factorial es:', fact)
+
+
 
 #Ejercicio 10
 
@@ -206,6 +225,8 @@ while not pila_vacia(pila):
     x = desapilar(pila)
     print(x)
 
+
+
 #Ejercicio 11
 
 pila = Pila()
@@ -221,6 +242,8 @@ while not pila_vacia(pila):
         cont += 1
 
 print('Hay una cantidad total de', cont, 'vocales')
+
+
 
 #Ejercicio 12
 
@@ -239,9 +262,11 @@ while not pila_vacia(pila):
     apilar(pila2, x)
 
 if (status == True):
-    print('Uno de los dos, o los dos se encuentran en la pila')
+    print('Uno de los dos, o ambos se encuentran en la pila')
 else:
     print('Ninguno está en la pila')
+
+
 
 #Ejercicio 13
 
@@ -270,4 +295,271 @@ while dato != 0:
 
 while(not pila_vacia(pila)):
     print(desapilar(pila))
+
+
+
+#Ejercicio 14
+
+vector = [0,19,9,32,30,17,2,3,99]
+
+def quicksort(vector, pri, ult):
+    pila = Pila()
+    apilar(pila, [pri, ult])
+    datos = []
+    while not pila_vacia(pila):
+        datos = desapilar(pila)
+        i = datos[0]
+        j = datos[1] - 1
+        pivot = datos[1]
+        while (i < j):
+            while (vector[i] <= vector[pivot]) and (i < j):
+                i += 1
+            while (vector[j] > vector[pivot]) and (i < j):
+                j -= 1
+            if (i <= j):
+                aux = vector[i]
+                vector[i] = vector[j]
+                vector[j] = aux
+        if (vector[pivot] < vector[i]):
+            aux = vector[pivot]
+            vector[pivot] = vector[i]
+            vector[i] = aux
+        if (datos[0] < j):
+            apilar(pila, [datos[0], j])
+        if (datos[1] > i):
+            apilar(pila, [i+1, datos[1]])
+
+print('Vector sin ordenar:', vector)
+quicksort(vector, 0, len(vector)-1)
+print('Vector ordenado:', vector)
+
+
+
+#Ejercicio 15
+
+ep5 = Pila()
+ep7 = Pila()
+paux = Pila()
+
+while tamanio(ep5) < 3:
+    x = input('Ingrese nombre de personaje: ')
+    apilar(ep5, x)
+
+while tamanio(ep7) < 3:
+    x = input('Ingrese nombre de personaje: ')
+    apilar(ep7, x)
+print()
+print("Intersección:")
+
+while(not pila_vacia(ep5)):
+    x = desapilar(ep5)
+    while(not pila_vacia(ep7)):
+        xaux = desapilar(ep7)
+        if(x == xaux):
+            print(x)
+        apilar(paux, xaux)
+    while(not pila_vacia(paux)):
+        xaux = desapilar(paux)
+        apilar(ep7, xaux)
+
+
+
+#Ejercicio 16
+
+P1 = Pila()
+P2 = Pila()
+P3 = Pila()
+
+parrafo = 'Dado un parrafo que finaliza en punto, separar dicho parrafo en 3 pilas: vocales, consonantes y otros caracteres que no sean letras'
+vocales = 'AEIOUaeiou'
+consonantes = 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ'
+numeros = '1234567890'
+c1 = 0
+
+for caracter in parrafo:
+    if (caracter in vocales):
+        apilar(P1, caracter)
+    elif (caracter in consonantes):
+        apilar(P2, caracter)
+    else:
+        apilar(P3, caracter)
+
+#A Cantidad de caracteres que hay de cada tipo (vocales, consonantes y otros).
+
+print('Cantidad de vocales en el parrafo:',tamanio(P1))
+print('Cantidad de consonantes en el parrafo:',tamanio(P2))
+print('Cantidad de otros caracteres en el parrafo:',tamanio(P3))
+
+#B Cantidad de espacios en blanco.
+
+aux = Pila()
+while not pila_vacia(P3):
+    x = desapilar(P3)
+    if x == ' ':
+        c1 += 1
+    apilar(aux, x)
+
+print('Cantidad de espacios en blanco:',c1)
+
+#C Porcentaje que representan las vocales respecto de las consonantes sobre el total de caracteres del párrafo.
+
+total = tamanio(P1) + tamanio(P2) + tamanio(aux)
+
+print('Porcentaje de vocales sobre el total de caracteres del párrafo:', (tamanio(P1)*100)/total,'%')
+print('Porcentaje de consonantes sobre el total de caracteres del párrafo:', (tamanio(P2)*100)/total,'%')
+
+#D Cantidad de números.
+
+c2 = 0
+while not pila_vacia(aux):
+    x = desapilar(aux)
+    if x in numeros:
+        c2 += 1
+    apilar(P3, x)
+
+print('Cantidad de números en el párrafo:',c2)
+
+#E Determinar si la cantidad de vocales y otros caracteres son iguales.
+
+if tamanio(P1) == tamanio(P3):
+    print('Hay la misma cantidad de vocales y otros caracteres')
+else:
+    print('No hay la misma cantidad de vocales y otros caracteres')
+
+#F Determinar si existe al menos una z en la pila de consonantes.
+
+existe = False
+while not pila_vacia(P2):
+    x = desapilar(P2)
+    if x == 'z' or x == 'Z':
+        existe = True
+
+if existe:
+    print('Hay al menos una letra Z en el párrafo')
+else:
+    print('No hay letra Z en el párrafo')
+
+
+
+#Ejercicio 17
+
+pila = Pila()
+
+objetos = ['Mesa', 'Teclado', 'Silla', 'Computadora', 'Impresora']
+peso = [12, 1, 5, 5, 3]
+
+for i in range(0, 5):
+    apilar(pila, [objetos[i], peso[i]])
+
+Paux = Pila()
+while not pila_vacia(pila):
+    c = 0
+    dato = desapilar(pila)
+    while not pila_vacia(Paux) and cima(Paux)[1] >= dato[1]:
+        apilar(pila, desapilar(Paux))
+        c += 1
+    apilar(Paux, dato)
+    for i in range(0, c):
+        apilar(Paux, desapilar(pila))
+
+while not pila_vacia(Paux):
+    x = desapilar(Paux)
+    print(x)
+
+
+
+#Ejercicio 18
+
+pila = Pila()
+
+pelis = [['Avengers - End Game', 'Marvel Studios', 2019], ['American Pie', 'Universal Pictories', 1999],
+        ['John Wick 3', 'Summit Entertainmetn', 2019], ['Interstellar', 'Legendary Pictures', 2014], 
+        ['Koe no Katachi', 'Kyoto Animation', 2016], ['Captain America - Civil War', 'Marvel Studios', 2016],
+        ['Avengers - Infinity War', 'Marvel Studios', 2018]]
+cont = 0
+
+for i in range (0, len(pelis)):
+    apilar(pila, pelis[i])
+
+while not pila_vacia(pila):
+    x = desapilar(pila)
+    #A Mostrar los nombre películas estrenadas en el año 2014.
+    if (x[2] == 2014):
+        print('Película estrenada en 2014:', x[0])
+    #B Indicar cuántas películas se estrenaron en el año 2018.
+    if (x[2] == 2018):
+        cont += 1
+    #C Mostrar las películas de Marvel Studios estrenadas en el año 2016.
+    if ((x[2] == 2016) and (x[1] == 'Marvel Studios')):
+        print('Película de Marvel estrenada en 2016:', x[0])
+
+print('Total de películas estrenadas en 2018:', cont)
+
+
+
+#Ejercicio 21
+
+pila = Pila()
+pila2 = Pila()
+temperaturas = [22, 20, 15, 18, 16, 25]
+minimo = 100
+maximo = 0
+media = 0
+
+while tamanio(pila) < 30:
+    apilar(pila, choice(temperaturas))
+
+i = 1
+while not pila_vacia(pila):
+    x = desapilar(pila)
+    #A Rango, temperatura mín y máx
+    if x < minimo:
+        minimo = x
+    if x > maximo:
+        maximo = x
+    #B Media de temperatura
+    media += x
+    apilar(pila2, x)
+    i += 1
+media = media/i
+print('El rango de temperatura es:', maximo - minimo, 'grados')
+print('La temperatura mínima es de:', minimo, 'grados')
+print('La temperatura máxima es de:', maximo, 'grados')
+print('La temperatura media es de:', media, 'grados')
+
+while not pila_vacia(pila2):
+    x = desapilar(pila2)
+    if x > media:
+        print(x, 'está por encima de la media')
+    if x < media:
+        print(x, 'está por debajo de la media')
+    apilar(pila, x)
+
+
+
+#Ejercicio 22
+
+pila = Pila()
+
+personajes = [['Rocket Raccoon', '4'],['Black Widow','5'],['Iron-Man','6'],['Groot','4'],['Thor','5']]
+
+for i in range(0,5):
+    apilar(pila, personajes[i])
+
+i = 1
+while not pila_vacia(pila):
+    personaje = desapilar(pila)
+    #A Posicion en que se encuentran Rocket y Groot
+    if(personaje[0] == 'Rocket Raccoon' or personaje[0] == 'Groot'):
+        print(personaje[0], 'esta en la posicion', i)
+    #B Personajes que participaron en más de 5 pelis
+    if(int(personaje[1]) > 5):
+        print(personaje[0], 'participó en mas de 5 peliculas')
+    #C Cantidad de pelis en las que participó Black Widow
+    if(personaje[0] == 'Black Widow'):
+        print(personaje[0], 'participo en', personaje[1], 'peliculas')
+    #D Mostrar personjaes que empiecen con C, D o G
+    if(personaje[0][0] in ['C', 'D', 'G']):
+        print(personaje[0], 'comienza con', personaje[0][0])
+    i += 1
 '''
