@@ -1,8 +1,8 @@
 from Tablas_Hash import crear_tabla, agregar_ta, bernstein_troopers, hash_division_troopers, bernstein_palabra, hash_division, hash_cifrado
 from random import choice, randint
 from Listas import barrido
-from Tablas_Hash import buscar_ta, quitar_ta, bernstein_catedra, hash_diccionario, hash_guia
-from Tablas_Hash import agregar_tc, buscar_tc, quitar_tc
+from Tablas_Hash import buscar_ta, quitar_ta, bernstein_catedra, hash_diccionario, hash_guia, hash_correo
+from Tablas_Hash import agregar_tc, buscar_tc, quitar_tc, bernstein
 
 '''
 #Ejercicio 1
@@ -103,6 +103,81 @@ if(posicion is not None):
 
 for catedra in tabla:
     print(catedra)
+'''
+#Ejercicio 4
+
+tabla = crear_tabla(3)
+
+for i in range(3):
+    nombre = input('Ingrese nombre del personaje: ')
+    agregar_tc(tabla, bernstein, nombre)
+    if (75 * 3 / 100) == i:
+        tabla = crear_tabla(6)
+
+print()
+
+for nombre in tabla:
+    print(nombre)
+
+
+
+
+'''
+#Ejercicio 5
+
+class Correo(object):
+    def __init__(self, apynom, correo):
+        self.apynom = apynom
+        self.correo = correo
+    
+    def __str__(self):
+        return self.apynom +' - '+ self.correo
+
+tabla = crear_tabla(2)
+
+for i in range(2):
+    apynom = input('Ingrese nombre y apellido: ')
+    correo = input('Ingrese correo electrónico: ')
+    correito = Correo(apynom, correo)
+    agregar_tc(tabla, hash_correo, correito)
+print()
+
+for correito in tabla:
+    print(correito)
+
+#Ejercicio 6
+
+letras = ['FL', 'TF', 'TK', 'CT', 'FN', 'FO']
+tabla_legion = crear_tabla(10)
+tabla_codigos = crear_tabla(1000)
+class Stormtrooper(object):
+    def __init__(self, legion, codigo):
+        self.legion = legion
+        self.codigo = codigo
+    
+    def __str__(self):
+        return self.legion+' '+str(self.codigo)
+for i in range(1,2000):
+    legion = choice(letras)
+    codigo = randint(1000, 9999)
+    trooper = Stormtrooper(legion, codigo)
+    agregar_ta(tabla_legion, bernstein_troopers, trooper, 'legion')
+    agregar_ta(tabla_codigos, hash_division_troopers, trooper, 'codigo')
+posicion = bernstein('FN', tabla_legion)
+if(tabla_legion[posicion]):
+    barrido(tabla_legion[posicion])
+print()
+posicion = bernstein('CT', tabla_legion)
+if(tabla_legion[posicion]):
+    barrido(tabla_legion[posicion])
+print()
+posicion = hash_division(537, tabla_codigos)
+if(tabla_codigos[posicion]):
+    barrido(tabla_codigos[posicion])
+print()
+posicion = hash_division(781, tabla_codigos)
+if(tabla_codigos[posicion]):
+    barrido(tabla_codigos[posicion])
 
 #Ejercicio 9
 
@@ -157,38 +232,4 @@ print(msj)
 #valor = buscar_ta(tabla, hash_cifrado, Palabra('H', ''), 'palabra')
 
 #print(valor.info.significado)
-
-#Ejercicio 6
-
-letras = ['FL', 'TF', 'TK', 'CT', 'FN', 'FO']
-tabla_legion = crear_tabla(10)
-tabla_codigos = crear_tabla(1000)
-class Stormtrooper(object):
-    def __init__(self, legion, codigo):
-        self.legion = legion
-        self.codigo = codigo
-    
-    def __str__(self):
-        return self.legion+' '+str(self.codigo)
-for i in range(1,2000):
-    legion = choice(letras)
-    codigo = randint(1000, 9999)
-    trooper = Stormtrooper(legion, codigo)
-    agregar_ta(tabla_legion, bernstein_troopers, trooper, 'legion')
-    agregar_ta(tabla_codigos, hash_division_troopers, trooper, 'codigo')
-posicion = bernstein('FN', tabla_legion)
-if(tabla_legion[posicion]):
-    barrido(tabla_legion[posicion])
-print()
-posicion = bernstein('CT', tabla_legion)
-if(tabla_legion[posicion]):
-    barrido(tabla_legion[posicion])
-print()
-posicion = hash_division(537, tabla_codigos)
-if(tabla_codigos[posicion]):
-    barrido(tabla_codigos[posicion])
-print()
-posicion = hash_division(781, tabla_codigos)
-if(tabla_codigos[posicion]):
-    barrido(tabla_codigos[posicion])
 '''

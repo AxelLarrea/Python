@@ -138,6 +138,9 @@ def hash_cifrado(dato, tabla):
 
 def hash_guia(dato, tabla):
     return ord(dato.apellido[0].upper()) % len(tabla)
+
+def hash_correo(dato, tabla):
+    return ord(dato.apynom[0].upper()) % len(tabla)
 '''
 tabla = crear_tabla(10)
 agregar_tc(tabla, hash_division, 15)
